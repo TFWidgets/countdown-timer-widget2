@@ -1,1 +1,12 @@
+{
+  "target": "2025-06-01T12:00:00",
+  "labels": {
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes", 
+    "seconds": "Seconds"
+  },
+  "doneText": "Demo Completed",
+  "autoStart": true
+}
 
