@@ -1,12 +1,16 @@
 {
-  "target": "2025-06-01T12:00:00",
+  "target": "2025-12-31T23:59:59",
+  "title": "🎉 New Year Sale",
   "labels": {
     "days": "Days",
     "hours": "Hours",
-    "minutes": "Minutes", 
+    "minutes": "Minutes",
     "seconds": "Seconds"
   },
-  "doneText": "Demo Completed",
-  "autoStart": true
+  "doneText": "🎊 The offer has ended!",
+  "theme": "gradient",
+  "effects": {
+    "glow": true,
+    "animation": true
+  }
 }
-
