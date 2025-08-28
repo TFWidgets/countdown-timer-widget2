@@ -1,1 +1,16 @@
-
+{
+    "target": "2025-09-15T12:00:00Z",
+    "title": "Until Product Launch",
+    "doneText": "Product Launched!",
+    "theme": "default",
+    "labels": {
+        "days": "Days",
+        "hours": "Hours",
+        "minutes": "Minutes", 
+        "seconds": "Seconds"
+    },
+    "effects": {
+        "glow": false,
+        "animation": false
+    }
+}
