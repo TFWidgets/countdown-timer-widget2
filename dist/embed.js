@@ -43,7 +43,7 @@
         }
         
         const baseUrl = currentScript.dataset.base || 
-            currentScript.src.replace(/\/dist\/[^\/]+$/, '');
+    currentScript.src.replace(/\/[^\/]+$/, '');
         
         const configUrl = `${baseUrl}/configs/${encodeURIComponent(clientId)}.json`;
         
