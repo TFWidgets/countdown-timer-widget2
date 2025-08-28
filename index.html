@@ -3,47 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown Widget Test</title>
+    <title>Countdown Widget Demo</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             margin: 0;
             padding: 40px 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
         }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        h1 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 50px;
-            font-size: 2.5em;
-        }
-        .test-section {
-            margin: 60px 0;
-            padding: 40px;
+        .demo-section {
+            max-width: 800px;
+            margin: 0 auto 60px auto;
             background: white;
-            border-radius: 20px;
+            padding: 30px;
+            border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .demo-title {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .code-block {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Consolas', monospace;
+            font-size: 0.9em;
+            overflow-x: auto;
+            margin: 15px 0;
+            border-left: 4px solid #667eea;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🚀 Widgets Testing</h1>
+    <div class="demo-section">
+        <h1 class="demo-title">🎯 Countdown Widget Demo</h1>
+        <p>Example of using the countdown widget:</p>
         
-        <div class="test-section">
-            <h2>Demo Widget</h2>
-            <script src="https://tfwidgets.github.io/countdown-timer-widget/dist/embed.js" data-id="demo"></script>
+        <div class="code-block">
+&lt;script src="https://countdown-timer-widget2.tf-widgets.com/embed.js" data-id="demo"&gt;&lt;/script&gt;
         </div>
         
-        <div class="test-section">
-            <h2>Error Test</h2>
-            <script src="https://tfwidgets.github.io/countdown-timer-widget/dist/embed.js" data-id="nonexistent"></script>
+        <!-- Demo widget -->
+        <script src="./embed.js" data-id="demo"></script>
+    </div>
+
+    <div class="demo-section">
+        <h2 class="demo-title">📋 How to Use</h2>
+        <p>1. Create a configuration file in the <code>configs/</code> folder</p>
+        <p>2. Insert the code into your website:</p>
+        
+        <div class="code-block">
+&lt;script src="https://countdown-timer-widget2.tf-widgets.com/embed.js" data-id="your-client-id"&gt;&lt;/script&gt;
         </div>
+
+        <p>3. Done! The widget will automatically load with your settings.</p>
+    </div>
+
+    <div class="demo-section">
+        <h2 class="demo-title">🔧 Example Client Widget</h2>
+        <script src="./embed.js" data-id="client123"></script>
     </div>
 </body>
 </html>
