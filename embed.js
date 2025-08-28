@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     
-    // Встроенные стили для мгновенной загрузки
+    // Встроенные стили (ваши остаются без изменений)
     const inlineCSS = `
         .countdown-widget-container{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:600px;margin:20px auto;text-align:center}
         .countdown-widget{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:20px;padding:40px 30px;box-shadow:0 20px 60px rgba(102,126,234,0.4);color:white;position:relative;overflow:hidden}
@@ -42,10 +42,22 @@
             document.head.appendChild(style);
         }
         
-        const baseUrl = currentScript.dataset.base || 
-    currentScript.src.replace(/\/[^\/]+$/, '');
+        // ИСПРАВЛЕНО: Улучшенное определение baseUrl
+        let baseUrl = currentScript.dataset.base;
+        if (!baseUrl) {
+            const scriptSrc = currentScript.src;
+            if (scriptSrc) {
+                // Убираем имя файла из URL, оставляем только домен и путь
+                baseUrl = scriptSrc.replace(/\/[^\/]*$/, '');
+            } else {
+                // Fallback для продакшена
+                baseUrl = 'https://countdown-timer-widget2.tf-widgets.com';
+            }
+        }
         
         const configUrl = `${baseUrl}/configs/${encodeURIComponent(clientId)}.json`;
+        
+        console.log('[CountdownWidget] Загружаем конфигурацию:', configUrl);
         
         // Показываем индикатор загрузки
         const container = createContainer(currentScript, clientId);
@@ -67,12 +79,14 @@
             }
         })
         .then(response => {
+            console.log('[CountdownWidget] Ответ сервера:', response.status, response.statusText);
             if (!response.ok) {
                 throw new Error(`Конфигурация для ${clientId} не найдена (${response.status})`);
             }
             return response.json();
         })
         .then(config => {
+            console.log('[CountdownWidget] Конфигурация загружена:', config);
             createCountdownWidget(container, config, clientId);
             console.log(`[CountdownWidget] Виджет ${clientId} успешно создан`);
         })
@@ -85,6 +99,7 @@
         console.error('[CountdownWidget] Критическая ошибка:', error);
     }
     
+    // Остальные функции остаются без изменений...
     function createContainer(scriptElement, clientId) {
         let container = document.createElement('div');
         container.id = `countdown-widget-${clientId}`;
