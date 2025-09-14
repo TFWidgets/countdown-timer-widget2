@@ -1,5 +1,5 @@
 {
-  "target": "2025-09-20T18:57",
+  "target": "2025-12-31T23:59:59",
   "labels": {
     "days": "Days",
     "hours": "Hours",
@@ -11,7 +11,7 @@
   "theme": {
     "backgroundColor": "#333333",
     "textColor": "#ffffff",
-    "borderRadius": "8"
+    "borderRadius": "20px"
   },
   "mountSelector": null
 }
