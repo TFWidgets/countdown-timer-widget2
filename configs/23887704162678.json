@@ -9,8 +9,8 @@
   "doneText": "The event has ended!",
   "autoStart": true,
   "theme": {
-    "backgroundColor": "#333333",
+    "backgroundColor": "#ff40ff",
     "textColor": "#ffffff",
-    "borderRadius": "8"
+    "borderRadius": "16"
   }
 }
