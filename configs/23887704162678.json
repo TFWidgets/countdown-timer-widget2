@@ -12,5 +12,6 @@
     "backgroundColor": "#ff40ff",
     "textColor": "#ffffff",
     "borderRadius": "16"
-  }
+  },
+  "mountSelector": null
 }
