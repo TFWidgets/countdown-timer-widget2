@@ -1,0 +1,17 @@
+{
+  "target": "2025-12-31T23:59:59",
+  "labels": {
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds"
+  },
+  "doneText": "The event has ended!",
+  "autoStart": true,
+  "theme": {
+    "backgroundColor": "#ff6a00",
+    "textColor": "#ffffff",
+    "borderRadius": "200"
+  },
+  "mountSelector": null
+}
