@@ -9,9 +9,9 @@
   "doneText": "The event has ended!",
   "autoStart": true,
   "theme": {
-    "backgroundColor": "#333",
-    "textColor": "#fff",
-    "borderRadius": "8px"
+    "backgroundColor": "#333333",
+    "textColor": "#ffffff",
+    "borderRadius": "8"
   },
   "mountSelector": null
 }
