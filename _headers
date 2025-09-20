@@ -1,1 +1,14 @@
+/configs/*.json
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, OPTIONS
+  Access-Control-Allow-Headers: Accept, Content-Type
+  Cache-Control: public, max-age=300, s-maxage=300
 
+/embed.js
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, OPTIONS
+  Cache-Control: public, max-age=3600, s-maxage=3600
+
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
