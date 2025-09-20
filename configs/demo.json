@@ -1,1 +1,36 @@
-
+{
+  "businessName": "🍕 Pizza Palace",
+  "phoneNumber": "+420 123 456 789",
+  "icon": "🍕",
+  "title": "Order Pizza",
+  "subtitle": "Call now! Delivery in 30 minutes",
+  "infoText": "Business Hours: 10:00-23:00 daily",
+  "actions": [
+    {
+      "type": "whatsapp",
+      "text": "WhatsApp",
+      "icon": "💬",
+      "value": "420123456789",
+      "message": "Hi! I want to order a pizza"
+    },
+    {
+      "type": "link",
+      "text": "Menu",
+      "icon": "📋",
+      "url": "https://pizzapalace.cz/menu"
+    }
+  ],
+  "styling": {
+    "primaryColor": "#25d366",
+    "secondaryColor": "#128c7e",
+    "borderRadius": "16px",
+    "titleSize": "1.4em",
+    "fontFamily": "'Inter', sans-serif",
+    "iconSize": "2.8em",
+    "iconAnimation": "ctc-pulse 2s infinite",
+    "buttonBackground": "rgba(255, 255, 255, 0.2)",
+    "buttonRadius": "12px",
+    "shadow": "0 8px 32px rgba(37, 211, 102, 0.3)",
+    "maxWidth": "350px"
+  }
+}
