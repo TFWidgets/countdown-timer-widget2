@@ -1,66 +1,29 @@
 {
-  "businessName": "🏢 Tech Solutions",
-  "phoneNumber": "+15551234567",
-  "displayPhoneNumber": "+1 (555) 123-4567",
+  "phone": "+420987654321",
+  "displayPhone": "+420 987 654 321",
   "icon": "🏢",
-  "title": "Contact Support",
-  "subtitle": "Professional IT services",
-  "infoText": "Available: Mon-Fri 9:00-18:00 EST",
+  "title": "Contact Us",
+  "subtitle": "Professional services & consulting",
+  "infoText": "Mon-Fri: 9:00-18:00",
   "actions": [
     {
       "type": "email",
       "text": "Email",
-      "icon": "✉️",
-      "value": "support@techsolutions.com",
-      "additionalText": "Business inquiry",
-      "url": null
+      "icon": "📧",
+      "value": "info@business.com",
+      "message": "Business inquiry"
     },
     {
       "type": "telegram",
       "text": "Telegram",
-      "icon": "💙",
-      "value": "@techsupport",
-      "additionalText": null,
-      "url": null
+      "icon": "✈️",
+      "value": "business_support"
     }
   ],
-  "styling": {
-    "primaryColor": "#2563eb",
-    "secondaryColor": "#1d4ed8",
-    "backgroundColor": null,
+  "theme": {
+    "backgroundColor": "linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%)",
     "textColor": "white",
-    "fontFamily": "'Roboto', sans-serif",
-    "maxWidth": "380px",
-    "margin": "20px auto",
-    "shadow": "0 6px 24px rgba(37, 99, 235, 0.3)",
-    "borderRadius": "12px",
-    "padding": "25px",
-    "hoverTransform": "translateY(-2px)",
-    "hoverShadow": "0 12px 40px rgba(37, 99, 235, 0.4)",
-    "headerAlign": "center",
-    "iconSize": "2.5em",
-    "iconAnimation": "none",
-    "titleSize": "1.3em",
-    "titleWeight": "600",
-    "subtitleSize": "0.9em",
-    "subtitleOpacity": "0.9",
-    "buttonBackground": "rgba(255, 255, 255, 0.25)",
-    "buttonColor": "white",
-    "buttonBorder": "2px solid rgba(255, 255, 255, 0.3)",
-    "buttonRadius": "8px",
-    "buttonSize": "1.1em",
-    "buttonWeight": "600",
-    "buttonWidth": "90%",
-    "buttonMaxWidth": "280px",
-    "buttonMargin": "0 auto",
-    "phoneFont": "'Roboto Mono', monospace",
-    "phoneSize": "1.1em",
-    "phoneWeight": "700",
-    "phoneSpacing": "0.5px",
-    "phoneSizeMobile": "1em",
-    "floatingBottom": null,
-    "floatingRight": null,
-    "floatingMaxWidth": null,
-    "zIndex": null
-  }
+    "borderRadius": 18
+  },
+  "fontFamily": "'Roboto', sans-serif"
 }
