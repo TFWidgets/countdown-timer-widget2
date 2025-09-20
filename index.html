@@ -1,73 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown Widget Demo</title>
-<style>
+    <title>Countdown Timer Widget - Demo</title>
+    <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
         }
- .demo-section {
-            max-width: 800px;
+        
+        .test-section {
+            max-width: 700px;
             margin: 0 auto 60px auto;
- border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
- .demo-title {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            color: #333;
+        
+        .test-section h2 {
+            margin: 0 0 20px 0;
+            color: #1a202c;
+            font-size: 1.6em;
+            font-weight: 700;
         }
-   .code-block {
-            background: #f8f9fa;
+        
+        .description {
+            margin: 0 0 30px 0;
+            color: #718096;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+        
+        .code-example {
+            background: #2d3748;
+            color: #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+            font-size: 13px;
+            margin: 20px 0;
+            overflow-x: auto;
+            border: 1px solid #4a5568;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            color: white;
+        }
+        
+        .header h1 {
+            margin: 0 0 12px 0;
+            font-size: 3.2em;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+        
+        .header p {
+            margin: 0;
+            font-size: 1.3em;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .widget-container {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .feature {
+            background: #f7fafc;
             padding: 15px;
-            margin: 15px 0;
+            border-radius: 8px;
             border-left: 4px solid #667eea;
         }
-</style>
+        
+        .feature strong {
+            color: #2d3748;
+        }
+        
+        @media (max-width: 768px) {
+            .test-section {
+                margin: 0 auto 40px auto;
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 2.4em;
+            }
+            
+            .header p {
+                font-size: 1.1em;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="demo-section">
-        <h1 class="demo-title">🎯 Countdown Widget Demo</h1>
-        <p>Example of using the countdown widget:</p>
-
-        <div class="code-block">
-&lt;script src="https://countdown-timer-widget2.tf-widgets.com/embed.js" data-id="demo"&gt;&lt;/script&gt;
-  </div>
-
-        <!-- Demo widget -->
-        <script src="./embed.js" data-id="demo"></script>
-  </div>
-
-    <div class="demo-section">
-        <h2 class="demo-title">📋 How to Use</h2>
-        <p>1. Create a configuration file in the <code>configs/</code> folder</p>
-        <p>2. Insert the code into your website:</p>
-
-
-        <div class="code-block">
-&lt;script src="https://countdown-timer-widget2.tf-widgets.com/embed.js" data-id="your-client-id"&gt;&lt;/script&gt;
-
+    <div class="header">
+        <h1>⏰ Countdown Timer Widget</h1>
+        <p>Красивые таймеры обратного отсчета для любых событий</p>
     </div>
 
-        <p>3. Done! The widget will automatically load with your settings.</p>
+    <!-- New Year Sale -->
+    <div class="test-section">
+        <h2>🎉 New Year Mega Sale</h2>
+        <div class="description">
+            Премиум дизайн с эффектами свечения и анимации. Идеально подходит для распродаж, акций и важных событий. Крупные числа, яркие эффекты и профессиональная типографика.
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <strong>Эффекты:</strong> Glow + Animation
+            </div>
+            <div class="feature">
+                <strong>Стиль:</strong> Премиум градиент
+            </div>
+            <div class="feature">
+                <strong>Цель:</strong> 31 декабря 2025
+            </div>
+        </div>
+        
+        <div class="code-example">
+&lt;script src="./embed.js?v=2" data-id="demo.js"&gt;&lt;/script&gt;
+        </div>
+        <div class="widget-container">
+            <script src="./embed.js?v=2" data-id="demo.js"></script>
+        </div>
     </div>
 
-    <div class="demo-section">
-        <h2 class="demo-title">🔧 Example Client Widget</h2>
-        <script src="./embed.js" data-id="client123"></script>
-</div>
+    <!-- Product Launch -->
+    <div class="test-section">
+        <h2>🚀 Product Launch</h2>
+        <div class="description">
+            Минималистичный и профессиональный дизайн без эффектов. Отлично подходит для запуска продуктов, вебинаров и корпоративных событий. Русские лейблы и сдержанная цветовая гамма.
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <strong>Эффекты:</strong> Без анимации
+            </div>
+            <div class="feature">
+                <strong>Стиль:</strong> Корпоративный синий
+            </div>
+            <div class="feature">
+                <strong>Цель:</strong> 15 июня 2025
+            </div>
+        </div>
+        
+        <div class="code-example">
+&lt;script src="./embed.js?v=2" data-id="client123.js"&gt;&lt;/script&gt;
+        </div>
+        <div class="widget-container">
+            <script src="./embed.js?v=2" data-id="client123.js"></script>
+        </div>
+    </div>
+
+    <script>
+        console.log('⏰ Countdown Timer Widget Demo v2.0 loaded');
+        
+        setTimeout(() => {
+            const widgets = document.querySelectorAll('[id^="countdown-widget"]');
+            console.log(`✅ Successfully loaded ${widgets.length} countdown widgets`);
+        }, 2000);
+    </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
