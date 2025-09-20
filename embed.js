@@ -1,7 +1,12 @@
 (() => {
+  // Защита от повторного выполнения
+  if (window.countdownWidgetLoaded) return;
+  window.countdownWidgetLoaded = true;
+
   const scripts = Array.from(document.querySelectorAll('script[src*="embed.js"]'));
   if (!scripts.length) return;
 
+  const processedScripts = new Set();
   const pad2 = n => String(n).padStart(2, '0');
 
   // Красивые дефолты (не настраиваются)
@@ -24,6 +29,10 @@
   };
 
   function mountWidget(host, cfg) {
+    const scriptKey = host.src + (host.dataset.id || 'demo');
+    if (processedScripts.has(scriptKey)) return;
+    processedScripts.add(scriptKey);
+
     const config = { 
       ...defaultConfig, 
       ...cfg,
@@ -63,12 +72,13 @@
       </div>
     `;
 
-    // Встроенные красивые стили (дефолт)
+    // Встроенные красивые стили
     const style = document.createElement('style');
     style.textContent = `
       .cdw-container { 
         color: var(--text-color); 
         font-family: inherit;
+        width: 100%;
       }
       
       .cdw-widget {
@@ -86,6 +96,8 @@
         position: relative;
         overflow: hidden;
         transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        max-width: 500px;
+        margin: 0 auto;
       }
       
       .cdw-widget::before {
@@ -234,7 +246,7 @@
         }
         
         .cdw-display { 
-          grid-template-columns: repeat(4, 1fr); 
+          grid-template-columns: repeat(2, 1fr);
           gap: 12px; 
         }
         
@@ -325,7 +337,7 @@
   }
 
   // Инициализация виджетов
-  scripts.forEach(async (script, index) => {
+  scripts.forEach(async (script) => {
     const configId = script.dataset.id || 'demo';
     
     // Определяем базовый путь
