@@ -2,16 +2,22 @@
   "target": "2026-06-15T14:00:00",
   "doneText": "🚀 Продукт запущен!",
   "labels": {
-    "days": "Дней",
-    "hours": "Часов",
-    "minutes": "Минут",
-    "seconds": "Секунд"
+    "days": "ДНЕЙ",
+    "hours": "ЧАСОВ",
+    "minutes": "МИНУТ", 
+    "seconds": "СЕКУНД"
   },
-  "theme": {
-    "backgroundColor": "#af6e1e",
-    "textColor": "#ffffff", 
-    "borderRadius": 20
+  "effects": {
+    "glow": false,
+    "animation": false
   },
-  "fontFamily": "'Inter', sans-serif",
+  "styling": {
+    "fontFamily": "'Roboto', sans-serif",
+    "primaryColor": "#b45309",
+    "secondaryColor": "#92400e",
+    "textColor": "white",
+    "borderRadius": "16px",
+    "padding": "40px 30px"
+  },
   "autoStart": true
 }
