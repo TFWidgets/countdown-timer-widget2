@@ -1,6 +1,7 @@
 {
   "businessName": "🍕 Pizza Palace",
-  "phoneNumber": "+420 123 456 789",
+  "phoneNumber": "+420123456789",
+  "displayPhoneNumber": "+420 123 456 789",
   "icon": "🍕",
   "title": "Order Pizza",
   "subtitle": "Call now! Delivery in 30 minutes",
@@ -11,7 +12,7 @@
       "text": "WhatsApp",
       "icon": "💬",
       "value": "420123456789",
-      "message": "Hi! I want to order a pizza"
+      "additionalText": "Hi! I want to order pizza"
     },
     {
       "type": "link",
@@ -30,7 +31,14 @@
     "iconAnimation": "ctc-pulse 2s infinite",
     "buttonBackground": "rgba(255, 255, 255, 0.2)",
     "buttonRadius": "12px",
+    "buttonWidth": "85%",
+    "buttonMaxWidth": "300px",
+    "buttonMargin": "0 auto",
     "shadow": "0 8px 32px rgba(37, 211, 102, 0.3)",
-    "maxWidth": "350px"
+    "maxWidth": "350px",
+    "phoneFont": "'Inter', sans-serif",
+    "phoneSize": "1.15em",
+    "phoneWeight": "600",
+    "phoneSpacing": "0.8px"
   }
 }
