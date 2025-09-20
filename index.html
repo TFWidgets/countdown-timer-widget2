@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click to Call Widget - Test</title>
+    <title>Click to Call Widget - Demo</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -14,111 +14,127 @@
         }
         
         .test-section {
-            max-width: 400px;
-            margin: 0 auto 50px auto;
+            max-width: 450px;
+            margin: 0 auto 60px auto;
             background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 35px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
         }
         
         .test-section h2 {
             margin: 0 0 15px 0;
-            color: #333;
-            font-size: 1.3em;
+            color: #1a202c;
+            font-size: 1.5em;
+            font-weight: 700;
         }
         
         .description {
-            margin: 0 0 20px 0;
-            color: #666;
-            font-size: 0.9em;
-            line-height: 1.4;
+            margin: 0 0 25px 0;
+            color: #718096;
+            font-size: 1em;
+            line-height: 1.5;
         }
         
         .code-example {
-            background: #1a202c;
+            background: #2d3748;
             color: #e2e8f0;
-            border-radius: 8px;
-            padding: 12px;
-            font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 0.8em;
-            margin: 15px 0;
+            border-radius: 12px;
+            padding: 16px;
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+            font-size: 13px;
+            margin: 20px 0;
             overflow-x: auto;
+            border: 1px solid #4a5568;
         }
         
         .header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 60px;
             color: white;
         }
         
         .header h1 {
-            margin: 0 0 10px 0;
-            font-size: 2.8em;
+            margin: 0 0 12px 0;
+            font-size: 3em;
+            font-weight: 800;
+            letter-spacing: -0.02em;
         }
         
         .header p {
             margin: 0;
-            font-size: 1.2em;
+            font-size: 1.3em;
             opacity: 0.9;
+            font-weight: 300;
+        }
+        
+        .widget-container {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .test-section {
+                margin: 0 auto 40px auto;
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 2.2em;
+            }
+            
+            .header p {
+                font-size: 1.1em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>📞 Click to Call Widget</h1>
-        <p>Динамические кнопки звонка с индивидуальными конфигурациями</p>
+        <p>Красивые кнопки звонка для любого бизнеса</p>
     </div>
 
     <!-- Ресторан -->
     <div class="test-section">
         <h2>🍕 Ресторан</h2>
         <div class="description">
-            Зеленый дизайн с WhatsApp и ссылкой на меню.<br>
-            <strong>data-id="demo.js"</strong> → загружает <code>configs/demo.json</code>
+            Зеленый дизайн в стиле WhatsApp с кнопками для заказа пиццы и просмотра меню. Идеально подходит для ресторанов, кафе и служб доставки еды.
         </div>
         <div class="code-example">
-&lt;script src="./embed.js" data-id="demo.js"&gt;&lt;/script&gt;
+&lt;script src="https://call-widget.tf-widgets.com/embed.js" data-id="demo.js"&gt;&lt;/script&gt;
         </div>
-        <script src="./embed.js" data-id="demo.js"></script>
+        <div class="widget-container">
+            <script src="./embed.js" data-id="demo.js"></script>
+        </div>
     </div>
 
-    <!-- Медицинский центр -->
+    <!-- Бизнес офис -->
     <div class="test-section">
-        <h2>⚕️ Медицинский центр</h2>
+        <h2>🏢 Бизнес офис</h2>
         <div class="description">
-            Синий профессиональный дизайн с записью онлайн.<br>
-            <strong>data-id="medical456.js"</strong> → загружает <code>configs/medical456.json</code>
+            Профессиональный синий дизайн с кнопками для связи по email и Telegram. Отлично подходит для корпоративных клиентов и B2B услуг.
         </div>
         <div class="code-example">
-&lt;script src="./embed.js" data-id="medical456.js"&gt;&lt;/script&gt;
+&lt;script src="https://call-widget.tf-widgets.com/embed.js" data-id="client123.js"&gt;&lt;/script&gt;
         </div>
-        <script src="./embed.js" data-id="medical456.js"></script>
+        <div class="widget-container">
+            <script src="./embed.js" data-id="client123.js"></script>
+        </div>
     </div>
-
-    <!-- Плавающая кнопка -->
-    <div class="test-section">
-        <h2>📞 Плавающая кнопка</h2>
-        <div class="description">
-            Фиксированная кнопка в углу экрана.<br>
-            <strong>data-floating="true"</strong> активирует floating режим
-        </div>
-        <div class="code-example">
-&lt;script src="./embed.js" data-id="floating-support.js" data-floating="true"&gt;&lt;/script&gt;
-        </div>
-        <p style="color: #666; font-style: italic;">Плавающая кнопка появится в правом нижнем углу</p>
-    </div>
-
-    <!-- Плавающий виджет -->
-    <script src="./embed.js" data-id="floating-support.js" data-floating="true"></script>
 
     <script>
-        console.log('🔍 Testing Click to Call widgets...');
+        console.log('📞 Click to Call Widget Demo loaded');
+        
+        // Простая аналитика
         setTimeout(() => {
             const widgets = document.querySelectorAll('[id^="click-to-call-widget"]');
-            console.log(`Found ${widgets.length} call widgets`);
-        }, 3000);
+            console.log(`✅ Successfully loaded ${widgets.length} widgets`);
+        }, 2000);
     </script>
 </body>
 </html>
-
