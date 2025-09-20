@@ -13,41 +13,6 @@
             min-height: 100vh;
         }
         
-        .test-section {
-            max-width: 450px;
-            margin: 0 auto 60px auto;
-            background: white;
-            padding: 35px;
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-        }
-        
-        .test-section h2 {
-            margin: 0 0 15px 0;
-            color: #1a202c;
-            font-size: 1.5em;
-            font-weight: 700;
-        }
-        
-        .description {
-            margin: 0 0 25px 0;
-            color: #718096;
-            font-size: 1em;
-            line-height: 1.5;
-        }
-        
-        .code-example {
-            background: #2d3748;
-            color: #e2e8f0;
-            border-radius: 12px;
-            padding: 16px;
-            font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
-            font-size: 13px;
-            margin: 20px 0;
-            overflow-x: auto;
-            border: 1px solid #4a5568;
-        }
-        
         .header {
             text-align: center;
             margin-bottom: 60px;
@@ -55,21 +20,54 @@
         }
         
         .header h1 {
-            margin: 0 0 12px 0;
-            font-size: 3em;
+            margin: 0;
+            font-size: 3.2em;
             font-weight: 800;
             letter-spacing: -0.02em;
         }
         
-        .header p {
-            margin: 0;
-            font-size: 1.3em;
-            opacity: 0.9;
-            font-weight: 300;
+        .test-section {
+            max-width: 700px;
+            margin: 0 auto 60px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .test-section h2 {
+            margin: 0 0 20px 0;
+            color: #1a202c;
+            font-size: 1.6em;
+            font-weight: 700;
+        }
+        
+        .code-example {
+            background: #2d3748;
+            color: #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 13px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            border: 1px solid #4a5568;
+            cursor: pointer;
+            user-select: all;
+            transition: all 0.2s ease;
+        }
+        
+        .code-example:hover {
+            border-color: #667eea;
+            box-shadow: 0 0 20px rgba(102,126,234,0.3);
+        }
+        
+        .code-example.copied {
+            border-color: #10b981;
+            box-shadow: 0 0 20px rgba(16,185,129,0.3);
         }
         
         .widget-container {
-            margin-top: 30px;
             padding: 20px;
             background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
             border-radius: 16px;
@@ -84,11 +82,7 @@
             }
             
             .header h1 {
-                font-size: 2.2em;
-            }
-            
-            .header p {
-                font-size: 1.1em;
+                font-size: 2.4em;
             }
         }
     </style>
@@ -96,45 +90,44 @@
 <body>
     <div class="header">
         <h1>📞 Click to Call Widget</h1>
-        <p>Красивые кнопки звонка для любого бизнеса</p>
     </div>
 
-    <!-- Ресторан -->
+    <!-- Restaurant -->
     <div class="test-section">
-        <h2>🍕 Ресторан</h2>
-        <div class="description">
-            Зеленый дизайн в стиле WhatsApp с кнопками для заказа пиццы и просмотра меню. Идеально подходит для ресторанов, кафе и служб доставки еды.
+        <h2>🍕 Restaurant</h2>
+        
+        <div class="code-example" onclick="copyCode(this)">
+&lt;script src="https://call-widget.tf-widgets.com/embed.js" data-id="demo"&gt;&lt;/script&gt;
         </div>
-        <div class="code-example">
-&lt;script src="https://call-widget.tf-widgets.com/embed.js" data-id="demo.js"&gt;&lt;/script&gt;
-        </div>
+        
         <div class="widget-container">
-            <script src="./embed.js" data-id="demo.js"></script>
+            <script src="./embed.js?v=35" data-id="demo"></script>
         </div>
     </div>
 
-    <!-- Бизнес офис -->
+    <!-- Business Office -->
     <div class="test-section">
-        <h2>🏢 Бизнес офис</h2>
-        <div class="description">
-            Профессиональный синий дизайн с кнопками для связи по email и Telegram. Отлично подходит для корпоративных клиентов и B2B услуг.
+        <h2>🏢 Business Office</h2>
+        
+        <div class="code-example" onclick="copyCode(this)">
+&lt;script src="https://call-widget.tf-widgets.com/embed.js" data-id="client123"&gt;&lt;/script&gt;
         </div>
-        <div class="code-example">
-&lt;script src="https://call-widget.tf-widgets.com/embed.js" data-id="client123.js"&gt;&lt;/script&gt;
-        </div>
+        
         <div class="widget-container">
-            <script src="./embed.js" data-id="client123.js"></script>
+            <script src="./embed.js?v=35" data-id="client123"></script>
         </div>
     </div>
 
     <script>
-        console.log('📞 Click to Call Widget Demo loaded');
-        
-        // Простая аналитика
-        setTimeout(() => {
-            const widgets = document.querySelectorAll('[id^="click-to-call-widget"]');
-            console.log(`✅ Successfully loaded ${widgets.length} widgets`);
-        }, 2000);
+        function copyCode(element) {
+            const text = element.textContent.trim();
+            navigator.clipboard.writeText(text).then(() => {
+                element.classList.add('copied');
+                setTimeout(() => {
+                    element.classList.remove('copied');
+                }, 2000);
+            });
+        }
     </script>
 </body>
 </html>
