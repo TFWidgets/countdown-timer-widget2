@@ -1,7 +1,7 @@
 (function() {
     'use strict';
     
-    const COUNTDOWN_WIDGET_VERSION = '2.0.0';
+    const COUNTDOWN_WIDGET_VERSION = '2.1.0';
     console.log(`[CountdownWidget v${COUNTDOWN_WIDGET_VERSION}] Initializing...`);
 
     // CSS стили с полной кастомизацией через CSS-переменные
@@ -127,6 +127,8 @@
             text-align: center;
             padding: 40px;
             color: var(--countdown-loading-color, white);
+            position: relative;
+            z-index: 2;
         }
         
         .countdown-spinner {
@@ -252,13 +254,15 @@
             document.head.appendChild(style);
         }
 
-        // Определяем baseUrl
+        // Надежное определение baseUrl через URL API
         const baseUrl = currentScript.src ? 
-            currentScript.src.replace(/\/[^\/]*$/, '') : 
+            new URL('.', currentScript.src).href.replace(/\/$/, '') : 
             'https://countdown-timer-widget2.tf-widgets.com';
 
         // URL конфига с кеш-бастером
         const configUrl = `${baseUrl}/configs/${encodeURIComponent(clientId)}.json?v=${Date.now()}`;
+
+        console.log(`[CountdownWidget] Config URL: ${configUrl}`);
 
         // Создаем контейнер
         const container = createContainer(currentScript, clientId);
@@ -269,6 +273,7 @@
         // Загружаем конфигурацию с fallback
         loadConfig(configUrl, baseUrl)
             .then(config => {
+                console.log(`[CountdownWidget] Config loaded:`, config);
                 validateConfig(config);
                 applyCustomStyles(container, config);
                 createCountdownWidget(container, config, clientId);
@@ -340,6 +345,8 @@
         if (isNaN(targetDate.getTime())) {
             throw new Error('Некорректный формат целевой даты');
         }
+        
+        console.log(`[CountdownWidget] Target date: ${config.target} (${targetDate.toLocaleString()})`);
     }
 
     function applyCustomStyles(container, config) {
@@ -421,4 +428,110 @@
         
         // Мобильные стили
         if (s.paddingMobile) rootStyle.setProperty('--countdown-padding-mobile', s.paddingMobile);
-        if (s.titleSizeMobile) rootStyle.setProperty('--countdown-title-size<span class="cursor">█</span>
+        if (s.titleSizeMobile) rootStyle.setProperty('--countdown-title-size-mobile', s.titleSizeMobile);
+        if (s.numberSizeMobile) rootStyle.setProperty('--countdown-number-size-mobile', s.numberSizeMobile);
+        if (s.displayGapMobile) rootStyle.setProperty('--countdown-display-gap-mobile', s.displayGapMobile);
+        if (s.itemPaddingMobile) rootStyle.setProperty('--countdown-item-padding-mobile', s.itemPaddingMobile);
+        if (s.itemMinWidthMobile) rootStyle.setProperty('--countdown-item-min-width-mobile', s.itemMinWidthMobile);
+    }
+
+    function createCountdownWidget(container, config, clientId) {
+        const targetDate = new Date(config.target).getTime();
+        let countdownInterval;
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+            
+            console.log(`[CountdownWidget] Time check: target=${targetDate}, now=${now}, diff=${difference}`);
+            
+            if (difference <= 0) {
+                clearInterval(countdownInterval);
+                container.innerHTML = `
+                    <div class="countdown-widget">
+                        <div class="countdown-done">
+                            ${escapeHtml(config.doneText || '🎊 Время вышло!')}
+                        </div>
+                    </div>
+                `;
+                console.log(`[CountdownWidget] Timer finished, showing: ${config.doneText}`);
+                return;
+            }
+            
+            const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            
+            // Определяем классы эффектов
+            const effectsClasses = [];
+            if (config.effects?.glow) effectsClasses.push('glow');
+            if (config.effects?.animation) effectsClasses.push('animate');
+            
+            const effectsClass = effectsClasses.join(' ');
+            
+            container.innerHTML = `
+                <div class="countdown-widget ${effectsClass}">
+                    ${config.title ? `<h2 class="countdown-title">${escapeHtml(config.title)}</h2>` : ''}
+                    <div class="countdown-display">
+                        <div class="countdown-item">
+                            <span class="countdown-number">${days.toString().padStart(2, '0')}</span>
+                            <span class="countdown-label">${escapeHtml(config.labels?.days || 'Days')}</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number">${hours.toString().padStart(2, '0')}</span>
+                            <span class="countdown-label">${escapeHtml(config.labels?.hours || 'Hours')}</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number">${minutes.toString().padStart(2, '0')}</span>
+                            <span class="countdown-label">${escapeHtml(config.labels?.minutes || 'Minutes')}</span>
+                        </div>
+                        <div class="countdown-item">
+                            <span class="countdown-number">${seconds.toString().padStart(2, '0')}</span>
+                            <span class="countdown-label">${escapeHtml(config.labels?.seconds || 'Seconds')}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        updateCountdown();
+        countdownInterval = setInterval(updateCountdown, 1000);
+        
+        // Очистка интервала при удалении элемента
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.type === 'childList') {
+                    mutation.removedNodes.forEach(function(node) {
+                        if (node === container || container.contains(node)) {
+                            clearInterval(countdownInterval);
+                            observer.disconnect();
+                            console.log(`[CountdownWidget] Cleaned up interval for ${clientId}`);
+                        }
+                    });
+                }
+            });
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text || '';
+        return div.innerHTML;
+    }
+
+    function showError(container, clientId, message) {
+        container.innerHTML = `
+            <div class="countdown-error">
+                <h3 style="margin: 0 0 15px 0;">⏰ Таймер недоступен</h3>
+                <p style="margin: 0; opacity: 0.9; font-size: 0.9em;">ID: ${escapeHtml(clientId)}</p>
+                <details style="margin-top: 15px;">
+                    <summary style="cursor: pointer; opacity: 0.8;">Подробности</summary>
+                    <p style="margin: 10px 0 0 0; font-size: 0.8em; opacity: 0.7;">${escapeHtml(message)}</p>
+                </details>
+            </div>
+        `;
+    }
+
+})();
