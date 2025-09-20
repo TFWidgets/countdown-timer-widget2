@@ -91,10 +91,15 @@
         }
         
         .ctc-phone-display {
-            font-family: var(--ctc-phone-font, 'Monaco', 'Menlo', monospace);
-            font-size: var(--ctc-phone-size, 1.2em);
-            font-weight: 700;
-            letter-spacing: 0.5px;
+            font-family: var(--ctc-phone-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+            font-size: var(--ctc-phone-size, 1.15em);
+            font-weight: var(--ctc-phone-weight, 600);
+            letter-spacing: var(--ctc-phone-spacing, 0.5px);
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.2;
         }
         
         .ctc-actions-grid {
@@ -225,6 +230,11 @@
             .ctc-actions-grid {
                 grid-template-columns: 1fr;
                 gap: 8px;
+            }
+            
+            .ctc-phone-display {
+                font-size: var(--ctc-phone-size-mobile, 1em);
+                letter-spacing: 0.3px;
             }
         }
     `;
@@ -389,6 +399,13 @@
         if (s.buttonRadius) rootStyle.setProperty('--ctc-button-radius', s.buttonRadius);
         if (s.buttonSize) rootStyle.setProperty('--ctc-button-size', s.buttonSize);
         
+        // Стили телефона (НОВЫЕ)
+        if (s.phoneFont) rootStyle.setProperty('--ctc-phone-font', s.phoneFont);
+        if (s.phoneSize) rootStyle.setProperty('--ctc-phone-size', s.phoneSize);
+        if (s.phoneWeight) rootStyle.setProperty('--ctc-phone-weight', s.phoneWeight);
+        if (s.phoneSpacing) rootStyle.setProperty('--ctc-phone-spacing', s.phoneSpacing);
+        if (s.phoneSizeMobile) rootStyle.setProperty('--ctc-phone-size-mobile', s.phoneSizeMobile);
+        
         // Floating режим
         if (s.floatingBottom) rootStyle.setProperty('--ctc-floating-bottom', s.floatingBottom);
         if (s.floatingRight) rootStyle.setProperty('--ctc-floating-right', s.floatingRight);
@@ -399,6 +416,7 @@
         const {
             businessName,
             phoneNumber,
+            displayPhoneNumber, // НОВОЕ: красивое отображение номера
             icon = '📞',
             title,
             subtitle,
@@ -406,9 +424,11 @@
             infoText
         } = config;
 
-        // Очистка и форматирование номера телефона
+        // Очистка номера телефона для tel: ссылки
         const cleanPhone = phoneNumber.replace(/[^\d+]/g, '');
-        const displayPhone = formatPhoneDisplay(phoneNumber);
+        
+        // Используем displayPhoneNumber если указан, иначе phoneNumber как есть
+        const finalDisplayPhone = displayPhoneNumber || phoneNumber;
         const callUrl = `tel:${cleanPhone}`;
 
         // Генерируем дополнительные действия
@@ -439,7 +459,7 @@
                 </div>
                 
                 <a href="${callUrl}" class="ctc-main-button" onclick="trackCall('${clientId}', '${cleanPhone}')">
-                    <span class="ctc-phone-display">${escapeHtml(displayPhone)}</span>
+                    <span class="ctc-phone-display">${escapeHtml(finalDisplayPhone)}</span>
                 </a>
                 
                 ${actionsHTML}
@@ -475,13 +495,14 @@
     }
 
     function buildActionUrl(action) {
-        const { type, value, text, url } = action;
+        const { type, value, text, url, additionalText } = action;
         
         switch (type) {
             case 'whatsapp':
                 const whatsappNumber = value.replace(/[^\d]/g, '');
-                const whatsappText = text ? `?text=${encodeURIComponent(text)}` : '';
-                return whatsappNumber ? `https://wa.me/${whatsappNumber}${whatsappText}` : null;
+                const whatsappText = additionalText || text;
+                const whatsappQuery = whatsappText ? `?text=${encodeURIComponent(whatsappText)}` : '';
+                return whatsappNumber ? `https://wa.me/${whatsappNumber}${whatsappQuery}` : null;
                 
             case 'telegram':
                 const telegramUser = value.replace(/^@/, '');
@@ -489,12 +510,14 @@
                 
             case 'sms':
                 const smsNumber = value.replace(/[^\d+]/g, '');
-                const smsBody = text ? `?body=${encodeURIComponent(text)}` : '';
-                return smsNumber ? `sms:${smsNumber}${smsBody}` : null;
+                const smsBody = additionalText || text;
+                const smsQuery = smsBody ? `?body=${encodeURIComponent(smsBody)}` : '';
+                return smsNumber ? `sms:${smsNumber}${smsQuery}` : null;
                 
             case 'email':
-                const subject = text ? `?subject=${encodeURIComponent(text)}` : '';
-                return value ? `mailto:${value}${subject}` : null;
+                const emailSubject = additionalText || text;
+                const emailQuery = emailSubject ? `?subject=${encodeURIComponent(emailSubject)}` : '';
+                return value ? `mailto:${value}${emailQuery}` : null;
                 
             case 'link':
                 return url || value || null;
@@ -502,22 +525,6 @@
             default:
                 return null;
         }
-    }
-
-    function formatPhoneDisplay(phone) {
-        const cleaned = phone.replace(/[^\d+]/g, '');
-        
-        if (cleaned.startsWith('+7') && cleaned.length === 12) {
-            return cleaned.replace(/(\+7)(\d{3})(\d{3})(\d{2})(\d{2})/, '$1 ($2) $3-$4-$5');
-        } else if (cleaned.startsWith('+1') && cleaned.length === 12) {
-            return cleaned.replace(/(\+1)(\d{3})(\d{3})(\d{4})/, '$1 ($2) $3-$4');
-        } else if (cleaned.startsWith('+') && cleaned.length >= 10) {
-            const country = cleaned.substring(0, 3);
-            const rest = cleaned.substring(3);
-            return `${country} ${rest.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3')}`;
-        }
-        
-        return phone;
     }
 
     function escapeHtml(text) {
@@ -562,4 +569,3 @@
     };
 
 })();
-
