@@ -1,17 +1,23 @@
 {
   "target": "2025-12-31T23:59:59",
-  "doneText": "🎉 New Year Mega Sale",
+  "doneText": "🎉 New year sales",
   "labels": {
-    "days": "Days",
-    "hours": "Hours",
-    "minutes": "Minutes", 
-    "seconds": "Seconds"
+    "days": "DAYS",
+    "hours": "HOURS", 
+    "minutes": "MINUTES",
+    "seconds": "SECONDS"
   },
-  "theme": {
-    "backgroundColor": "#1e1b4b",
-    "textColor": "#ffffff",
-    "borderRadius": 20
+  "effects": {
+    "glow": true,
+    "animation": true
   },
-  "fontFamily": "'Poppins', sans-serif",
+  "styling": {
+    "fontFamily": "'Poppins', sans-serif",
+    "primaryColor": "#667eea",
+    "secondaryColor": "#764ba2",
+    "textColor": "white",
+    "borderRadius": "18px",
+    "padding": "45px 35px"
+  },
   "autoStart": true
 }
