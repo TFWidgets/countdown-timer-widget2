@@ -1,6 +1,9 @@
 (function() {
     'use strict';
 
+    const CTC_WIDGET_VERSION = '2.0.0';
+    console.log(`[ClickToCallWidget v${CTC_WIDGET_VERSION}] Initializing...`);
+
     // CSS стили с полной кастомизацией через CSS-переменные
     const inlineCSS = `
         .ctc-container {
@@ -64,8 +67,8 @@
         }
         
         .ctc-main-button {
-            width: var(--ctc-button-width, 100%);
-            max-width: var(--ctc-button-max-width, 100%);
+            width: var(--ctc-button-width, 85%);
+            max-width: var(--ctc-button-max-width, 300px);
             margin: var(--ctc-button-margin, 0 auto);
             background: var(--ctc-button-bg, rgba(255, 255, 255, 0.2));
             color: var(--ctc-button-color, white);
@@ -94,7 +97,7 @@
         }
         
         .ctc-phone-display {
-            font-family: var(--ctc-phone-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+            font-family: var(--ctc-phone-font, inherit);
             font-size: var(--ctc-phone-size, 1.15em);
             font-weight: var(--ctc-phone-weight, 600);
             letter-spacing: var(--ctc-phone-spacing, 0.5px);
@@ -103,7 +106,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
             line-height: 1.2;
-            width: 100%;
         }
         
         .ctc-actions-grid {
@@ -260,7 +262,7 @@
             clientId = clientId.slice(0, -3);
         }
 
-        console.log(`[ClickToCallWidget] Normalized clientId: ${clientId}`);
+        console.log(`[ClickToCallWidget v${CTC_WIDGET_VERSION}] Loading clientId: ${clientId}`);
 
         // Добавляем стили один раз
         if (!document.querySelector('#click-to-call-widget-styles')) {
@@ -290,15 +292,15 @@
                 validateConfig(config);
                 applyCustomStyles(container, config);
                 createClickToCallWidget(container, config, clientId);
-                console.log(`[ClickToCallWidget] Виджет ${clientId} успешно создан`);
+                console.log(`[ClickToCallWidget] ✅ Виджет ${clientId} успешно создан`);
             })
             .catch(error => {
-                console.error('[ClickToCallWidget] Ошибка:', error);
+                console.error('[ClickToCallWidget] ❌ Ошибка:', error);
                 showError(container, clientId, error.message);
             });
 
     } catch (error) {
-        console.error('[ClickToCallWidget] Критическая ошибка:', error);
+        console.error('[ClickToCallWidget] 💥 Критическая ошибка:', error);
     }
 
     function createContainer(scriptElement, clientId) {
@@ -396,7 +398,7 @@
         if (s.titleSize) rootStyle.setProperty('--ctc-title-size', s.titleSize);
         if (s.titleWeight) rootStyle.setProperty('--ctc-title-weight', s.titleWeight);
         
-        // Кнопка (НОВЫЕ ПЕРЕМЕННЫЕ)
+        // Кнопка (НОВЫЕ ПЕРЕМЕННЫЕ ДЛЯ ЦЕНТРИРОВАНИЯ)
         if (s.buttonBackground) rootStyle.setProperty('--ctc-button-bg', s.buttonBackground);
         if (s.buttonColor) rootStyle.setProperty('--ctc-button-color', s.buttonColor);
         if (s.buttonBorder) rootStyle.setProperty('--ctc-button-border', s.buttonBorder);
@@ -434,9 +436,11 @@
         // Очистка номера телефона для tel: ссылки
         const cleanPhone = phoneNumber.replace(/[^\d+]/g, '');
         
-        // Используем displayPhoneNumber если указан, иначе phoneNumber как есть
+        // ГЛАВНОЕ ИСПРАВЛЕНИЕ: используем displayPhoneNumber если указан
         const finalDisplayPhone = displayPhoneNumber || phoneNumber;
         const callUrl = `tel:${cleanPhone}`;
+
+        console.log(`[ClickToCallWidget] Phone: ${phoneNumber} → Display: ${finalDisplayPhone} → Clean: ${cleanPhone}`);
 
         // Генерируем дополнительные действия
         const actionsHTML = actions.length > 0 ? `
@@ -506,17 +510,17 @@
         
         switch (type) {
             case 'whatsapp':
-                const whatsappNumber = value.replace(/[^\d]/g, '');
+                const whatsappNumber = value ? value.replace(/[^\d]/g, '') : '';
                 const whatsappText = additionalText || text;
                 const whatsappQuery = whatsappText ? `?text=${encodeURIComponent(whatsappText)}` : '';
                 return whatsappNumber ? `https://wa.me/${whatsappNumber}${whatsappQuery}` : null;
                 
             case 'telegram':
-                const telegramUser = value.replace(/^@/, '');
+                const telegramUser = value ? value.replace(/^@/, '') : '';
                 return telegramUser ? `https://t.me/${telegramUser}` : null;
                 
             case 'sms':
-                const smsNumber = value.replace(/[^\d+]/g, '');
+                const smsNumber = value ? value.replace(/[^\d+]/g, '') : '';
                 const smsBody = additionalText || text;
                 const smsQuery = smsBody ? `?body=${encodeURIComponent(smsBody)}` : '';
                 return smsNumber ? `sms:${smsNumber}${smsQuery}` : null;
