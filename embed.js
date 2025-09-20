@@ -35,8 +35,12 @@
     };
 
     const s = config.styling;
+    const configId = host.dataset.id || 'demo';
+    // Создаем уникальный класс для каждого виджета
+    const uniqueClass = `cdw-${configId}-${Date.now()}`;
+    
     const wrap = document.createElement('div');
-    wrap.className = 'cdw-container';
+    wrap.className = `cdw-container ${uniqueClass}`;
 
     // Определяем фон
     const background = s.backgroundColor || 
@@ -44,13 +48,13 @@
 
     wrap.innerHTML = `
       <style>
-        .cdw-container {
+        .${uniqueClass} {
           font-family: ${s.fontFamily};
           color: ${s.textColor};
           width: 100%;
         }
         
-        .cdw-widget {
+        .${uniqueClass} .cdw-widget {
           background: 
             radial-gradient(circle at 25% 25%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
             radial-gradient(circle at 75% 75%, rgba(255, 119, 198, 0.2) 0%, transparent 50%),
@@ -67,7 +71,7 @@
           margin: 0 auto;
         }
         
-        .cdw-widget::before {
+        .${uniqueClass} .cdw-widget::before {
           content: '';
           position: absolute;
           top: 0; left: 0; right: 0; bottom: 0;
@@ -77,14 +81,14 @@
           pointer-events: none;
         }
         
-        .cdw-widget:hover {
+        .${uniqueClass} .cdw-widget:hover {
           transform: ${config.effects.animation ? 'translateY(-3px)' : 'none'};
           box-shadow: ${config.effects.animation ? 
             '0 20px 60px rgba(0,0,0,0.5)' : 
             '0 15px 45px rgba(0,0,0,0.4)'};
         }
         
-        .cdw-display {
+        .${uniqueClass} .cdw-display {
           display: grid;
           grid-template-columns: repeat(4, minmax(80px, 1fr));
           gap: 20px;
@@ -92,7 +96,7 @@
           z-index: 1;
         }
         
-        .cdw-item {
+        .${uniqueClass} .cdw-item {
           background: rgba(255,255,255,0.12);
           border: 1px solid rgba(255,255,255,0.25);
           border-radius: calc(${s.borderRadius} - 6px);
@@ -104,7 +108,7 @@
           overflow: hidden;
         }
         
-        .cdw-item::before {
+        .${uniqueClass} .cdw-item::before {
           content: '';
           position: absolute;
           top: 0; left: 0; right: 0; bottom: 0;
@@ -112,14 +116,14 @@
           pointer-events: none;
         }
         
-        .cdw-item:hover {
+        .${uniqueClass} .cdw-item:hover {
           transform: ${config.effects.animation ? 'translateY(-6px) scale(1.03)' : 'none'};
           background: ${config.effects.animation ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.12)'};
           box-shadow: ${config.effects.animation ? '0 12px 25px rgba(0,0,0,0.3)' : 'none'};
           border-color: ${config.effects.animation ? 'rgba(255,255,255,0.35)' : 'rgba(255,255,255,0.25)'};
         }
         
-        .cdw-number {
+        .${uniqueClass} .cdw-number {
           font-family: 'JetBrains Mono', 'SF Mono', 'Roboto Mono', monospace;
           font-size: 2.8rem;
           font-weight: 800;
@@ -134,7 +138,7 @@
           filter: ${config.effects.glow ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' : 'none'};
         }
         
-        .cdw-label {
+        .${uniqueClass} .cdw-label {
           font-size: 0.75rem;
           font-weight: 600;
           text-transform: uppercase;
@@ -143,7 +147,7 @@
           color: ${s.textColor};
         }
         
-        .cdw-start {
+        .${uniqueClass} .cdw-start {
           display: none;
           width: 100%;
           margin-top: 24px;
@@ -158,12 +162,12 @@
           transition: all 0.3s ease;
         }
         
-        .cdw-start:hover {
+        .${uniqueClass} .cdw-start:hover {
           background: rgba(255,255,255,0.15);
           transform: translateY(-1px);
         }
         
-        .cdw-done {
+        .${uniqueClass} .cdw-done {
           background: linear-gradient(135deg, #10b981 0%, #059669 100%);
           border-radius: ${s.borderRadius};
           padding: 48px 32px;
@@ -177,7 +181,7 @@
           overflow: hidden;
         }
         
-        .cdw-done::before {
+        .${uniqueClass} .cdw-done::before {
           content: '';
           position: absolute;
           top: 0; left: 0; right: 0; bottom: 0;
@@ -185,14 +189,14 @@
         }
         
         @media (max-width: 640px) {
-          .cdw-widget { padding: 28px 20px; }
-          .cdw-display { 
+          .${uniqueClass} .cdw-widget { padding: 28px 20px; }
+          .${uniqueClass} .cdw-display { 
             grid-template-columns: repeat(2, 1fr); 
             gap: 12px; 
           }
-          .cdw-item { padding: 16px 12px; }
-          .cdw-number { font-size: 2rem; }
-          .cdw-label { font-size: 0.7rem; }
+          .${uniqueClass} .cdw-item { padding: 16px 12px; }
+          .${uniqueClass} .cdw-number { font-size: 2rem; }
+          .${uniqueClass} .cdw-label { font-size: 0.7rem; }
         }
       </style>
       <div class="cdw-widget">
