@@ -64,7 +64,9 @@
         }
         
         .ctc-main-button {
-            width: 100%;
+            width: var(--ctc-button-width, 100%);
+            max-width: var(--ctc-button-max-width, 100%);
+            margin: var(--ctc-button-margin, 0 auto);
             background: var(--ctc-button-bg, rgba(255, 255, 255, 0.2));
             color: var(--ctc-button-color, white);
             border: var(--ctc-button-border, 2px solid rgba(255, 255, 255, 0.3));
@@ -74,7 +76,7 @@
             font-weight: var(--ctc-button-weight, 600);
             cursor: pointer;
             text-decoration: none;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
             gap: var(--ctc-button-gap, 12px);
@@ -82,6 +84,7 @@
             position: relative;
             z-index: 2;
             backdrop-filter: blur(10px);
+            box-sizing: border-box;
         }
         
         .ctc-main-button:hover {
@@ -100,6 +103,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             line-height: 1.2;
+            width: 100%;
         }
         
         .ctc-actions-grid {
@@ -392,14 +396,17 @@
         if (s.titleSize) rootStyle.setProperty('--ctc-title-size', s.titleSize);
         if (s.titleWeight) rootStyle.setProperty('--ctc-title-weight', s.titleWeight);
         
-        // Кнопка
+        // Кнопка (НОВЫЕ ПЕРЕМЕННЫЕ)
         if (s.buttonBackground) rootStyle.setProperty('--ctc-button-bg', s.buttonBackground);
         if (s.buttonColor) rootStyle.setProperty('--ctc-button-color', s.buttonColor);
         if (s.buttonBorder) rootStyle.setProperty('--ctc-button-border', s.buttonBorder);
         if (s.buttonRadius) rootStyle.setProperty('--ctc-button-radius', s.buttonRadius);
         if (s.buttonSize) rootStyle.setProperty('--ctc-button-size', s.buttonSize);
+        if (s.buttonWidth) rootStyle.setProperty('--ctc-button-width', s.buttonWidth);
+        if (s.buttonMaxWidth) rootStyle.setProperty('--ctc-button-max-width', s.buttonMaxWidth);
+        if (s.buttonMargin) rootStyle.setProperty('--ctc-button-margin', s.buttonMargin);
         
-        // Стили телефона (НОВЫЕ)
+        // Стили телефона (НОВЫЕ ПЕРЕМЕННЫЕ)
         if (s.phoneFont) rootStyle.setProperty('--ctc-phone-font', s.phoneFont);
         if (s.phoneSize) rootStyle.setProperty('--ctc-phone-size', s.phoneSize);
         if (s.phoneWeight) rootStyle.setProperty('--ctc-phone-weight', s.phoneWeight);
@@ -416,7 +423,7 @@
         const {
             businessName,
             phoneNumber,
-            displayPhoneNumber, // НОВОЕ: красивое отображение номера
+            displayPhoneNumber, // КЛЮЧЕВОЕ ПОЛЕ для красивого отображения
             icon = '📞',
             title,
             subtitle,
@@ -515,8 +522,8 @@
                 return smsNumber ? `sms:${smsNumber}${smsQuery}` : null;
                 
             case 'email':
-                const emailSubject = additionalText || text;
-                const emailQuery = emailSubject ? `?subject=${encodeURIComponent(emailSubject)}` : '';
+                const subject = additionalText || text;
+                const emailQuery = subject ? `?subject=${encodeURIComponent(subject)}` : '';
                 return value ? `mailto:${value}${emailQuery}` : null;
                 
             case 'link':
