@@ -8,9 +8,9 @@
     "seconds": "Секунд"
   },
   "theme": {
-    "backgroundColor": "#1e40af",
+    "backgroundColor": "#af6e1e",
     "textColor": "#ffffff", 
-    "borderRadius": 12
+    "borderRadius": 20
   },
   "fontFamily": "'Inter', sans-serif",
   "autoStart": true
