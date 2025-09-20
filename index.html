@@ -1,1 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Click to Call Widget - Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .test-section {
+            max-width: 400px;
+            margin: 0 auto 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .test-section h2 {
+            margin: 0 0 15px 0;
+            color: #333;
+            font-size: 1.3em;
+        }
+        
+        .description {
+            margin: 0 0 20px 0;
+            color: #666;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        .code-example {
+            background: #1a202c;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 12px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.8em;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+        }
+        
+        .header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.8em;
+        }
+        
+        .header p {
+            margin: 0;
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📞 Click to Call Widget</h1>
+        <p>Динамические кнопки звонка с индивидуальными конфигурациями</p>
+    </div>
+
+    <!-- Ресторан -->
+    <div class="test-section">
+        <h2>🍕 Ресторан</h2>
+        <div class="description">
+            Зеленый дизайн с WhatsApp и ссылкой на меню.<br>
+            <strong>data-id="demo.js"</strong> → загружает <code>configs/demo.json</code>
+        </div>
+        <div class="code-example">
+&lt;script src="./embed.js" data-id="demo.js"&gt;&lt;/script&gt;
+        </div>
+        <script src="./embed.js" data-id="demo.js"></script>
+    </div>
+
+    <!-- Медицинский центр -->
+    <div class="test-section">
+        <h2>⚕️ Медицинский центр</h2>
+        <div class="description">
+            Синий профессиональный дизайн с записью онлайн.<br>
+            <strong>data-id="medical456.js"</strong> → загружает <code>configs/medical456.json</code>
+        </div>
+        <div class="code-example">
+&lt;script src="./embed.js" data-id="medical456.js"&gt;&lt;/script&gt;
+        </div>
+        <script src="./embed.js" data-id="medical456.js"></script>
+    </div>
+
+    <!-- Плавающая кнопка -->
+    <div class="test-section">
+        <h2>📞 Плавающая кнопка</h2>
+        <div class="description">
+            Фиксированная кнопка в углу экрана.<br>
+            <strong>data-floating="true"</strong> активирует floating режим
+        </div>
+        <div class="code-example">
+&lt;script src="./embed.js" data-id="floating-support.js" data-floating="true"&gt;&lt;/script&gt;
+        </div>
+        <p style="color: #666; font-style: italic;">Плавающая кнопка появится в правом нижнем углу</p>
+    </div>
+
+    <!-- Плавающий виджет -->
+    <script src="./embed.js" data-id="floating-support.js" data-floating="true"></script>
+
+    <script>
+        console.log('🔍 Testing Click to Call widgets...');
+        setTimeout(() => {
+            const widgets = document.querySelectorAll('[id^="click-to-call-widget"]');
+            console.log(`Found ${widgets.length} call widgets`);
+        }, 3000);
+    </script>
+</body>
+</html>
 
