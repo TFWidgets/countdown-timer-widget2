@@ -1,12 +1,7 @@
 (() => {
-  // Защита от повторного выполнения
-  if (window.countdownWidgetLoaded) return;
-  window.countdownWidgetLoaded = true;
-
   const scripts = Array.from(document.querySelectorAll('script[src*="embed.js"]'));
   if (!scripts.length) return;
 
-  const processedScripts = new Set();
   const pad2 = n => String(n).padStart(2, '0');
 
   // Базовые дефолты
@@ -27,9 +22,9 @@
   };
 
   function mountWidget(host, cfg) {
-    const scriptKey = host.src + (host.dataset.id || 'demo');
-    if (processedScripts.has(scriptKey)) return;
-    processedScripts.add(scriptKey);
+    // Проверяем, не обработан ли уже этот конкретный скрипт
+    if (host.dataset.cdwMounted === '1') return;
+    host.dataset.cdwMounted = '1';
 
     const config = {
       ...defaultConfig,
