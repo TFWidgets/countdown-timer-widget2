@@ -1,25 +1,20 @@
 (function() {
     'use strict';
-
-    // Встроенные стили для мгновенной загрузки
-    // Встроенные стили (ваши остаются без изменений)
-    const inlineCSS = `
+const inlineCSS = `
         .countdown-widget-container{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:600px;margin:20px auto;text-align:center}
         .countdown-widget{background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:20px;padding:40px 30px;box-shadow:0 20px 60px rgba(102,126,234,0.4);color:white;position:relative;overflow:hidden}
-@@ -42,11 +42,23 @@
-            document.head.appendChild(style);
-        }
 
-        const baseUrl = currentScript.dataset.base || 
-    currentScript.src.replace(/\/[^\/]+$/, '');
-        // ИСПРАВЛЕНО: Улучшенное определение baseUrl
-        let baseUrl = currentScript.dataset.base;
+  document.head.appendChild(style);
+        }
+        
+let baseUrl = currentScript.dataset.base;
         if (!baseUrl) {
             const scriptSrc = currentScript.src;
             if (scriptSrc) {
                 // Убираем имя файла из URL, оставляем только домен и путь
                 baseUrl = scriptSrc.replace(/\/[^\/]*$/, '');
             } else {
+        
                 // Fallback для продакшена
                 baseUrl = 'https://countdown-timer-widget2.tf-widgets.com';
             }
@@ -31,9 +26,9 @@
         
         // Показываем индикатор загрузки
         const container = createContainer(currentScript, clientId);
-        container.innerHTML = `
-@@ -67,12 +79,14 @@
-            }
+        container.innerHTML = `        
+
+   }
         })
         .then(response => {
             console.log('[CountdownWidget] Ответ сервера:', response.status, response.statusText);
@@ -47,8 +42,8 @@
             createCountdownWidget(container, config, clientId);
             console.log(`[CountdownWidget] Виджет ${clientId} успешно создан`);
         })
-@@ -85,95 +99,96 @@
-        console.error('[CountdownWidget] Критическая ошибка:', error);
+
+ console.error('[CountdownWidget] Критическая ошибка:', error);
     }
 
     // Остальные функции остаются без изменений...
