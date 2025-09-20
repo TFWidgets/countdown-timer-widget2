@@ -1,36 +1,41 @@
 {
-  "businessName": "Kebab",
-  "phoneNumber": "+420 850 479 749",
-  "icon": "🍕",
-  "title": "Order Pizza",
-  "subtitle": "Call now! Delivery in 50 minutes",
-  "infoText": "Business Hours: 10:00-23:00 daily",
+  "businessName": "🏢 Tech Solutions",
+  "phoneNumber": "+15551234567",
+  "displayPhoneNumber": "+1 (555) 123-4567",
+  "icon": "🏢",
+  "title": "Contact Support",
+  "subtitle": "Professional IT services",
+  "infoText": "Available: Mon-Fri 9:00-18:00 EST",
   "actions": [
     {
-      "type": "whatsapp",
-      "text": "WhatsApp",
-      "icon": "💬",
-      "value": "420123456789",
-      "message": "Hi! I want to order a pizza"
+      "type": "email",
+      "text": "Email",
+      "icon": "✉️",
+      "value": "support@techsolutions.com",
+      "additionalText": "Business inquiry"
     },
     {
-      "type": "link",
-      "text": "Menu",
-      "icon": "📋",
-      "url": "https://pizzapalace.cz/menu"
+      "type": "telegram",
+      "text": "Telegram",
+      "icon": "💙",
+      "value": "@techsupport"
     }
   ],
   "styling": {
-    "primaryColor": "#25d366",
-    "secondaryColor": "#128c7e",
-    "borderRadius": "16px",
-    "titleSize": "1.4em",
-    "fontFamily": "'Inter', sans-serif",
-    "iconSize": "2.8em",
-    "iconAnimation": "ctc-pulse 2s infinite",
-    "buttonBackground": "rgba(255, 255, 255, 0.2)",
-    "buttonRadius": "12px",
-    "shadow": "0 8px 32px rgba(37, 211, 102, 0.3)",
-    "maxWidth": "350px"
+    "primaryColor": "#2563eb",
+    "secondaryColor": "#1d4ed8",
+    "borderRadius": "12px",
+    "titleSize": "1.3em",
+    "fontFamily": "'Roboto', sans-serif",
+    "iconSize": "2.5em",
+    "iconAnimation": "none",
+    "buttonBackground": "rgba(255, 255, 255, 0.25)",
+    "buttonRadius": "8px",
+    "shadow": "0 6px 24px rgba(37, 99, 235, 0.3)",
+    "maxWidth": "380px",
+    "headerAlign": "center",
+    "phoneFont": "'Roboto Mono', monospace",
+    "phoneSize": "1.1em",
+    "phoneWeight": "700"
   }
 }
