@@ -1,7 +1,6 @@
 {
-  "businessName": "🍕 Pizza Palace",
-  "phoneNumber": "+420123456789",
-  "displayPhoneNumber": "+420 123 456 789",
+  "phone": "+420123456789",
+  "displayPhone": "+420 123 456 789",
   "icon": "🍕",
   "title": "Order Pizza",
   "subtitle": "Call now! Delivery in 30 minutes",
@@ -11,56 +10,19 @@
       "type": "whatsapp",
       "text": "WhatsApp",
       "icon": "💬",
-      "value": "420123456789",
-      "additionalText": "Hi! I want to order pizza",
-      "url": null
+      "message": "Hi! I want to order pizza"
     },
     {
       "type": "link",
       "text": "Menu",
       "icon": "📋",
-      "value": null,
-      "additionalText": null,
       "url": "https://pizzapalace.cz/menu"
     }
   ],
-  "styling": {
-    "primaryColor": "#25d366",
-    "secondaryColor": "#128c7e",
-    "backgroundColor": null,
+  "theme": {
+    "backgroundColor": "linear-gradient(135deg, #25d366 0%, #128c7e 100%)",
     "textColor": "white",
-    "fontFamily": "'Inter', sans-serif",
-    "maxWidth": "350px",
-    "margin": "20px auto",
-    "shadow": "0 8px 32px rgba(37, 211, 102, 0.3)",
-    "borderRadius": "16px",
-    "padding": "25px",
-    "hoverTransform": "translateY(-2px)",
-    "hoverShadow": "0 12px 40px rgba(37, 211, 102, 0.4)",
-    "headerAlign": "center",
-    "iconSize": "2.8em",
-    "iconAnimation": "ctc-pulse 2s infinite",
-    "titleSize": "1.4em",
-    "titleWeight": "600",
-    "subtitleSize": "0.9em",
-    "subtitleOpacity": "0.9",
-    "buttonBackground": "rgba(255, 255, 255, 0.2)",
-    "buttonColor": "white",
-    "buttonBorder": "2px solid rgba(255, 255, 255, 0.3)",
-    "buttonRadius": "12px",
-    "buttonSize": "1.1em",
-    "buttonWeight": "600",
-    "buttonWidth": "85%",
-    "buttonMaxWidth": "300px",
-    "buttonMargin": "0 auto",
-    "phoneFont": "'Inter', sans-serif",
-    "phoneSize": "1.15em",
-    "phoneWeight": "600",
-    "phoneSpacing": "0.8px",
-    "phoneSizeMobile": "1em",
-    "floatingBottom": null,
-    "floatingRight": null,
-    "floatingMaxWidth": null,
-    "zIndex": null
-  }
+    "borderRadius": 16
+  },
+  "fontFamily": "'Inter', sans-serif"
 }
