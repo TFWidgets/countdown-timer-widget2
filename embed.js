@@ -1,4 +1,6 @@
 (() => {
+  'use strict';
+
   const scripts = Array.from(document.querySelectorAll('script[src*="embed.js"]'));
   if (!scripts.length) return;
 
@@ -22,20 +24,36 @@
     fontFamily: "'Inter', system-ui, sans-serif"
   };
 
-  function mountWidget(host, cfg) {
+  scripts.forEach(async (script) => {
     // Защита от повторного выполнения
-    if (host.dataset.ctcMounted === '1') return;
-    host.dataset.ctcMounted = '1';
+    if (script.dataset.ctcMounted === '1') return;
+    script.dataset.ctcMounted = '1';
 
+    const configId = normalizeId(script.dataset.id);
+    const basePath = getBasePath(script.src);
+    
+    console.log(`[ClickToCallWidget] Загружаем конфиг: ${basePath}configs/${configId}.json`);
+    
+    try {
+      const config = await loadConfig(configId, basePath);
+      mountWidget(script, config);
+      console.log(`[ClickToCallWidget] ✅ Виджет "${configId}" успешно загружен`);
+    } catch (error) {
+      console.warn(`[ClickToCallWidget] ⚠️ Ошибка загрузки "${configId}":`, error.message);
+      mountWidget(script, defaultConfig);
+    }
+  });
+
+  function mountWidget(host, cfg) {
     const config = {
       ...defaultConfig,
       ...cfg,
-      actions: cfg.actions || defaultConfig.actions,
-      theme: { ...defaultConfig.theme, ...(cfg.theme || {}) }
+      actions: cfg?.actions || defaultConfig.actions,
+      theme: { ...defaultConfig.theme, ...(cfg?.theme || {}) }
     };
 
     const configId = host.dataset.id || 'demo';
-    const uniqueClass = `ctc-${configId}-${Date.now()}`;
+    const uniqueClass = `ctc-${normalizeId(configId)}-${Date.now()}`;
     const wrap = document.createElement('div');
     wrap.className = `ctc-container ${uniqueClass}`;
 
@@ -269,37 +287,52 @@
     }
   }
 
+  // ИСПРАВЛЕННЫЕ вспомогательные функции
+  function normalizeId(id) {
+    return (id || 'demo').replace(/\.(json|js)$/i, '');
+  }
+
   function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text || '';
     return div.innerHTML;
   }
 
-  // Загрузка конфигов
-  async function loadConfig(id, basePath) {
-    const configName = (id || 'demo').replace(/\.(json|js)$/, '');
-    const url = `${basePath}configs/${configName}.json`;
-    
+  function getBasePath(src) {
     try {
-      const response = await fetch(url, { cache: 'no-store' });
-      if (!response.ok) return defaultConfig;
-      return await response.json();
-    } catch {
-      return defaultConfig;
+      const url = new URL(src, location.href);
+      // КЛЮЧЕВОЕ ИСПРАВЛЕНИЕ: добавляем origin для полного URL
+      return url.origin + url.pathname.replace(/\/[^\/]*$/, '/');
+    } catch (error) {
+      console.warn('[ClickToCallWidget] Ошибка определения базового пути:', error);
+      return './';
     }
   }
 
-  // Инициализация виджетов
-  scripts.forEach(async (script) => {
-    const configId = script.dataset.id || 'demo';
+  async function loadConfig(id, basePath) {
+    const configName = normalizeId(id);
+    // basePath теперь содержит полный URL включая домен
+    const url = `${basePath}configs/${configName}.json?v=${Date.now()}`;
     
-    let basePath = '';
     try {
-      const srcUrl = new URL(script.src, location.href);
-      basePath = srcUrl.pathname.replace(/\/[^\/]*$/, '/');
-    } catch {}
-    
-    const config = await loadConfig(configId, basePath);
-    mountWidget(script, config);
-  });
+      const response = await fetch(url, { 
+        cache: 'no-store',
+        headers: { 
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const config = await response.json();
+      return config;
+      
+    } catch (error) {
+      console.warn(`[ClickToCallWidget] Не удалось загрузить "${configName}.json":`, error.message);
+      return defaultConfig;
+    }
+  }
 })();
