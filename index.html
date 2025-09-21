@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Click to Call Widget - Demo</title>
+    <title>Call Widget API - Shopify Integration</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -24,6 +24,12 @@
             font-size: 3.2em;
             font-weight: 800;
             letter-spacing: -0.02em;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            margin-top: 10px;
+            opacity: 0.9;
         }
         
         .test-section {
@@ -75,6 +81,49 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
         
+        .api-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .link-card {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .link-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .link-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.1em;
+        }
+        
+        .link-card p {
+            margin: 0;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
         @media (max-width: 768px) {
             .test-section {
                 margin: 0 auto 40px auto;
@@ -84,41 +133,91 @@
             .header h1 {
                 font-size: 2.4em;
             }
+            
+            .links {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>📞 Click to Call Widget</h1>
+        <h1>📞 Call Widget API</h1>
+        <p>Professional call widgets for Shopify stores</p>
     </div>
 
-    <!-- Restaurant -->
     <div class="test-section">
-        <h2>🍕 Restaurant</h2>
-        
-        <div class="code-example" onclick="copyCode(this)">
-&lt;script src="https://call-widget.tf-widgets.com/embed.js" data-id="demo"&gt;&lt;/script&gt;
+        <h2>🚀 API Usage</h2>
+        <div class="api-info">
+            <strong>Current Domain:</strong> <span id="current-domain">Loading...</span><br>
+            <strong>API Endpoint:</strong> <code id="api-endpoint">Loading...</code>
         </div>
         
+        <p>Use this code to embed widgets on any website:</p>
+        <div class="code-example" onclick="copyCode(this)">
+&lt;script src="<span id="embed-url">LOADING...</span>/embed.js" data-id="YOUR_CLIENT_ID"&gt;&lt;/script&gt;
+        </div>
+    </div>
+
+    <!-- Restaurant Demo -->
+    <div class="test-section">
+        <h2>🍕 Demo: Restaurant</h2>
+        <div class="code-example" onclick="copyCode(this)">
+data-id="demo"
+        </div>
         <div class="widget-container">
             <script src="./embed.js?v=35" data-id="demo"></script>
         </div>
     </div>
 
-    <!-- Business Office -->
+    <!-- Business Demo -->
     <div class="test-section">
-        <h2>🏢 Business Office</h2>
-        
+        <h2>🏢 Demo: Business Office</h2>
         <div class="code-example" onclick="copyCode(this)">
-&lt;script src="https://call-widget.tf-widgets.com/embed.js" data-id="client123"&gt;&lt;/script&gt;
+data-id="client123"
         </div>
-        
         <div class="widget-container">
             <script src="./embed.js?v=35" data-id="client123"></script>
         </div>
     </div>
 
+    <!-- Shopify Demo -->
+    <div class="test-section">
+        <h2>🛒 Demo: Shopify Store</h2>
+        <div class="code-example" onclick="copyCode(this)">
+data-id="shopify-store"
+        </div>
+        <div class="widget-container">
+            <script src="./embed.js?v=35" data-id="shopify-store"></script>
+        </div>
+    </div>
+
+    <div class="links">
+        <a href="/shopify-test.html" class="link-card">
+            <h3>🛒 Shopify Guide</h3>
+            <p>Complete integration guide for Shopify sellers</p>
+        </a>
+        <a href="/debug.html" class="link-card">
+            <h3>🔍 Debug Tool</h3>
+            <p>Troubleshoot widget loading issues</p>
+        </a>
+        <a href="/inline-widget.html" class="link-card">
+            <h3>💡 Inline Version</h3>
+            <p>Self-contained HTML/CSS widget</p>
+        </a>
+        <a href="/ready-to-use.html" class="link-card">
+            <h3>📋 Copy & Paste</h3>
+            <p>Ready-to-use code snippets</p>
+        </a>
+    </div>
+
     <script>
+        // Update domain info dynamically
+        const currentDomain = window.location.origin;
+        document.getElementById('current-domain').textContent = currentDomain;
+        document.getElementById('api-endpoint').textContent = currentDomain + '/embed.js';
+        document.getElementById('embed-url').textContent = currentDomain;
+        
         function copyCode(element) {
             const text = element.textContent.trim();
             navigator.clipboard.writeText(text).then(() => {
