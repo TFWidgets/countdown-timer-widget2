@@ -1,0 +1,28 @@
+{
+  "phone": "+1234567890",
+  "displayPhone": "+1 (234) 567-890", 
+  "icon": "🛒",
+  "title": "Shop Now",
+  "subtitle": "Free shipping on orders over $50",
+  "infoText": "Customer service: 9AM-6PM EST",
+  "actions": [
+    {
+      "type": "whatsapp",
+      "text": "WhatsApp", 
+      "icon": "💬",
+      "message": "Hi! I'm interested in your products"
+    },
+    {
+      "type": "link",
+      "text": "Catalog", 
+      "icon": "📦",
+      "url": "https://your-shopify-store.myshopify.com"
+    }
+  ],
+  "theme": {
+    "backgroundColor": "linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%)",
+    "textColor": "white", 
+    "borderRadius": 16
+  },
+  "fontFamily": "'Inter', sans-serif"
+}

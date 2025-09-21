@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopify Widget Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .test-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .test-section h2 {
+            color: #2c5aa0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .widget-demo {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        
+        .instructions {
+            background: #e8f4f8;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .success-box {
+            background: #e8f5e8;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛒 Shopify Widget Test</h1>
+        
+        <div class="test-section">
+            <h2>🎯 Код для Shopify</h2>
+            <p>Этот код будете отправлять клиентам:</p>
+            
+            <div class="code-block">
+&lt;script src="https://YOUR-DOMAIN.pages.dev/embed.js" data-id="demo"&gt;&lt;/script&gt;
+            </div>
+            
+            <div class="instructions">
+                <strong>📋 Инструкции:</strong><br>
+                1. Замените <code>YOUR-DOMAIN</code> на реальный домен после деплоя<br>
+                2. Создайте конфиг файл для каждого клиента в папке <code>/configs/</code><br>
+                3. Клиент вставляет этот код в любое место на своем сайте
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🍕 Демо виджет (Restaurant)</h2>
+            <div class="widget-demo">
+                <script src="./embed.js" data-id="demo"></script>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🏢 Демо виджет (Business)</h2>
+            <div class="widget-demo">
+                <script src="./embed.js" data-id="client123"></script>
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🚀 Процесс для Shopify</h2>
+            
+            <div class="success-box">
+                <strong>✅ Что делать:</strong><br>
+                1. <strong>Развернуть на Cloudflare Pages</strong> - получить домен типа <code>your-widget.pages.dev</code><br>
+                2. <strong>Создать конфиг для клиента</strong> - файл <code>/configs/clientname.json</code><br>
+                3. <strong>Отправить код клиенту:</strong><br>
+                   <code>&lt;script src="https://your-widget.pages.dev/embed.js" data-id="clientname"&gt;&lt;/script&gt;</code>
+            </div>
+            
+            <h3>📝 Создание конфига для нового клиента:</h3>
+            <div class="code-block">
+{
+  "phone": "+1234567890",
+  "displayPhone": "+1 (234) 567-890",
+  "icon": "🛒",
+  "title": "Shop Now",
+  "subtitle": "Free shipping on orders over $50",
+  "infoText": "Customer service: 9AM-6PM EST",
+  "actions": [
+    {
+      "type": "whatsapp",
+      "text": "WhatsApp",
+      "icon": "💬",
+      "message": "Hi! I'm interested in your products"
+    },
+    {
+      "type": "link", 
+      "text": "Catalog",
+      "icon": "📦",
+      "url": "https://client-shop.com/catalog"
+    }
+  ],
+  "theme": {
+    "backgroundColor": "linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%)",
+    "textColor": "white",
+    "borderRadius": 16
+  },
+  "fontFamily": "'Inter', sans-serif"
+}
+            </div>
+            
+            <div class="warning-box">
+                <strong>⚠️ Важно:</strong><br>
+                • Каждый клиент должен иметь уникальный <code>data-id</code><br>
+                • Файл конфига должен называться точно как <code>data-id</code><br>
+                • CORS заголовки уже настроены для работы на любых доменах
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🔧 Customization Options</h2>
+            
+            <h3>Icons:</h3>
+            <p>🍕 🛒 🏢 📞 💼 🏪 🍔 ☕ 🏥 🚗 🏠 💻 📱 🎵 🎮 📚 👕 💍 🌟</p>
+            
+            <h3>Gradient Colors:</h3>
+            <div class="code-block">
+/* Green (WhatsApp style) */
+"backgroundColor": "linear-gradient(135deg, #25d366 0%, #128c7e 100%)"
+
+/* Blue */
+"backgroundColor": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)"
+
+/* Red */
+"backgroundColor": "linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%)"
+
+/* Purple */
+"backgroundColor": "linear-gradient(135deg, #a855f7 0%, #7c3aed 100%)"
+
+/* Orange */
+"backgroundColor": "linear-gradient(135deg, #fb923c 0%, #f97316 100%)"
+            </div>
+            
+            <h3>Action Types:</h3>
+            <div class="code-block">
+// WhatsApp
+{
+  "type": "whatsapp",
+  "text": "WhatsApp",
+  "icon": "💬",
+  "message": "Custom message"
+}
+
+// Link/URL
+{
+  "type": "link",
+  "text": "Website",
+  "icon": "🌐", 
+  "url": "https://example.com"
+}
+
+// Email
+{
+  "type": "email",
+  "text": "Email",
+  "icon": "📧",
+  "value": "info@example.com",
+  "message": "Subject line"
+}
+
+// SMS
+{
+  "type": "sms", 
+  "text": "SMS",
+  "icon": "💬",
+  "message": "Text message"
+}
+
+// Telegram
+{
+  "type": "telegram",
+  "text": "Telegram", 
+  "icon": "📱",
+  "value": "username"
+}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
