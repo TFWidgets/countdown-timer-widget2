@@ -4,7 +4,6 @@
   const scripts = Array.from(document.querySelectorAll('script[src*="embed.js"]'));
   if (!scripts.length) return;
 
-  // Минимальный дефолт (красивый премиум дизайн встроен)
   const defaultConfig = {
     phone: "+420123456789",
     displayPhone: "+420 123 456 789",
@@ -29,17 +28,19 @@
     if (script.dataset.ctcMounted === '1') return;
     script.dataset.ctcMounted = '1';
 
-    const configId = normalizeId(script.dataset.id);
+    const id = normalizeId(script.dataset.id);
     const basePath = getBasePath(script.src);
-    
-    console.log(`[ClickToCallWidget] Загружаем конфиг: ${basePath}configs/${configId}.json`);
-    
+
+    console.log(`[ClickToCallWidget] Инициализация виджета "${id}"`);
+    console.log(`[ClickToCallWidget] Базовый путь: ${basePath}`);
+    console.log(`[ClickToCallWidget] URL конфига: ${basePath}configs/${id}.json`);
+
     try {
-      const config = await loadConfig(configId, basePath);
+      const config = await loadConfig(id, basePath);
       mountWidget(script, config);
-      console.log(`[ClickToCallWidget] ✅ Виджет "${configId}" успешно загружен`);
+      console.log(`[ClickToCallWidget] ✅ Виджет "${id}" успешно создан`);
     } catch (error) {
-      console.warn(`[ClickToCallWidget] ⚠️ Ошибка загрузки "${configId}":`, error.message);
+      console.warn(`[ClickToCallWidget] ⚠️ Используем дефолтный конфиг для "${id}":`, error.message);
       mountWidget(script, defaultConfig);
     }
   });
@@ -52,8 +53,8 @@
       theme: { ...defaultConfig.theme, ...(cfg?.theme || {}) }
     };
 
-    const configId = host.dataset.id || 'demo';
-    const uniqueClass = `ctc-${normalizeId(configId)}-${Date.now()}`;
+    const configId = normalizeId(host.dataset.id || 'demo');
+    const uniqueClass = `ctc-${configId}-${Date.now()}`;
     const wrap = document.createElement('div');
     wrap.className = `ctc-container ${uniqueClass}`;
 
@@ -311,8 +312,9 @@
 
   async function loadConfig(id, basePath) {
     const configName = normalizeId(id);
-    // basePath теперь содержит полный URL включая домен
     const url = `${basePath}configs/${configName}.json?v=${Date.now()}`;
+    
+    console.log(`[ClickToCallWidget] Загружаем конфиг: ${url}`);
     
     try {
       const response = await fetch(url, { 
@@ -328,11 +330,12 @@
       }
       
       const config = await response.json();
+      console.log(`[ClickToCallWidget] ✅ Конфиг загружен:`, config);
       return config;
       
     } catch (error) {
-      console.warn(`[ClickToCallWidget] Не удалось загрузить "${configName}.json":`, error.message);
-      return defaultConfig;
+      console.warn(`[ClickToCallWidget] ⚠️ Ошибка загрузки конфига:`, error.message);
+      throw error;
     }
   }
 })();
