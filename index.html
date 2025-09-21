@@ -118,11 +118,39 @@
         </div>
     </div>
 
+    <!-- Timer Widget -->
+    <div class="test-section">
+        <h2>⏰ With Timer (Black Friday)</h2>
+        
+        <div class="code-example" onclick="copyCode(this)">
+&lt;script src="<span id="embed-url3">YOUR-DOMAIN</span>/embed.js" data-id="with-timer"&gt;&lt;/script&gt;
+        </div>
+        
+        <div class="widget-container">
+            <script src="./embed.js?v=35" data-id="with-timer"></script>
+        </div>
+    </div>
+
+    <!-- Business Hours Widget -->
+    <div class="test-section">
+        <h2>🕒 Business Hours</h2>
+        
+        <div class="code-example" onclick="copyCode(this)">
+&lt;script src="<span id="embed-url4">YOUR-DOMAIN</span>/embed.js" data-id="business-hours"&gt;&lt;/script&gt;
+        </div>
+        
+        <div class="widget-container">
+            <script src="./embed.js?v=35" data-id="business-hours"></script>
+        </div>
+    </div>
+
     <script>
         // Автоматически подставляем текущий домен
         const currentDomain = window.location.origin;
         document.getElementById('embed-url1').textContent = currentDomain;
         document.getElementById('embed-url2').textContent = currentDomain;
+        document.getElementById('embed-url3').textContent = currentDomain;
+        document.getElementById('embed-url4').textContent = currentDomain;
         
         function copyCode(element) {
             const text = element.textContent.trim();
