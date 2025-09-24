@@ -1,35 +1,36 @@
 {
-  "endDate": "2025-09-31T23:59:59",
+  "endDate": "2025-12-31T23:59:59",
   "labels": {
-    "days": "ДНЕЙ",
-    "hours": "ЧАСОВ",
-    "minutes": "МИНУТ",
-    "seconds": "СЕКУНД"
+    "days": "D",
+    "hours": "H", 
+    "minutes": "M",
+    "seconds": "S"
   },
   "style": {
-    "fontFamily": "'Montserrat', system-ui, sans-serif",
+    "fontFamily": "'Orbitron', 'JetBrains Mono', monospace",
+    "valueFontFamily": "'Orbitron', 'JetBrains Mono', monospace",
     "colors": {
-      "background": "linear-gradient(135deg, #DC2626 0%, #B91C1C 50%, #991B1B 100%)",
-      "text": "#001011",
-      "blockBackground": "rgba(255, 255, 255, 0.25)",
-      "blockBorder": "rgba(255, 255, 255, 0.4)",
-      "blockHover": "rgba(255, 255, 255, 0.35)",
-      "borderHover": "rgba(255, 255, 255, 0.6)"
+      "background": "linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)",
+      "text": "#00d9ff",
+      "blockBackground": "rgba(0, 217, 255, 0.1)",
+      "blockBorder": "rgba(0, 217, 255, 0.3)",
+      "blockHover": "rgba(0, 217, 255, 0.2)",
+      "borderHover": "rgba(0, 217, 255, 0.5)"
     },
     "borderRadius": {
-      "widget": 20,
-      "blocks": 16
+      "widget": 4,
+      "blocks": 2
     },
     "sizes": {
-      "fontSize": 1.2,
-      "padding": 32,
-      "blockPadding": 20,
-      "gap": 18
+      "fontSize": 1.4,
+      "padding": 40,
+      "blockPadding": 24,
+      "gap": 20
     },
     "shadow": {
-      "widget": "0 20px 60px rgba(220,38,38,0.3)",
-      "widgetHover": "0 30px 80px rgba(220,38,38,0.4)",
-      "text": "0 3px 12px rgba(0,0,0,0.4)"
+      "widget": "0 0 40px rgba(0, 217, 255, 0.3), 0 20px 60px rgba(15, 23, 42, 0.8)",
+      "widgetHover": "0 0 60px rgba(0, 217, 255, 0.4), 0 30px 80px rgba(15, 23, 42, 0.9)",
+      "text": "0 0 10px rgba(0, 217, 255, 0.8)"
     }
   }
 }
