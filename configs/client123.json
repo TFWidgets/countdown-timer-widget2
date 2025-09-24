@@ -1,5 +1,5 @@
 {
-  "endDate": "2024-11-15T18:30:00",
+  "endDate": "2025-12-31T23:59:59",
   "labels": {
     "days": "ДНЕЙ",
     "hours": "ЧАСОВ",
@@ -7,29 +7,29 @@
     "seconds": "СЕКУНД"
   },
   "style": {
-    "fontFamily": "'Montserrat', sans-serif",
+    "fontFamily": "'Montserrat', system-ui, sans-serif",
     "colors": {
-      "background": "linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)",
+      "background": "linear-gradient(135deg, #DC2626 0%, #B91C1C 50%, #991B1B 100%)",
       "text": "#ffffff",
-      "blockBackground": "rgba(255, 255, 255, 0.2)",
-      "blockBorder": "rgba(255, 255, 255, 0.3)",
-      "blockHover": "rgba(255, 255, 255, 0.3)",
-      "borderHover": "rgba(255, 255, 255, 0.5)"
+      "blockBackground": "rgba(255, 255, 255, 0.25)",
+      "blockBorder": "rgba(255, 255, 255, 0.4)",
+      "blockHover": "rgba(255, 255, 255, 0.35)",
+      "borderHover": "rgba(255, 255, 255, 0.6)"
     },
     "borderRadius": {
-      "widget": 18,
-      "blocks": 14
+      "widget": 20,
+      "blocks": 16
     },
     "sizes": {
-      "fontSize": 1.15,
+      "fontSize": 1.2,
       "padding": 32,
-      "blockPadding": 18,
-      "gap": 16
+      "blockPadding": 20,
+      "gap": 18
     },
     "shadow": {
-      "widget": "0 18px 50px rgba(231, 76, 60, 0.3)",
-      "widgetHover": "0 25px 70px rgba(231, 76, 60, 0.5)",
-      "text": "0 2px 8px rgba(0,0,0,0.4)"
+      "widget": "0 20px 60px rgba(220,38,38,0.3)",
+      "widgetHover": "0 30px 80px rgba(220,38,38,0.4)",
+      "text": "0 3px 12px rgba(0,0,0,0.4)"
     }
   }
 }
