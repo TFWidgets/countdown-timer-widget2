@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🕐 Countdown Timer Widget - Демо всех конфигов</title>
+    <title>🎨 Countdown Timer Widget - Advanced Styling Demo</title>
     <style>
         body {
             font-family: 'Inter', system-ui, sans-serif;
@@ -33,53 +33,57 @@
             margin: 0;
         }
         
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
         .demo-section {
-            max-width: 700px;
-            margin: 0 auto 50px auto;
             background: rgba(255,255,255,0.95);
-            padding: 35px;
+            padding: 30px;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.15);
             backdrop-filter: blur(10px);
         }
         
         .demo-section h2 {
-            margin: 0 0 25px 0;
+            margin: 0 0 20px 0;
             color: #1a202c;
-            font-size: 1.5em;
+            font-size: 1.4em;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 10px;
         }
         
-        .config-info {
+        .style-info {
             background: #f7fafc;
             border: 2px solid #e2e8f0;
             border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 25px;
-            font-family: 'SF Mono', Monaco, monospace;
-            font-size: 13px;
-            color: #2d3748;
+            padding: 12px;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: #4a5568;
         }
         
-        .config-info strong {
-            color: #c44536;
+        .style-info strong {
+            color: #2d3748;
             display: block;
-            margin-bottom: 8px;
-            font-family: 'Inter', system-ui, sans-serif;
-            font-size: 14px;
+            margin-bottom: 5px;
+            font-size: 13px;
         }
         
         .code-example {
             background: #2d3748;
             color: #e2e8f0;
-            border-radius: 12px;
-            padding: 18px;
+            border-radius: 8px;
+            padding: 12px;
             font-family: 'SF Mono', Monaco, monospace;
-            font-size: 13px;
-            margin-bottom: 25px;
+            font-size: 11px;
+            margin-bottom: 20px;
             overflow-x: auto;
             border: 2px solid #4a5568;
             cursor: pointer;
@@ -89,180 +93,233 @@
         
         .code-example:hover {
             border-color: #c44536;
-            box-shadow: 0 0 25px rgba(196,69,54,0.3);
-            transform: translateY(-2px);
-        }
-        
-        .code-example.copied {
-            border-color: #10b981;
-            box-shadow: 0 0 25px rgba(16,185,129,0.4);
+            box-shadow: 0 0 20px rgba(196,69,54,0.3);
         }
         
         .widget-container {
-            padding: 25px;
+            padding: 20px;
             background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
-            border-radius: 16px;
+            border-radius: 12px;
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.2);
         }
         
         .copy-hint {
-            font-size: 12px;
+            font-size: 10px;
             color: #718096;
             text-align: center;
-            margin-top: 10px;
+            margin-top: 8px;
             opacity: 0.7;
         }
         
+        .config-schema {
+            max-width: 1200px;
+            margin: 60px auto 0 auto;
+            background: rgba(255,255,255,0.95);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .config-schema h2 {
+            color: #1a202c;
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .config-schema pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 25px;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        
         @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
             .demo-section {
-                margin: 0 auto 35px auto;
-                padding: 25px;
+                padding: 20px;
             }
             
             .header h1 {
                 font-size: 2.4em;
-            }
-            
-            .header p {
-                font-size: 1.1em;
             }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>🕐 Countdown Timer Widget</h1>
-        <p>Демонстрация разных конфигураций виджетов обратного отсчета</p>
+        <h1>🎨 Countdown Timer Widget</h1>
+        <p>Продвинутая система стилизации - меняй цвета, шрифты, размеры, тени!</p>
     </div>
 
-    <!-- Demo Config -->
-    <div class="demo-section">
-        <h2>🎯 Демо конфиг (demo.json)</h2>
-        
-        <div class="config-info">
-            <strong>Конфигурация:</strong>
-            endDate: "2025-12-31T23:59:59"<br>
-            labels: "DAYS", "HOURS", "MINUTES", "SECONDS"
-        </div>
-        
-        <div class="code-example" onclick="copyCode(this)">
+    <div class="demo-grid">
+        <!-- Default Orange Style -->
+        <div class="demo-section">
+            <h2>🟠 Default Orange (demo)</h2>
+            
+            <div class="style-info">
+                <strong>Style Features:</strong>
+                Orange gradient, Inter font, medium size
+            </div>
+            
+            <div class="code-example" onclick="copyCode(this)">
 &lt;script src="<span class="embed-url">LOADING...</span>/embed.js" data-id="demo"&gt;&lt;/script&gt;
+            </div>
+            
+            <div class="widget-container">
+                <script src="./embed.js?v=200" data-id="demo"></script>
+            </div>
+            
+            <div class="copy-hint">👆 Click to copy</div>
         </div>
-        
-        <div class="widget-container">
-            <script src="./embed.js?v=100" data-id="demo"></script>
-        </div>
-        
-        <div class="copy-hint">👆 Кликни на код чтобы скопировать</div>
-    </div>
 
-    <!-- Client123 Config -->
-    <div class="demo-section">
-        <h2>🏢 Клиент 123 (client123.json)</h2>
-        
-        <div class="config-info">
-            <strong>Конфигурация:</strong>
-            endDate: "2024-11-15T18:30:00"<br>
-            labels: "ДНЕЙ", "ЧАСОВ", "МИНУТ", "СЕКУНД" (на русском)
-        </div>
-        
-        <div class="code-example" onclick="copyCode(this)">
+        <!-- Client123 Red Style -->
+        <div class="demo-section">
+            <h2>🔴 Client123 Red Style</h2>
+            
+            <div class="style-info">
+                <strong>Style Features:</strong>
+                Red gradient, Montserrat font, larger size, custom shadows
+            </div>
+            
+            <div class="code-example" onclick="copyCode(this)">
 &lt;script src="<span class="embed-url">LOADING...</span>/embed.js" data-id="client123"&gt;&lt;/script&gt;
+            </div>
+            
+            <div class="widget-container">
+                <script src="./embed.js?v=200" data-id="client123"></script>
+            </div>
+            
+            <div class="copy-hint">👆 Click to copy</div>
         </div>
-        
-        <div class="widget-container">
-            <script src="./embed.js?v=100" data-id="client123"></script>
+
+        <!-- Blue Style -->
+        <div class="demo-section">
+            <h2>🔵 Blue Purple Style</h2>
+            
+            <div class="style-info">
+                <strong>Style Features:</strong>
+                Blue-purple gradient, Roboto font, larger padding, blue shadows
+            </div>
+            
+            <div class="code-example" onclick="copyCode(this)">
+&lt;script src="<span class="embed-url">LOADING...</span>/embed.js" data-id="blue-style"&gt;&lt;/script&gt;
+            </div>
+            
+            <div class="widget-container">
+                <script src="./embed.js?v=200" data-id="blue-style"></script>
+            </div>
+            
+            <div class="copy-hint">👆 Click to copy</div>
         </div>
-        
-        <div class="copy-hint">👆 Кликни на код чтобы скопировать</div>
+
+        <!-- Dark Hacker Style -->
+        <div class="demo-section">
+            <h2>⚫ Dark Hacker Mode</h2>
+            
+            <div class="style-info">
+                <strong>Style Features:</strong>
+                Dark background, green text, JetBrains Mono, minimal borders, glow effect
+            </div>
+            
+            <div class="code-example" onclick="copyCode(this)">
+&lt;script src="<span class="embed-url">LOADING...</span>/embed.js" data-id="dark-mode"&gt;&lt;/script&gt;
+            </div>
+            
+            <div class="widget-container">
+                <script src="./embed.js?v=200" data-id="dark-mode"></script>
+            </div>
+            
+            <div class="copy-hint">👆 Click to copy</div>
+        </div>
+
+        <!-- Pink Valentine Style -->
+        <div class="demo-section">
+            <h2>💖 Pink Valentine Style</h2>
+            
+            <div class="style-info">
+                <strong>Style Features:</strong>
+                Pink gradient, Poppins font, large size, romantic theme
+            </div>
+            
+            <div class="code-example" onclick="copyCode(this)">
+&lt;script src="<span class="embed-url">LOADING...</span>/embed.js" data-id="pink-style"&gt;&lt;/script&gt;
+            </div>
+            
+            <div class="widget-container">
+                <script src="./embed.js?v=200" data-id="pink-style"></script>
+            </div>
+            
+            <div class="copy-hint">👆 Click to copy</div>
+        </div>
+
+        <!-- Minimal Clean Style -->
+        <div class="demo-section">
+            <h2>⚪ Minimal Clean</h2>
+            
+            <div class="style-info">
+                <strong>Style Features:</strong>
+                Light colors, Arial font, small size, no shadows, single letter labels
+            </div>
+            
+            <div class="code-example" onclick="copyCode(this)">
+&lt;script src="<span class="embed-url">LOADING...</span>/embed.js" data-id="minimal"&gt;&lt;/script&gt;
+            </div>
+            
+            <div class="widget-container">
+                <script src="./embed.js?v=200" data-id="minimal"></script>
+            </div>
+            
+            <div class="copy-hint">👆 Click to copy</div>
+        </div>
     </div>
 
-    <!-- New Year Config -->
-    <div class="demo-section">
-        <h2>🎊 Новый год (newyear.json)</h2>
-        
-        <div class="config-info">
-            <strong>Конфигурация:</strong>
-            endDate: "2025-01-01T00:00:00"<br>
-            labels: "DAYS", "HOURS", "MINUTES", "SECONDS"
-        </div>
-        
-        <div class="code-example" onclick="copyCode(this)">
-&lt;script src="<span class="embed-url">LOADING...</span>/embed.js" data-id="newyear"&gt;&lt;/script&gt;
-        </div>
-        
-        <div class="widget-container">
-            <script src="./embed.js?v=100" data-id="newyear"></script>
-        </div>
-        
-        <div class="copy-hint">👆 Кликни на код чтобы скопировать</div>
-    </div>
-
-    <!-- Birthday Config -->
-    <div class="demo-section">
-        <h2>🎂 День рождения (birthday.json)</h2>
-        
-        <div class="config-info">
-            <strong>Конфигурация:</strong>
-            endDate: "2024-10-31T12:00:00"<br>
-            labels: "ДНЕЙ ДО ДР", "ЧАСОВ", "МИНУТ", "СЕКУНД"
-        </div>
-        
-        <div class="code-example" onclick="copyCode(this)">
-&lt;script src="<span class="embed-url">LOADING...</span>/embed.js" data-id="birthday"&gt;&lt;/script&gt;
-        </div>
-        
-        <div class="widget-container">
-            <script src="./embed.js?v=100" data-id="birthday"></script>
-        </div>
-        
-        <div class="copy-hint">👆 Кликни на код чтобы скопировать</div>
-    </div>
-
-    <!-- Local Config Example -->
-    <div class="demo-section">
-        <h2>💾 Локальная конфигурация (local)</h2>
-        
-        <div class="config-info">
-            <strong>Использует локальный JSON в #ctw-local-config:</strong>
-            endDate: "2024-12-25T00:00:00"<br>
-            labels: "ДНИ", "ЧАСЫ", "МИНУТЫ", "СЕКУНДЫ" (русские)
-        </div>
-        
-        <div class="code-example" onclick="copyCode(this)">
-&lt;script type="application/json" id="ctw-local-config"&gt;
-{
-    "endDate": "2024-12-25T00:00:00",
-    "labels": {
-        "days": "ДНИ",
-        "hours": "ЧАСЫ",
-        "minutes": "МИНУТЫ",
-        "seconds": "СЕКУНДЫ"
+    <!-- Configuration Schema -->
+    <div class="config-schema">
+        <h2>📋 Configuration Schema</h2>
+        <pre>{
+  "endDate": "2025-12-31T23:59:59",
+  "labels": {
+    "days": "DAYS",
+    "hours": "HOURS",
+    "minutes": "MINUTES",
+    "seconds": "SECONDS"
+  },
+  "style": {
+    "fontFamily": "'Inter', system-ui, sans-serif",
+    "colors": {
+      "background": "linear-gradient(135deg, #C44536 0%, #D07C47 100%)",
+      "text": "#ffffff",
+      "blockBackground": "rgba(255, 255, 255, 0.22)",
+      "blockBorder": "rgba(255, 255, 255, 0.35)",
+      "blockHover": "rgba(255, 255, 255, 0.3)",
+      "borderHover": "rgba(255, 255, 255, 0.55)"
+    },
+    "borderRadius": {
+      "widget": 16,
+      "blocks": 12
+    },
+    "sizes": {
+      "fontSize": 1.0,          // Font size multiplier
+      "padding": 28,            // Widget padding in px
+      "blockPadding": 16,       // Time block padding in px
+      "gap": 15                 // Gap between blocks in px
+    },
+    "shadow": {
+      "widget": "0 16px 48px rgba(0,0,0,0.25)",
+      "widgetHover": "0 24px 64px rgba(0,0,0,0.35)",
+      "text": "0 2px 8px rgba(0,0,0,0.3)"
     }
-}
-&lt;/script&gt;
-&lt;script src="./embed.js" data-id="local"&gt;&lt;/script&gt;
-        </div>
-        
-        <!-- Локальная конфигурация -->
-        <script type="application/json" id="ctw-local-config">
-        {
-            "endDate": "2024-12-25T00:00:00",
-            "labels": {
-                "days": "ДНИ",
-                "hours": "ЧАСЫ",
-                "minutes": "МИНУТЫ",
-                "seconds": "СЕКУНДЫ"
-            }
-        }
-        </script>
-        
-        <div class="widget-container">
-            <script src="./embed.js?v=100" data-id="local"></script>
-        </div>
-        
-        <div class="copy-hint">👆 Кликни на код чтобы скопировать полный пример</div>
+  }
+}</pre>
     </div>
 
     <script>
@@ -276,23 +333,22 @@
         function copyCode(element) {
             const text = element.textContent.trim();
             navigator.clipboard.writeText(text).then(() => {
-                element.classList.add('copied');
-                
-                // Показываем что скопировано
                 const originalText = element.innerHTML;
-                element.innerHTML = '✅ СКОПИРОВАНО!';
+                element.style.borderColor = '#10b981';
+                element.innerHTML = '✅ COPIED!';
                 
                 setTimeout(() => {
-                    element.classList.remove('copied');
+                    element.style.borderColor = '#4a5568';
                     element.innerHTML = originalText;
                 }, 2000);
             });
         }
         
         // Логируем информацию о всех виджетах
-        console.log('🕐 Countdown Timer Widget Demo');
-        console.log('📁 Доступные конфиги: demo, client123, newyear, birthday, local');
+        console.log('🎨 Advanced Countdown Timer Widget Demo');
+        console.log('📁 Available configs: demo, client123, blue-style, dark-mode, pink-style, minimal');
         console.log('🌐 CDN: https://cdn.jsdelivr.net/gh/TFWidgets/countdown-timer-widget2@main/embed.js');
+        console.log('🎨 Style options: font, colors, borderRadius, sizes, shadows');
     </script>
 </body>
 </html>

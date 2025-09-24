@@ -1,0 +1,35 @@
+{
+  "endDate": "2024-12-01T00:00:00",
+  "labels": {
+    "days": "ДНЕЙ",
+    "hours": "ЧАСОВ",
+    "minutes": "МИНУТ",
+    "seconds": "СЕКУНД"
+  },
+  "style": {
+    "fontFamily": "'JetBrains Mono', monospace",
+    "colors": {
+      "background": "linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)",
+      "text": "#00ff00",
+      "blockBackground": "rgba(0, 255, 0, 0.1)",
+      "blockBorder": "rgba(0, 255, 0, 0.3)",
+      "blockHover": "rgba(0, 255, 0, 0.2)",
+      "borderHover": "rgba(0, 255, 0, 0.5)"
+    },
+    "borderRadius": {
+      "widget": 8,
+      "blocks": 6
+    },
+    "sizes": {
+      "fontSize": 0.9,
+      "padding": 25,
+      "blockPadding": 12,
+      "gap": 12
+    },
+    "shadow": {
+      "widget": "0 10px 30px rgba(0, 255, 0, 0.2)",
+      "widgetHover": "0 15px 40px rgba(0, 255, 0, 0.3)",
+      "text": "0 0 10px rgba(0, 255, 0, 0.5)"
+    }
+  }
+}

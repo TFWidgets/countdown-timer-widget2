@@ -5,5 +5,31 @@
     "hours": "ЧАСОВ",
     "minutes": "МИНУТ",
     "seconds": "СЕКУНД"
+  },
+  "style": {
+    "fontFamily": "'Montserrat', sans-serif",
+    "colors": {
+      "background": "linear-gradient(135deg, #e74c3c 0%, #c0392b 100%)",
+      "text": "#ffffff",
+      "blockBackground": "rgba(255, 255, 255, 0.2)",
+      "blockBorder": "rgba(255, 255, 255, 0.3)",
+      "blockHover": "rgba(255, 255, 255, 0.3)",
+      "borderHover": "rgba(255, 255, 255, 0.5)"
+    },
+    "borderRadius": {
+      "widget": 18,
+      "blocks": 14
+    },
+    "sizes": {
+      "fontSize": 1.15,
+      "padding": 32,
+      "blockPadding": 18,
+      "gap": 16
+    },
+    "shadow": {
+      "widget": "0 18px 50px rgba(231, 76, 60, 0.3)",
+      "widgetHover": "0 25px 70px rgba(231, 76, 60, 0.5)",
+      "text": "0 2px 8px rgba(0,0,0,0.4)"
+    }
   }
 }

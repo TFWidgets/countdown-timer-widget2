@@ -11,6 +11,32 @@
       hours: "HOURS", 
       minutes: "MINUTES",
       seconds: "SECONDS"
+    },
+    style: {
+      fontFamily: "'Inter', system-ui, sans-serif",
+      colors: {
+        background: "linear-gradient(135deg, #C44536 0%, #D07C47 100%)",
+        text: "#ffffff",
+        blockBackground: "rgba(255, 255, 255, 0.22)",
+        blockBorder: "rgba(255, 255, 255, 0.35)",
+        blockHover: "rgba(255, 255, 255, 0.3)",
+        borderHover: "rgba(255, 255, 255, 0.55)"
+      },
+      borderRadius: {
+        widget: 16,
+        blocks: 12
+      },
+      sizes: {
+        fontSize: 1,
+        padding: 28,
+        blockPadding: 16,
+        gap: 15
+      },
+      shadow: {
+        widget: "0 16px 48px rgba(0,0,0,0.25)",
+        widgetHover: "0 24px 64px rgba(0,0,0,0.35)",
+        text: "0 2px 8px rgba(0,0,0,0.3)"
+      }
     }
   };
 
@@ -40,7 +66,15 @@
     const config = {
       ...defaultConfig,
       ...cfg,
-      labels: { ...defaultConfig.labels, ...(cfg?.labels || {}) }
+      labels: { ...defaultConfig.labels, ...(cfg?.labels || {}) },
+      style: {
+        ...defaultConfig.style,
+        ...(cfg?.style || {}),
+        colors: { ...defaultConfig.style.colors, ...(cfg?.style?.colors || {}) },
+        borderRadius: { ...defaultConfig.style.borderRadius, ...(cfg?.style?.borderRadius || {}) },
+        sizes: { ...defaultConfig.style.sizes, ...(cfg?.style?.sizes || {}) },
+        shadow: { ...defaultConfig.style.shadow, ...(cfg?.style?.shadow || {}) }
+      }
     };
 
     const configId = normalizeId(host.dataset.id || 'demo');
@@ -48,11 +82,15 @@
     const wrap = document.createElement('div');
     wrap.className = `ctw-container ${uniqueClass}`;
 
+    // Применяем настройки стиля
+    const s = config.style;
+    const fontSize = s.sizes.fontSize;
+    
     wrap.innerHTML = `
       <style>
         .${uniqueClass} {
-          font-family: 'Inter', system-ui, sans-serif;
-          max-width: 380px;
+          font-family: ${s.fontFamily};
+          max-width: ${380 * fontSize}px;
           margin: 20px auto;
           width: 100%;
         }
@@ -61,11 +99,11 @@
           background: 
             radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
             radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-            linear-gradient(135deg, #C44536 0%, #D07C47 100%);
-          border-radius: 16px;
-          padding: 28px;
-          color: white;
-          box-shadow: 0 16px 48px rgba(0,0,0,0.25);
+            ${s.colors.background};
+          border-radius: ${s.borderRadius.widget}px;
+          padding: ${s.sizes.padding}px;
+          color: ${s.colors.text};
+          box-shadow: ${s.shadow.widget};
           position: relative;
           overflow: hidden;
           transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -82,48 +120,50 @@
         
         .${uniqueClass} .ctw-widget:hover {
           transform: translateY(-3px);
-          box-shadow: 0 24px 64px rgba(0,0,0,0.35);
+          box-shadow: ${s.shadow.widgetHover};
         }
         
         .${uniqueClass} .ctw-countdown {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          gap: 15px;
-          margin: 20px 0;
+          gap: ${s.sizes.gap}px;
+          margin: ${20 * fontSize}px 0;
           position: relative;
           z-index: 1;
         }
         
         .${uniqueClass} .ctw-time-block {
-          background: rgba(255, 255, 255, 0.22);
-          border: 2px solid rgba(255, 255, 255, 0.35);
-          border-radius: 12px;
-          padding: 16px 8px;
+          background: ${s.colors.blockBackground};
+          border: 2px solid ${s.colors.blockBorder};
+          border-radius: ${s.borderRadius.blocks}px;
+          padding: ${s.sizes.blockPadding}px ${s.sizes.blockPadding * 0.5}px;
           backdrop-filter: blur(12px);
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         
         .${uniqueClass} .ctw-time-block:hover {
-          background: rgba(255, 255, 255, 0.3);
-          border-color: rgba(255, 255, 255, 0.55);
+          background: ${s.colors.blockHover};
+          border-color: ${s.colors.borderHover};
           transform: translateY(-2px) scale(1.02);
         }
         
         .${uniqueClass} .ctw-time-value {
-          font-size: 1.8em;
+          font-size: ${1.8 * fontSize}em;
           font-weight: 700;
           font-family: 'JetBrains Mono', 'SF Mono', monospace;
           letter-spacing: 0.6px;
-          text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+          text-shadow: ${s.shadow.text};
           margin-bottom: 4px;
+          color: ${s.colors.text};
         }
         
         .${uniqueClass} .ctw-time-label {
-          font-size: 0.7em;
+          font-size: ${0.7 * fontSize}em;
           font-weight: 600;
           opacity: 0.9;
           text-transform: uppercase;
           letter-spacing: 1px;
+          color: ${s.colors.text};
         }
         
         @media (max-width: 480px) {
@@ -133,20 +173,20 @@
           }
           
           .${uniqueClass} .ctw-widget {
-            padding: 22px;
+            padding: ${s.sizes.padding * 0.8}px;
           }
           
           .${uniqueClass} .ctw-countdown {
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: ${s.sizes.gap * 0.8}px;
           }
           
           .${uniqueClass} .ctw-time-value {
-            font-size: 1.5em;
+            font-size: ${1.5 * fontSize}em;
           }
           
           .${uniqueClass} .ctw-time-label {
-            font-size: 0.65em;
+            font-size: ${0.65 * fontSize}em;
           }
         }
       </style>
