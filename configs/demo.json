@@ -8,6 +8,7 @@
   },
   "style": {
     "fontFamily": "'Inter', system-ui, sans-serif",
+    "valueFontFamily": "'JetBrains Mono', 'SF Mono', monospace",
     "colors": {
       "background": "linear-gradient(135deg, #C44536 0%, #D07C47 100%)",
       "text": "#ffffff",
@@ -27,8 +28,8 @@
       "gap": 15
     },
     "shadow": {
-      "widget": "0 16px 48px rgba(0,0,0,0.25)",
-      "widgetHover": "0 24px 64px rgba(0,0,0,0.35)",
+      "widget": "0 16px 48px rgba(196,69,54,0.25)",
+      "widgetHover": "0 24px 64px rgba(196,69,54,0.35)",
       "text": "0 2px 8px rgba(0,0,0,0.3)"
     }
   }
