@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    // Базовые CSS стили с CSS-переменными для полной кастомизации
+    // Базовые CSS стили с CSS-переменными
     const inlineCSS = `
         .ctw-container {
             font-family: var(--ctw-font, 'Inter', system-ui, sans-serif);
@@ -9,7 +9,6 @@
             margin: var(--ctw-margin, 20px auto);
             width: 100%;
         }
-        
         .ctw-widget {
             background: var(--ctw-bg, linear-gradient(135deg, #C44536 0%, #D07C47 100%));
             border-radius: var(--ctw-widget-radius, 16px);
@@ -21,7 +20,6 @@
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
         }
-        
         .ctw-widget::before {
             content: '';
             position: absolute;
@@ -32,12 +30,10 @@
             );
             pointer-events: none;
         }
-        
         .ctw-widget:hover {
             transform: translateY(-3px);
             box-shadow: var(--ctw-shadow-hover, 0 24px 64px rgba(0,0,0,0.35));
         }
-        
         .ctw-countdown {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -46,7 +42,6 @@
             position: relative;
             z-index: 1;
         }
-        
         .ctw-time-block {
             background: var(--ctw-block-bg, rgba(255, 255, 255, 0.22));
             border: var(--ctw-block-border, 2px solid rgba(255, 255, 255, 0.35));
@@ -55,13 +50,11 @@
             backdrop-filter: blur(12px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
         .ctw-time-block:hover {
             background: var(--ctw-block-bg-hover, rgba(255, 255, 255, 0.3));
             border-color: var(--ctw-block-border-hover, rgba(255, 255, 255, 0.55));
             transform: translateY(-2px) scale(1.02);
         }
-        
         .ctw-time-value {
             font-size: var(--ctw-value-size, 1.8em);
             font-weight: var(--ctw-value-weight, 700);
@@ -71,7 +64,6 @@
             margin-bottom: 4px;
             color: var(--ctw-value-color, inherit);
         }
-        
         .ctw-time-label {
             font-size: var(--ctw-label-size, 0.7em);
             font-weight: var(--ctw-label-weight, 600);
@@ -80,54 +72,15 @@
             letter-spacing: var(--ctw-label-spacing, 1px);
             color: var(--ctw-label-color, inherit);
         }
-        
-        .ctw-loading {
-            text-align: center;
-            padding: var(--ctw-loading-padding, 40px);
-            color: var(--ctw-loading-color, white);
-        }
-        
-        .ctw-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-top: 3px solid white;
-            border-radius: 50%;
-            animation: ctw-spin 1s linear infinite;
-            margin: 0 auto 15px;
-        }
-        
-        .ctw-error {
-            background: var(--ctw-error-bg, linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%));
-            padding: var(--ctw-error-padding, 30px);
-            border-radius: var(--ctw-error-radius, 16px);
-            color: var(--ctw-error-text, white);
-            text-align: center;
-        }
-        
-        @keyframes ctw-spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
+        .ctw-loading { text-align: center; padding: 40px; color: white; }
+        .ctw-spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.3); border-top: 3px solid white; border-radius: 50%; animation: ctw-spin 1s linear infinite; margin: 0 auto 15px; }
+        @keyframes ctw-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @media (max-width: 480px) {
-            .ctw-container { 
-                max-width: calc(100vw - 32px); 
-                margin: var(--ctw-margin-mobile, 16px auto); 
-            }
-            .ctw-widget { 
-                padding: var(--ctw-padding-mobile, 20px); 
-            }
-            .ctw-countdown { 
-                grid-template-columns: repeat(2, 1fr); 
-                gap: var(--ctw-gap-mobile, 12px); 
-            }
-            .ctw-time-value { 
-                font-size: var(--ctw-value-size-mobile, 1.5em); 
-            }
-            .ctw-time-label { 
-                font-size: var(--ctw-label-size-mobile, 0.65em); 
-            }
+            .ctw-container { max-width: calc(100vw - 32px); margin: 16px auto; }
+            .ctw-widget { padding: var(--ctw-padding-mobile, 20px); }
+            .ctw-countdown { grid-template-columns: repeat(2, 1fr); gap: var(--ctw-gap-mobile, 12px); }
+            .ctw-time-value { font-size: var(--ctw-value-size-mobile, 1.5em); }
+            .ctw-time-label { font-size: var(--ctw-label-size-mobile, 0.65em); }
         }
     `;
 
@@ -143,16 +96,15 @@
             return;
         }
 
-        // Нормализуем ID
         clientId = normalizeId(clientId);
 
         // Защита от повторного выполнения
         if (currentScript.dataset.ctwMounted === '1') return;
         currentScript.dataset.ctwMounted = '1';
 
-        console.log(`[CountdownTimerWidget] Инициализация виджета "${clientId}"`);
+        console.log(`[CountdownTimerWidget] 🚀 Инициализация виджета "${clientId}"`);
 
-        // Добавляем базовые стили один раз
+        // Добавляем базовые стили один раз в head
         if (!document.querySelector('#countdown-timer-widget-styles')) {
             const style = document.createElement('style');
             style.id = 'countdown-timer-widget-styles';
@@ -160,32 +112,33 @@
             document.head.appendChild(style);
         }
 
-        // Определяем baseUrl
         const baseUrl = getBasePath(currentScript.src);
-
-        // Создаем контейнер с уникальным классом
         const uniqueClass = `ctw-${clientId}-${Date.now()}`;
         const container = createContainer(currentScript, clientId, uniqueClass);
         
-        // Показываем загрузку
         showLoading(container);
 
-        // Загружаем конфигурацию и создаем виджет
+        // Загружаем конфигурацию
         loadConfig(clientId, baseUrl)
-            .then(config => {
-                applyCustomStyles(container, config, uniqueClass);
-                createCountdownWidget(container, config);
+            .then(fetchedConfig => {
+                // ВАЖНО: Глубокое слияние с дефолтным конфигом
+                const finalConfig = mergeDeep(getDefaultConfig(), fetchedConfig);
+                console.log(`[CountdownTimerWidget] 📋 Финальный конфиг для "${clientId}":`, finalConfig);
+                
+                // Применяем стили в head, а не в контейнер
+                applyCustomStyles(uniqueClass, finalConfig.style);
+                createCountdownWidget(container, finalConfig);
                 console.log(`[CountdownTimerWidget] ✅ Виджет "${clientId}" успешно создан`);
             })
             .catch(error => {
-                console.warn(`[CountdownTimerWidget] ⚠️ Используем дефолтный конфиг для "${clientId}":`, error.message);
+                console.warn(`[CountdownTimerWidget] ⚠️ Ошибка загрузки "${clientId}":`, error.message);
                 const defaultConfig = getDefaultConfig();
-                applyCustomStyles(container, defaultConfig, uniqueClass);
+                applyCustomStyles(uniqueClass, defaultConfig.style);
                 createCountdownWidget(container, defaultConfig);
             });
 
     } catch (error) {
-        console.error('[CountdownTimerWidget] Критическая ошибка:', error);
+        console.error('[CountdownTimerWidget] 💥 Критическая ошибка:', error);
     }
 
     function normalizeId(id) {
@@ -198,7 +151,6 @@
             const url = new URL(src, location.href);
             return url.origin + url.pathname.replace(/\/[^\/]*$/, '/');
         } catch (error) {
-            console.warn('[CountdownTimerWidget] Ошибка определения базового пути:', error);
             return './';
         }
     }
@@ -233,6 +185,7 @@
             },
             style: {
                 fontFamily: "'Inter', system-ui, sans-serif",
+                valueFontFamily: "'JetBrains Mono', 'SF Mono', monospace",
                 colors: {
                     background: "linear-gradient(135deg, #C44536 0%, #D07C47 100%)",
                     text: "#ffffff",
@@ -252,7 +205,29 @@
         };
     }
 
-    // Загрузка конфигурации
+    // КЛЮЧЕВАЯ ФУНКЦИЯ: Глубокое слияние конфигов
+    function mergeDeep(base, override) {
+        const result = { ...base, ...override };
+
+        // Сливаем объекты первого уровня
+        for (const key of ['labels', 'style']) {
+            if (base[key] && typeof base[key] === 'object' && !Array.isArray(base[key])) {
+                result[key] = { ...(base[key] || {}), ...(override[key] || {}) };
+            }
+        }
+
+        // Сливаем объекты второго уровня в style
+        if (result.style) {
+            for (const subKey of ['colors', 'borderRadius', 'sizes', 'shadow']) {
+                if (base.style[subKey] && typeof base.style[subKey] === 'object' && !Array.isArray(base.style[subKey])) {
+                    result.style[subKey] = { ...(base.style[subKey] || {}), ...(override.style?.[subKey] || {}) };
+                }
+            }
+        }
+        
+        return result;
+    }
+
     async function loadConfig(clientId, baseUrl) {
         // Локальный конфиг для разработки
         if (clientId === 'local') {
@@ -261,15 +236,17 @@
                 throw new Error('Локальный конфиг не найден (#ctw-local-config)');
             }
             try {
-                return JSON.parse(localScript.textContent);
+                const config = JSON.parse(localScript.textContent);
+                console.log(`[CountdownTimerWidget] 📄 Локальный конфиг загружен:`, config);
+                return config;
             } catch (err) {
-                throw new Error('Ошибка парсинга локального конфига: ' + err.message);
+                throw new Error('Ошибка парсинга локального JSON: ' + err.message);
             }
         }
 
         // Загрузка с сервера
         const configUrl = `${baseUrl}configs/${encodeURIComponent(clientId)}.json?v=${Date.now()}`;
-        console.log(`[CountdownTimerWidget] Загружаем конфиг: ${configUrl}`);
+        console.log(`[CountdownTimerWidget] 🌐 Загружаем конфиг: ${configUrl}`);
         
         const response = await fetch(configUrl, { 
             cache: 'no-store',
@@ -281,31 +258,36 @@
         }
         
         const config = await response.json();
-        console.log(`[CountdownTimerWidget] ✅ Конфиг загружен:`, config);
+        console.log(`[CountdownTimerWidget] ✅ Серверный конфиг загружен:`, config);
         return config;
     }
 
-    // Применение кастомных стилей через CSS-переменные
-    function applyCustomStyles(container, config, uniqueClass) {
-        const s = config.style || {};
-        const fs = s.sizes?.fontSize || 1;
+    // ВАЖНО: Стили теперь применяются в head, а не в контейнер
+    function applyCustomStyles(uniqueClass, style) {
+        const styleId = `ctw-style-${uniqueClass}`;
+        let styleElement = document.getElementById(styleId);
         
-        const styleElement = document.createElement('style');
-        styleElement.textContent = generateUniqueStyles(uniqueClass, s, fs);
-        container.appendChild(styleElement);
+        if (!styleElement) {
+            styleElement = document.createElement('style');
+            styleElement.id = styleId;
+            document.head.appendChild(styleElement);
+        }
+        
+        styleElement.textContent = generateUniqueStyles(uniqueClass, style);
     }
 
-    function generateUniqueStyles(uniqueClass, style, fontSize) {
+    function generateUniqueStyles(uniqueClass, style) {
         const s = style;
         const colors = s.colors || {};
         const sizes = s.sizes || {};
         const borderRadius = s.borderRadius || {};
         const shadow = s.shadow || {};
+        const fs = sizes.fontSize || 1;
 
         return `
             .${uniqueClass} {
                 --ctw-font: ${s.fontFamily || "'Inter', system-ui, sans-serif"};
-                --ctw-max-width: ${Math.round(380 * fontSize)}px;
+                --ctw-max-width: ${Math.round(380 * fs)}px;
                 --ctw-bg: ${colors.background || "linear-gradient(135deg, #C44536 0%, #D07C47 100%)"};
                 --ctw-widget-radius: ${borderRadius.widget || 16}px;
                 --ctw-padding: ${sizes.padding || 28}px;
@@ -315,17 +297,17 @@
                 --ctw-shadow-hover: ${shadow.widgetHover || "0 24px 64px rgba(0,0,0,0.35)"};
                 --ctw-gap: ${sizes.gap || 15}px;
                 --ctw-gap-mobile: ${Math.round((sizes.gap || 15) * 0.8)}px;
-                --ctw-countdown-margin: ${Math.round(20 * fontSize)}px 0;
+                --ctw-countdown-margin: ${Math.round(20 * fs)}px 0;
                 --ctw-block-bg: ${colors.blockBackground || "rgba(255, 255, 255, 0.22)"};
                 --ctw-block-border: 2px solid ${colors.blockBorder || "rgba(255, 255, 255, 0.35)"};
                 --ctw-block-radius: ${borderRadius.blocks || 12}px;
                 --ctw-block-padding: ${sizes.blockPadding || 16}px ${Math.round((sizes.blockPadding || 16) * 0.5)}px;
                 --ctw-block-bg-hover: ${colors.blockHover || "rgba(255, 255, 255, 0.3)"};
                 --ctw-block-border-hover: ${colors.borderHover || "rgba(255, 255, 255, 0.55)"};
-                --ctw-value-size: ${1.8 * fontSize}em;
-                --ctw-value-size-mobile: ${1.5 * fontSize}em;
-                --ctw-label-size: ${0.7 * fontSize}em;
-                --ctw-label-size-mobile: ${0.65 * fontSize}em;
+                --ctw-value-size: ${1.8 * fs}em;
+                --ctw-value-size-mobile: ${1.5 * fs}em;
+                --ctw-label-size: ${0.7 * fs}em;
+                --ctw-label-size-mobile: ${0.65 * fs}em;
                 --ctw-text-shadow: ${shadow.text || "0 2px 8px rgba(0,0,0,0.3)"};
                 --ctw-value-font: ${s.valueFontFamily || "'JetBrains Mono', 'SF Mono', monospace"};
             }
@@ -333,32 +315,31 @@
     }
 
     function createCountdownWidget(container, config) {
-        const labels = config.labels || {};
-
+        const labels = config.labels;
+        
         container.innerHTML = `
             <div class="ctw-widget">
                 <div class="ctw-countdown">
                     <div class="ctw-time-block">
                         <div class="ctw-time-value" data-unit="days">00</div>
-                        <div class="ctw-time-label">${escapeHtml(labels.days || 'DAYS')}</div>
+                        <div class="ctw-time-label">${escapeHtml(labels.days)}</div>
                     </div>
                     <div class="ctw-time-block">
                         <div class="ctw-time-value" data-unit="hours">00</div>
-                        <div class="ctw-time-label">${escapeHtml(labels.hours || 'HOURS')}</div>
+                        <div class="ctw-time-label">${escapeHtml(labels.hours)}</div>
                     </div>
                     <div class="ctw-time-block">
                         <div class="ctw-time-value" data-unit="minutes">00</div>
-                        <div class="ctw-time-label">${escapeHtml(labels.minutes || 'MINUTES')}</div>
+                        <div class="ctw-time-label">${escapeHtml(labels.minutes)}</div>
                     </div>
                     <div class="ctw-time-block">
                         <div class="ctw-time-value" data-unit="seconds">00</div>
-                        <div class="ctw-time-label">${escapeHtml(labels.seconds || 'SECONDS')}</div>
+                        <div class="ctw-time-label">${escapeHtml(labels.seconds)}</div>
                     </div>
                 </div>
             </div>
         `;
 
-        // Запуск таймера
         startCountdown(container, config.endDate);
     }
 
@@ -385,15 +366,15 @@
             const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-            const daysEl = container.querySelector('[data-unit="days"]');
-            const hoursEl = container.querySelector('[data-unit="hours"]');
-            const minutesEl = container.querySelector('[data-unit="minutes"]');
-            const secondsEl = container.querySelector('[data-unit="seconds"]');
+            const setValue = (unit, value) => {
+                const el = container.querySelector(`[data-unit="${unit}"]`);
+                if (el) el.textContent = String(value).padStart(2, '0');
+            };
 
-            if (daysEl) daysEl.textContent = String(days).padStart(2, '0');
-            if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
-            if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
-            if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
+            setValue('days', days);
+            setValue('hours', hours);
+            setValue('minutes', minutes);
+            setValue('seconds', seconds);
         }
 
         updateCountdown();
