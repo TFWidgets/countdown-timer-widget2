@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Working Dark Mode Example</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 40px;
+            background: #111;
+            color: #fff;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .info-box {
+            background: rgba(0, 255, 0, 0.1);
+            border: 2px solid rgba(0, 255, 0, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .code-box {
+            background: #222;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: monospace;
+            text-align: left;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌚 Working Dark Mode Example</h1>
+        
+        <div class="info-box">
+            <h3>✅ Это РАБОТАЮЩИЙ пример с локальной конфигурацией</h3>
+            <p>Используется встроенная конфигурация dark-mode стиля</p>
+        </div>
+        
+        <!-- Локальная конфигурация dark-mode -->
+        <script type="application/json" id="ctw-local-config">
+        {
+            "endDate": "2024-12-01T00:00:00",
+            "labels": {
+                "days": "ДНЕЙ",
+                "hours": "ЧАСОВ",
+                "minutes": "МИНУТ",
+                "seconds": "СЕКУНД"
+            },
+            "style": {
+                "fontFamily": "'JetBrains Mono', monospace",
+                "colors": {
+                    "background": "linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)",
+                    "text": "#00ff00",
+                    "blockBackground": "rgba(0, 255, 0, 0.1)",
+                    "blockBorder": "rgba(0, 255, 0, 0.3)",
+                    "blockHover": "rgba(0, 255, 0, 0.2)",
+                    "borderHover": "rgba(0, 255, 0, 0.5)"
+                },
+                "borderRadius": {
+                    "widget": 8,
+                    "blocks": 6
+                },
+                "sizes": {
+                    "fontSize": 0.9,
+                    "padding": 25,
+                    "blockPadding": 12,
+                    "gap": 12
+                },
+                "shadow": {
+                    "widget": "0 10px 30px rgba(0, 255, 0, 0.2)",
+                    "widgetHover": "0 15px 40px rgba(0, 255, 0, 0.3)",
+                    "text": "0 0 10px rgba(0, 255, 0, 0.5)"
+                }
+            }
+        }
+        </script>
+
+        <!-- Виджет с локальной конфигурацией -->
+        <script src="./embed.js" data-id="local"></script>
+        
+        <div class="info-box">
+            <h3>📋 Код для копирования:</h3>
+            <p>Скопируй этот код и сохрани как HTML файл на своем компьютере:</p>
+        </div>
+        
+        <div class="code-box">
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Dark Mode Countdown&lt;/title&gt;
+    &lt;style&gt;
+        body { 
+            background: #111; 
+            color: #fff; 
+            font-family: monospace; 
+            text-align: center; 
+            padding: 50px; 
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;🌚 Dark Mode Countdown&lt;/h1&gt;
+    
+    &lt;!-- Локальная конфигурация --&gt;
+    &lt;script type="application/json" id="ctw-local-config"&gt;
+    {
+        "endDate": "2024-12-01T00:00:00",
+        "labels": {
+            "days": "ДНЕЙ",
+            "hours": "ЧАСОВ", 
+            "minutes": "МИНУТ",
+            "seconds": "СЕКУНД"
+        },
+        "style": {
+            "fontFamily": "'JetBrains Mono', monospace",
+            "colors": {
+                "background": "linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%)",
+                "text": "#00ff00",
+                "blockBackground": "rgba(0, 255, 0, 0.1)",
+                "blockBorder": "rgba(0, 255, 0, 0.3)",
+                "blockHover": "rgba(0, 255, 0, 0.2)",
+                "borderHover": "rgba(0, 255, 0, 0.5)"
+            },
+            "borderRadius": {
+                "widget": 8,
+                "blocks": 6
+            },
+            "sizes": {
+                "fontSize": 0.9,
+                "padding": 25,
+                "blockPadding": 12,
+                "gap": 12
+            },
+            "shadow": {
+                "widget": "0 10px 30px rgba(0, 255, 0, 0.2)",
+                "widgetHover": "0 15px 40px rgba(0, 255, 0, 0.3)",
+                "text": "0 0 10px rgba(0, 255, 0, 0.5)"
+            }
+        }
+    }
+    &lt;/script&gt;
+    
+    &lt;!-- Скачай embed.js и положи рядом с HTML файлом --&gt;
+    &lt;script src="./embed.js" data-id="local"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+        </div>
+        
+        <div class="info-box">
+            <h3>📥 Инструкция:</h3>
+            <p>1. Скачай embed.js с GitHub: <br>
+            <strong>https://raw.githubusercontent.com/TFWidgets/countdown-timer-widget2/main/embed.js</strong></p>
+            <p>2. Положи embed.js рядом с HTML файлом</p>
+            <p>3. Открой HTML - получишь темный дизайн!</p>
+        </div>
+    </div>
+</body>
+</html>

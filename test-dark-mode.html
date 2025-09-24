@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dark Mode Test</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 40px;
+            background: #111;
+            color: #fff;
+        }
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .section {
+            background: rgba(255,255,255,0.05);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .section h2 {
+            margin-top: 0;
+            color: #ff6b6b;
+        }
+        .old-version {
+            border: 2px solid #ff6b6b;
+        }
+        .new-version {
+            border: 2px solid #51cf66;
+        }
+        .code-box {
+            background: #222;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 12px;
+            text-align: left;
+            overflow-x: auto;
+        }
+        .highlight {
+            background: #333;
+            color: #00ff00;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center; margin-bottom: 40px;">🕐 Dark Mode Style Comparison</h1>
+    
+    <div class="comparison">
+        <!-- Старая версия -->
+        <div class="section old-version">
+            <h2>❌ Старая версия (countdown.tf-widgets.com)</h2>
+            <p>Загружает данные, но <strong>игнорирует стили</strong> из dark-mode.json</p>
+            
+            <div class="code-box">
+&lt;script src="<span class="highlight">https://countdown.tf-widgets.com/embed.js</span>" 
+        data-id="dark-mode"&gt;&lt;/script&gt;
+            </div>
+            
+            <script src="https://countdown.tf-widgets.com/embed.js" data-id="dark-mode"></script>
+            
+            <p style="color: #ff6b6b; margin-top: 20px;">
+                ↑ Видишь? Оранжевый дизайн, хотя указан dark-mode
+            </p>
+        </div>
+        
+        <!-- Новая версия -->
+        <div class="section new-version">
+            <h2>✅ Новая версия (GitHub CDN)</h2>
+            <p>Поддерживает <strong>продвинутые стили</strong> с полной кастомизацией</p>
+            
+            <div class="code-box">
+&lt;script src="<span class="highlight">https://cdn.jsdelivr.net/gh/TFWidgets/countdown-timer-widget2@main/embed.js</span>" 
+        data-id="dark-mode"&gt;&lt;/script&gt;
+            </div>
+            
+            <script src="https://cdn.jsdelivr.net/gh/TFWidgets/countdown-timer-widget2@main/embed.js" data-id="dark-mode"></script>
+            
+            <p style="color: #51cf66; margin-top: 20px;">
+                ↑ Темный дизайн с зеленым свечением!
+            </p>
+        </div>
+    </div>
+    
+    <div style="text-align: center; margin-top: 50px; padding: 30px; background: rgba(255,255,255,0.05); border-radius: 15px;">
+        <h3>🔧 Решение</h3>
+        <p>Замени URL в своем HTML на новую версию с GitHub:</p>
+        <div class="code-box" style="max-width: 600px; margin: 20px auto;">
+<span style="color: #ff6b6b;">// СТАРЫЙ URL (без стилей)</span>
+https://countdown.tf-widgets.com/embed.js
+
+<span style="color: #51cf66;">// НОВЫЙ URL (с продвинутыми стилями)</span>
+https://cdn.jsdelivr.net/gh/TFWidgets/countdown-timer-widget2@main/embed.js
+        </div>
+    </div>
+</body>
+</html>
