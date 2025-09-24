@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎨 Countdown Timer Widget - Advanced Styling Demo</title>
+    <title>🎨 Countdown Timer Widget - Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono:wght@700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', system-ui, sans-serif;
@@ -11,12 +12,12 @@
             padding: 40px 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            color: #ffffff;
         }
         
         .header {
             text-align: center;
             margin-bottom: 60px;
-            color: white;
         }
         
         .header h1 {
@@ -27,17 +28,11 @@
             text-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         
-        .header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-            margin: 0;
-        }
-        
         .demo-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 30px;
-            max-width: 1400px;
+            max-width: 1000px;
             margin: 0 auto;
         }
         
@@ -46,17 +41,13 @@
             padding: 30px;
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-            backdrop-filter: blur(10px);
+            color: #1a202c;
         }
         
         .demo-section h2 {
             margin: 0 0 20px 0;
-            color: #1a202c;
             font-size: 1.4em;
             font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
         
         .style-info {
@@ -67,13 +58,6 @@
             margin-bottom: 20px;
             font-size: 12px;
             color: #4a5568;
-        }
-        
-        .style-info strong {
-            color: #2d3748;
-            display: block;
-            margin-bottom: 5px;
-            font-size: 13px;
         }
         
         .code-example {
@@ -104,70 +88,25 @@
             border: 1px solid rgba(255,255,255,0.2);
         }
         
-        .copy-hint {
-            font-size: 10px;
-            color: #718096;
-            text-align: center;
-            margin-top: 8px;
-            opacity: 0.7;
-        }
-        
-        .config-schema {
-            max-width: 1200px;
-            margin: 60px auto 0 auto;
-            background: rgba(255,255,255,0.95);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        }
-        
-        .config-schema h2 {
-            color: #1a202c;
-            font-size: 2em;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .config-schema pre {
-            background: #2d3748;
-            color: #e2e8f0;
-            padding: 25px;
-            border-radius: 12px;
-            overflow-x: auto;
-            font-size: 13px;
-            line-height: 1.6;
-        }
-        
         @media (max-width: 768px) {
-            .demo-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .demo-section {
-                padding: 20px;
-            }
-            
-            .header h1 {
-                font-size: 2.4em;
-            }
+            .demo-grid { grid-template-columns: 1fr; gap: 20px; }
+            .demo-section { padding: 20px; }
+            .header h1 { font-size: 2.4em; }
         }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>🎨 Countdown Timer Widget</h1>
-        <p>Продвинутая система стилизации - меняй цвета, шрифты, размеры, тени!</p>
+        <p>Адаптивная система стилизации через JSON конфиги</p>
     </div>
 
     <div class="demo-grid">
-        <!-- Default Orange Style -->
         <div class="demo-section">
-            <h2>🟠 Default Orange (demo)</h2>
+            <h2>🟠 Demo (Orange Style)</h2>
             
             <div class="style-info">
-                <strong>Style Features:</strong>
-                Orange gradient, Inter font, medium size
+                <strong>Features:</strong> Orange gradient, Inter font, стандартный размер
             </div>
             
             <div class="code-example" onclick="copyCode(this)">
@@ -175,19 +114,15 @@
             </div>
             
             <div class="widget-container">
-                <script src="./embed.js?v=200" data-id="demo"></script>
+                <script src="./embed.js" data-id="demo"></script>
             </div>
-            
-            <div class="copy-hint">👆 Click to copy</div>
         </div>
 
-        <!-- Client123 Red Style -->
         <div class="demo-section">
-            <h2>🔴 Client123 Red Style</h2>
+            <h2>🔴 Client123 (Red Style)</h2>
             
             <div class="style-info">
-                <strong>Style Features:</strong>
-                Red gradient, Montserrat font, larger size, custom shadows
+                <strong>Features:</strong> Red gradient, Montserrat font, увеличенный размер, русские лейблы
             </div>
             
             <div class="code-example" onclick="copyCode(this)">
@@ -195,138 +130,15 @@
             </div>
             
             <div class="widget-container">
-                <script src="./embed.js?v=200" data-id="client123"></script>
+                <script src="./embed.js" data-id="client123"></script>
             </div>
-            
-            <div class="copy-hint">👆 Click to copy</div>
         </div>
-
-        <!-- Blue Style -->
-        <div class="demo-section">
-            <h2>🔵 Blue Purple Style</h2>
-            
-            <div class="style-info">
-                <strong>Style Features:</strong>
-                Blue-purple gradient, Roboto font, larger padding, blue shadows
-            </div>
-            
-            <div class="code-example" onclick="copyCode(this)">
-&lt;script src="<span class="embed-url">LOADING...</span>/embed.js" data-id="blue-style"&gt;&lt;/script&gt;
-            </div>
-            
-            <div class="widget-container">
-                <script src="./embed.js?v=200" data-id="blue-style"></script>
-            </div>
-            
-            <div class="copy-hint">👆 Click to copy</div>
-        </div>
-
-        <!-- Dark Hacker Style -->
-        <div class="demo-section">
-            <h2>⚫ Dark Hacker Mode</h2>
-            
-            <div class="style-info">
-                <strong>Style Features:</strong>
-                Dark background, green text, JetBrains Mono, minimal borders, glow effect
-            </div>
-            
-            <div class="code-example" onclick="copyCode(this)">
-&lt;script src="<span class="embed-url">LOADING...</span>/embed.js" data-id="dark-mode"&gt;&lt;/script&gt;
-            </div>
-            
-            <div class="widget-container">
-                <script src="./embed.js?v=200" data-id="dark-mode"></script>
-            </div>
-            
-            <div class="copy-hint">👆 Click to copy</div>
-        </div>
-
-        <!-- Pink Valentine Style -->
-        <div class="demo-section">
-            <h2>💖 Pink Valentine Style</h2>
-            
-            <div class="style-info">
-                <strong>Style Features:</strong>
-                Pink gradient, Poppins font, large size, romantic theme
-            </div>
-            
-            <div class="code-example" onclick="copyCode(this)">
-&lt;script src="<span class="embed-url">LOADING...</span>/embed.js" data-id="pink-style"&gt;&lt;/script&gt;
-            </div>
-            
-            <div class="widget-container">
-                <script src="./embed.js?v=200" data-id="pink-style"></script>
-            </div>
-            
-            <div class="copy-hint">👆 Click to copy</div>
-        </div>
-
-        <!-- Minimal Clean Style -->
-        <div class="demo-section">
-            <h2>⚪ Minimal Clean</h2>
-            
-            <div class="style-info">
-                <strong>Style Features:</strong>
-                Light colors, Arial font, small size, no shadows, single letter labels
-            </div>
-            
-            <div class="code-example" onclick="copyCode(this)">
-&lt;script src="<span class="embed-url">LOADING...</span>/embed.js" data-id="minimal"&gt;&lt;/script&gt;
-            </div>
-            
-            <div class="widget-container">
-                <script src="./embed.js?v=200" data-id="minimal"></script>
-            </div>
-            
-            <div class="copy-hint">👆 Click to copy</div>
-        </div>
-    </div>
-
-    <!-- Configuration Schema -->
-    <div class="config-schema">
-        <h2>📋 Configuration Schema</h2>
-        <pre>{
-  "endDate": "2025-12-31T23:59:59",
-  "labels": {
-    "days": "DAYS",
-    "hours": "HOURS",
-    "minutes": "MINUTES",
-    "seconds": "SECONDS"
-  },
-  "style": {
-    "fontFamily": "'Inter', system-ui, sans-serif",
-    "colors": {
-      "background": "linear-gradient(135deg, #C44536 0%, #D07C47 100%)",
-      "text": "#ffffff",
-      "blockBackground": "rgba(255, 255, 255, 0.22)",
-      "blockBorder": "rgba(255, 255, 255, 0.35)",
-      "blockHover": "rgba(255, 255, 255, 0.3)",
-      "borderHover": "rgba(255, 255, 255, 0.55)"
-    },
-    "borderRadius": {
-      "widget": 16,
-      "blocks": 12
-    },
-    "sizes": {
-      "fontSize": 1.0,          // Font size multiplier
-      "padding": 28,            // Widget padding in px
-      "blockPadding": 16,       // Time block padding in px
-      "gap": 15                 // Gap between blocks in px
-    },
-    "shadow": {
-      "widget": "0 16px 48px rgba(0,0,0,0.25)",
-      "widgetHover": "0 24px 64px rgba(0,0,0,0.35)",
-      "text": "0 2px 8px rgba(0,0,0,0.3)"
-    }
-  }
-}</pre>
     </div>
 
     <script>
-        // Автоматически подставляем текущий домен
+        // Подставляем текущий домен
         const currentDomain = window.location.origin;
-        const embedUrls = document.querySelectorAll('.embed-url');
-        embedUrls.forEach(span => {
+        document.querySelectorAll('.embed-url').forEach(span => {
             span.textContent = currentDomain;
         });
         
@@ -344,11 +156,8 @@
             });
         }
         
-        // Логируем информацию о всех виджетах
-        console.log('🎨 Advanced Countdown Timer Widget Demo');
-        console.log('📁 Available configs: demo, client123, blue-style, dark-mode, pink-style, minimal');
-        console.log('🌐 CDN: https://cdn.jsdelivr.net/gh/TFWidgets/countdown-timer-widget2@main/embed.js');
-        console.log('🎨 Style options: font, colors, borderRadius, sizes, shadows');
+        console.log('🎨 Countdown Timer Widget Demo');
+        console.log('📁 Available configs: demo, client123');
     </script>
 </body>
 </html>
