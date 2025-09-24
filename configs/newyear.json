@@ -1,0 +1,9 @@
+{
+  "endDate": "2025-01-01T00:00:00",
+  "labels": {
+    "days": "DAYS",
+    "hours": "HOURS",
+    "minutes": "MINUTES",
+    "seconds": "SECONDS"
+  }
+}
