@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer Widget - Local Test</title>
+    <style>
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: white;
+            text-align: center;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+        }
+        .demo-section {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+        .demo-title {
+            color: white;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🕐 Countdown Timer Widget</h1>
+        
+        <div class="demo-section">
+            <div class="demo-title">Local Configuration Test</div>
+            
+            <!-- Локальная конфигурация - ТОЧНО КАК В BUSINESS-HOURS -->
+            <script type="application/json" id="ctw-local-config">
+            {
+                "endDate": "2024-12-25T00:00:00",
+                "labels": {
+                    "days": "ДНИ",
+                    "hours": "ЧАСЫ",
+                    "minutes": "МИНУТЫ",
+                    "seconds": "СЕКУНДЫ"
+                }
+            }
+            </script>
+            
+            <!-- Виджет с data-id="local" -->
+            <script src="./embed.js" data-id="local"></script>
+        </div>
+        
+        <div class="demo-section">
+            <div class="demo-title">Default Configuration (Demo)</div>
+            
+            <!-- Виджет с дефолтной конфигурацией -->
+            <script src="./embed.js" data-id="demo"></script>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,28 +1,9 @@
 {
-  "phone": "+420123456789",
-  "displayPhone": "+420 123 456 789",
-  "icon": "🍕",
-  "title": "Order Pizza",
-  "subtitle": "Call now! Delivery in 30 minutes",
-  "infoText": "Business Hours: 10:00-23:00 daily",
-  "actions": [
-    {
-      "type": "whatsapp",
-      "text": "WhatsApp",
-      "icon": "💬",
-      "message": "Hi! I want to order pizza"
-    },
-    {
-      "type": "link",
-      "text": "Menu",
-      "icon": "📋",
-      "url": "https://pizzapalace.cz/menu"
-    }
-  ],
-  "theme": {
-    "backgroundColor": "linear-gradient(135deg, #25d366 0%, #128c7e 100%)",
-    "textColor": "white",
-    "borderRadius": 16
-  },
-  "fontFamily": "'Inter', sans-serif"
+  "endDate": "2025-12-31T23:59:59",
+  "labels": {
+    "days": "DAYS",
+    "hours": "HOURS",
+    "minutes": "MINUTES",
+    "seconds": "SECONDS"
+  }
 }
