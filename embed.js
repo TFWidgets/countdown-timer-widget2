@@ -121,11 +121,9 @@
         // Загружаем конфигурацию
         loadConfig(clientId, baseUrl)
             .then(fetchedConfig => {
-                // ВАЖНО: Глубокое слияние с дефолтным конфигом
                 const finalConfig = mergeDeep(getDefaultConfig(), fetchedConfig);
                 console.log(`[CountdownTimerWidget] 📋 Финальный конфиг для "${clientId}":`, finalConfig);
                 
-                // Применяем стили в head, а не в контейнер
                 applyCustomStyles(uniqueClass, finalConfig.style);
                 createCountdownWidget(container, finalConfig);
                 console.log(`[CountdownTimerWidget] ✅ Виджет "${clientId}" успешно создан`);
@@ -205,7 +203,6 @@
         };
     }
 
-    // КЛЮЧЕВАЯ ФУНКЦИЯ: Глубокое слияние конфигов
     function mergeDeep(base, override) {
         const result = { ...base, ...override };
 
@@ -262,7 +259,6 @@
         return config;
     }
 
-    // ВАЖНО: Стили теперь применяются в head, а не в контейнер
     function applyCustomStyles(uniqueClass, style) {
         const styleId = `ctw-style-${uniqueClass}`;
         let styleElement = document.getElementById(styleId);
