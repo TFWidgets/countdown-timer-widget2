@@ -10,7 +10,7 @@
     "fontFamily": "'Montserrat', system-ui, sans-serif",
     "colors": {
       "background": "linear-gradient(135deg, #DC2626 0%, #B91C1C 50%, #991B1B 100%)",
-      "text": "#ffffff",
+      "text": "#001011",
       "blockBackground": "rgba(255, 255, 255, 0.25)",
       "blockBorder": "rgba(255, 255, 255, 0.4)",
       "blockHover": "rgba(255, 255, 255, 0.35)",
