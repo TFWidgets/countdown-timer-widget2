@@ -3,84 +3,84 @@
 
     // Базовые CSS стили с CSS-переменными
     const inlineCSS = `
-        .ctw-container {
-            font-family: var(--ctw-font, 'Inter', system-ui, sans-serif);
-            max-width: var(--ctw-max-width, 380px);
-            margin: var(--ctw-margin, 20px auto);
+        .bhw-container {
+            font-family: var(--bhw-font, 'Inter', system-ui, sans-serif);
+            max-width: var(--bhw-max-width, 380px);
+            margin: var(--bhw-margin, 20px auto);
             width: 100%;
         }
-        .ctw-widget {
-            background: var(--ctw-bg, linear-gradient(135deg, #C44536 0%, #D07C47 100%));
-            border-radius: var(--ctw-widget-radius, 16px);
-            padding: var(--ctw-padding, 28px);
-            color: var(--ctw-text-color, #ffffff);
-            box-shadow: var(--ctw-shadow, 0 16px 48px rgba(0,0,0,0.25));
+        .bhw-widget {
+            background: var(--bhw-bg, linear-gradient(135deg, #C44536 0%, #D07C47 100%));
+            border-radius: var(--bhw-widget-radius, 16px);
+            padding: var(--bhw-padding, 28px);
+            color: var(--bhw-text-color, #ffffff);
+            box-shadow: var(--bhw-shadow, 0 16px 48px rgba(0,0,0,0.25));
             position: relative;
             overflow: hidden;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
         }
-        .ctw-widget::before {
+        .bhw-widget::before {
             content: '';
             position: absolute;
             inset: 0;
-            background: var(--ctw-overlay, 
+            background: var(--bhw-overlay, 
                 radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
                 radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 50%)
             );
             pointer-events: none;
         }
-        .ctw-widget:hover {
+        .bhw-widget:hover {
             transform: translateY(-3px);
-            box-shadow: var(--ctw-shadow-hover, 0 24px 64px rgba(0,0,0,0.35));
+            box-shadow: var(--bhw-shadow-hover, 0 24px 64px rgba(0,0,0,0.35));
         }
-        .ctw-countdown {
+        .bhw-countdown {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: var(--ctw-gap, 15px);
-            margin: var(--ctw-countdown-margin, 20px 0);
+            gap: var(--bhw-gap, 15px);
+            margin: var(--bhw-countdown-margin, 20px 0);
             position: relative;
             z-index: 1;
         }
-        .ctw-time-block {
-            background: var(--ctw-block-bg, rgba(255, 255, 255, 0.22));
-            border: var(--ctw-block-border, 2px solid rgba(255, 255, 255, 0.35));
-            border-radius: var(--ctw-block-radius, 12px);
-            padding: var(--ctw-block-padding, 16px 8px);
+        .bhw-time-block {
+            background: var(--bhw-block-bg, rgba(255, 255, 255, 0.22));
+            border: var(--bhw-block-border, 2px solid rgba(255, 255, 255, 0.35));
+            border-radius: var(--bhw-block-radius, 12px);
+            padding: var(--bhw-block-padding, 16px 8px);
             backdrop-filter: blur(12px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .ctw-time-block:hover {
-            background: var(--ctw-block-bg-hover, rgba(255, 255, 255, 0.3));
-            border-color: var(--ctw-block-border-hover, rgba(255, 255, 255, 0.55));
+        .bhw-time-block:hover {
+            background: var(--bhw-block-bg-hover, rgba(255, 255, 255, 0.3));
+            border-color: var(--bhw-block-border-hover, rgba(255, 255, 255, 0.55));
             transform: translateY(-2px) scale(1.02);
         }
-        .ctw-time-value {
-            font-size: var(--ctw-value-size, 1.8em);
-            font-weight: var(--ctw-value-weight, 700);
-            font-family: var(--ctw-value-font, 'JetBrains Mono', 'SF Mono', monospace);
-            letter-spacing: var(--ctw-value-spacing, 0.6px);
-            text-shadow: var(--ctw-text-shadow, 0 2px 8px rgba(0,0,0,0.3));
+        .bhw-time-value {
+            font-size: var(--bhw-value-size, 1.8em);
+            font-weight: var(--bhw-value-weight, 700);
+            font-family: var(--bhw-value-font, 'JetBrains Mono', 'SF Mono', monospace);
+            letter-spacing: var(--bhw-value-spacing, 0.6px);
+            text-shadow: var(--bhw-text-shadow, 0 2px 8px rgba(0,0,0,0.3));
             margin-bottom: 4px;
-            color: var(--ctw-value-color, inherit);
+            color: var(--bhw-value-color, inherit);
         }
-        .ctw-time-label {
-            font-size: var(--ctw-label-size, 0.7em);
-            font-weight: var(--ctw-label-weight, 600);
-            opacity: var(--ctw-label-opacity, 0.9);
+        .bhw-time-label {
+            font-size: var(--bhw-label-size, 0.7em);
+            font-weight: var(--bhw-label-weight, 600);
+            opacity: var(--bhw-label-opacity, 0.9);
             text-transform: uppercase;
-            letter-spacing: var(--ctw-label-spacing, 1px);
-            color: var(--ctw-label-color, inherit);
+            letter-spacing: var(--bhw-label-spacing, 1px);
+            color: var(--bhw-label-color, inherit);
         }
-        .ctw-loading { text-align: center; padding: 40px; color: white; }
-        .ctw-spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.3); border-top: 3px solid white; border-radius: 50%; animation: ctw-spin 1s linear infinite; margin: 0 auto 15px; }
-        @keyframes ctw-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .bhw-loading { text-align: center; padding: 40px; color: white; }
+        .bhw-spinner { width: 40px; height: 40px; border: 3px solid rgba(255,255,255,0.3); border-top: 3px solid white; border-radius: 50%; animation: bhw-spin 1s linear infinite; margin: 0 auto 15px; }
+        @keyframes bhw-spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         @media (max-width: 480px) {
-            .ctw-container { max-width: calc(100vw - 32px); margin: 16px auto; }
-            .ctw-widget { padding: var(--ctw-padding-mobile, 20px); }
-            .ctw-countdown { grid-template-columns: repeat(2, 1fr); gap: var(--ctw-gap-mobile, 12px); }
-            .ctw-time-value { font-size: var(--ctw-value-size-mobile, 1.5em); }
-            .ctw-time-label { font-size: var(--ctw-label-size-mobile, 0.65em); }
+            .bhw-container { max-width: calc(100vw - 32px); margin: 16px auto; }
+            .bhw-widget { padding: var(--bhw-padding-mobile, 20px); }
+            .bhw-countdown { grid-template-columns: repeat(2, 1fr); gap: var(--bhw-gap-mobile, 12px); }
+            .bhw-time-value { font-size: var(--bhw-value-size-mobile, 1.5em); }
+            .bhw-time-label { font-size: var(--bhw-label-size-mobile, 0.65em); }
         }
     `;
 
@@ -92,28 +92,28 @@
 
         let clientId = currentScript.dataset.id;
         if (!clientId) {
-            console.error('[CountdownTimerWidget] data-id обязателен');
+            console.error('[BusinessHoursCountdownWidget] data-id обязателен');
             return;
         }
 
         clientId = normalizeId(clientId);
 
         // Защита от повторного выполнения
-        if (currentScript.dataset.ctwMounted === '1') return;
-        currentScript.dataset.ctwMounted = '1';
+        if (currentScript.dataset.bhwMounted === '1') return;
+        currentScript.dataset.bhwMounted = '1';
 
-        console.log(`[CountdownTimerWidget] 🚀 Инициализация виджета "${clientId}"`);
+        console.log(`[BusinessHoursCountdownWidget] 🚀 Инициализация виджета "${clientId}"`);
 
-        // Добавляем базовые стили один раз в head
-        if (!document.querySelector('#countdown-timer-widget-styles')) {
+        // Добавляем базовые стили один раз в head с уникальным ID
+        if (!document.querySelector('#business-hours-countdown-widget-styles')) {
             const style = document.createElement('style');
-            style.id = 'countdown-timer-widget-styles';
+            style.id = 'business-hours-countdown-widget-styles';
             style.textContent = inlineCSS;
             document.head.appendChild(style);
         }
 
         const baseUrl = getBasePath(currentScript.src);
-        const uniqueClass = `ctw-${clientId}-${Date.now()}`;
+        const uniqueClass = `bhw-countdown-${clientId}-${Date.now()}`;
         const container = createContainer(currentScript, clientId, uniqueClass);
         
         showLoading(container);
@@ -122,21 +122,21 @@
         loadConfig(clientId, baseUrl)
             .then(fetchedConfig => {
                 const finalConfig = mergeDeep(getDefaultConfig(), fetchedConfig);
-                console.log(`[CountdownTimerWidget] 📋 Финальный конфиг для "${clientId}":`, finalConfig);
+                console.log(`[BusinessHoursCountdownWidget] 📋 Финальный конфиг для "${clientId}":`, finalConfig);
                 
                 applyCustomStyles(uniqueClass, finalConfig.style);
                 createCountdownWidget(container, finalConfig);
-                console.log(`[CountdownTimerWidget] ✅ Виджет "${clientId}" успешно создан`);
+                console.log(`[BusinessHoursCountdownWidget] ✅ Виджет "${clientId}" успешно создан`);
             })
             .catch(error => {
-                console.warn(`[CountdownTimerWidget] ⚠️ Ошибка загрузки "${clientId}":`, error.message);
+                console.warn(`[BusinessHoursCountdownWidget] ⚠️ Ошибка загрузки "${clientId}":`, error.message);
                 const defaultConfig = getDefaultConfig();
                 applyCustomStyles(uniqueClass, defaultConfig.style);
                 createCountdownWidget(container, defaultConfig);
             });
 
     } catch (error) {
-        console.error('[CountdownTimerWidget] 💥 Критическая ошибка:', error);
+        console.error('[BusinessHoursCountdownWidget] 💥 Критическая ошибка:', error);
     }
 
     function normalizeId(id) {
@@ -155,17 +155,17 @@
 
     function createContainer(scriptElement, clientId, uniqueClass) {
         const container = document.createElement('div');
-        container.id = `countdown-timer-widget-${clientId}`;
-        container.className = `ctw-container ${uniqueClass}`;
+        container.id = `business-hours-countdown-widget-${clientId}`;
+        container.className = `bhw-container ${uniqueClass}`;
         scriptElement.parentNode.insertBefore(container, scriptElement.nextSibling);
         return container;
     }
 
     function showLoading(container) {
         container.innerHTML = `
-            <div class="ctw-widget">
-                <div class="ctw-loading">
-                    <div class="ctw-spinner"></div>
+            <div class="bhw-widget">
+                <div class="bhw-loading">
+                    <div class="bhw-spinner"></div>
                     <div>Loading countdown...</div>
                 </div>
             </div>
@@ -228,13 +228,13 @@
     async function loadConfig(clientId, baseUrl) {
         // Локальный конфиг для разработки
         if (clientId === 'local') {
-            const localScript = document.querySelector('#ctw-local-config');
+            const localScript = document.querySelector('#bhw-countdown-local-config');
             if (!localScript) {
-                throw new Error('Локальный конфиг не найден (#ctw-local-config)');
+                throw new Error('Локальный конфиг не найден (#bhw-countdown-local-config)');
             }
             try {
                 const config = JSON.parse(localScript.textContent);
-                console.log(`[CountdownTimerWidget] 📄 Локальный конфиг загружен:`, config);
+                console.log(`[BusinessHoursCountdownWidget] 📄 Локальный конфиг загружен:`, config);
                 return config;
             } catch (err) {
                 throw new Error('Ошибка парсинга локального JSON: ' + err.message);
@@ -243,7 +243,7 @@
 
         // Загрузка с сервера
         const configUrl = `${baseUrl}configs/${encodeURIComponent(clientId)}.json?v=${Date.now()}`;
-        console.log(`[CountdownTimerWidget] 🌐 Загружаем конфиг: ${configUrl}`);
+        console.log(`[BusinessHoursCountdownWidget] 🌐 Загружаем конфиг: ${configUrl}`);
         
         const response = await fetch(configUrl, { 
             cache: 'no-store',
@@ -255,12 +255,12 @@
         }
         
         const config = await response.json();
-        console.log(`[CountdownTimerWidget] ✅ Серверный конфиг загружен:`, config);
+        console.log(`[BusinessHoursCountdownWidget] ✅ Серверный конфиг загружен:`, config);
         return config;
     }
 
     function applyCustomStyles(uniqueClass, style) {
-        const styleId = `ctw-style-${uniqueClass}`;
+        const styleId = `bhw-countdown-style-${uniqueClass}`;
         let styleElement = document.getElementById(styleId);
         
         if (!styleElement) {
@@ -273,7 +273,7 @@
     }
 
     function generateUniqueStyles(uniqueClass, style) {
-        const s = style;
+        const s = style || {};
         const colors = s.colors || {};
         const sizes = s.sizes || {};
         const borderRadius = s.borderRadius || {};
@@ -282,55 +282,55 @@
 
         return `
             .${uniqueClass} {
-                --ctw-font: ${s.fontFamily || "'Inter', system-ui, sans-serif"};
-                --ctw-max-width: ${Math.round(380 * fs)}px;
-                --ctw-bg: ${colors.background || "linear-gradient(135deg, #C44536 0%, #D07C47 100%)"};
-                --ctw-widget-radius: ${borderRadius.widget || 16}px;
-                --ctw-padding: ${sizes.padding || 28}px;
-                --ctw-padding-mobile: ${Math.round((sizes.padding || 28) * 0.8)}px;
-                --ctw-text-color: ${colors.text || "#ffffff"};
-                --ctw-shadow: ${shadow.widget || "0 16px 48px rgba(0,0,0,0.25)"};
-                --ctw-shadow-hover: ${shadow.widgetHover || "0 24px 64px rgba(0,0,0,0.35)"};
-                --ctw-gap: ${sizes.gap || 15}px;
-                --ctw-gap-mobile: ${Math.round((sizes.gap || 15) * 0.8)}px;
-                --ctw-countdown-margin: ${Math.round(20 * fs)}px 0;
-                --ctw-block-bg: ${colors.blockBackground || "rgba(255, 255, 255, 0.22)"};
-                --ctw-block-border: 2px solid ${colors.blockBorder || "rgba(255, 255, 255, 0.35)"};
-                --ctw-block-radius: ${borderRadius.blocks || 12}px;
-                --ctw-block-padding: ${sizes.blockPadding || 16}px ${Math.round((sizes.blockPadding || 16) * 0.5)}px;
-                --ctw-block-bg-hover: ${colors.blockHover || "rgba(255, 255, 255, 0.3)"};
-                --ctw-block-border-hover: ${colors.borderHover || "rgba(255, 255, 255, 0.55)"};
-                --ctw-value-size: ${1.8 * fs}em;
-                --ctw-value-size-mobile: ${1.5 * fs}em;
-                --ctw-label-size: ${0.7 * fs}em;
-                --ctw-label-size-mobile: ${0.65 * fs}em;
-                --ctw-text-shadow: ${shadow.text || "0 2px 8px rgba(0,0,0,0.3)"};
-                --ctw-value-font: ${s.valueFontFamily || "'JetBrains Mono', 'SF Mono', monospace"};
+                --bhw-font: ${s.fontFamily || "'Inter', system-ui, sans-serif"};
+                --bhw-max-width: ${Math.round(380 * fs)}px;
+                --bhw-bg: ${colors.background || "linear-gradient(135deg, #C44536 0%, #D07C47 100%)"};
+                --bhw-widget-radius: ${borderRadius.widget || 16}px;
+                --bhw-padding: ${sizes.padding || 28}px;
+                --bhw-padding-mobile: ${Math.round((sizes.padding || 28) * 0.8)}px;
+                --bhw-text-color: ${colors.text || "#ffffff"};
+                --bhw-shadow: ${shadow.widget || "0 16px 48px rgba(0,0,0,0.25)"};
+                --bhw-shadow-hover: ${shadow.widgetHover || "0 24px 64px rgba(0,0,0,0.35)"};
+                --bhw-gap: ${sizes.gap || 15}px;
+                --bhw-gap-mobile: ${Math.round((sizes.gap || 15) * 0.8)}px;
+                --bhw-countdown-margin: ${Math.round(20 * fs)}px 0;
+                --bhw-block-bg: ${colors.blockBackground || "rgba(255, 255, 255, 0.22)"};
+                --bhw-block-border: 2px solid ${colors.blockBorder || "rgba(255, 255, 255, 0.35)"};
+                --bhw-block-radius: ${borderRadius.blocks || 12}px;
+                --bhw-block-padding: ${sizes.blockPadding || 16}px ${Math.round((sizes.blockPadding || 16) * 0.5)}px;
+                --bhw-block-bg-hover: ${colors.blockHover || "rgba(255, 255, 255, 0.3)"};
+                --bhw-block-border-hover: ${colors.borderHover || "rgba(255, 255, 255, 0.55)"};
+                --bhw-value-size: ${1.8 * fs}em;
+                --bhw-value-size-mobile: ${1.5 * fs}em;
+                --bhw-label-size: ${0.7 * fs}em;
+                --bhw-label-size-mobile: ${0.65 * fs}em;
+                --bhw-text-shadow: ${shadow.text || "0 2px 8px rgba(0,0,0,0.3)"};
+                --bhw-value-font: ${s.valueFontFamily || "'JetBrains Mono', 'SF Mono', monospace"};
             }
         `;
     }
 
     function createCountdownWidget(container, config) {
-        const labels = config.labels;
+        const labels = config.labels || {};
         
         container.innerHTML = `
-            <div class="ctw-widget">
-                <div class="ctw-countdown">
-                    <div class="ctw-time-block">
-                        <div class="ctw-time-value" data-unit="days">00</div>
-                        <div class="ctw-time-label">${escapeHtml(labels.days)}</div>
+            <div class="bhw-widget">
+                <div class="bhw-countdown">
+                    <div class="bhw-time-block">
+                        <div class="bhw-time-value" data-unit="days">00</div>
+                        <div class="bhw-time-label">${escapeHtml(labels.days)}</div>
                     </div>
-                    <div class="ctw-time-block">
-                        <div class="ctw-time-value" data-unit="hours">00</div>
-                        <div class="ctw-time-label">${escapeHtml(labels.hours)}</div>
+                    <div class="bhw-time-block">
+                        <div class="bhw-time-value" data-unit="hours">00</div>
+                        <div class="bhw-time-label">${escapeHtml(labels.hours)}</div>
                     </div>
-                    <div class="ctw-time-block">
-                        <div class="ctw-time-value" data-unit="minutes">00</div>
-                        <div class="ctw-time-label">${escapeHtml(labels.minutes)}</div>
+                    <div class="bhw-time-block">
+                        <div class="bhw-time-value" data-unit="minutes">00</div>
+                        <div class="bhw-time-label">${escapeHtml(labels.minutes)}</div>
                     </div>
-                    <div class="ctw-time-block">
-                        <div class="ctw-time-value" data-unit="seconds">00</div>
-                        <div class="ctw-time-label">${escapeHtml(labels.seconds)}</div>
+                    <div class="bhw-time-block">
+                        <div class="bhw-time-value" data-unit="seconds">00</div>
+                        <div class="bhw-time-label">${escapeHtml(labels.seconds)}</div>
                     </div>
                 </div>
             </div>
