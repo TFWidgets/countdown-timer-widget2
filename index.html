@@ -26,7 +26,7 @@
 </head>
 <body>
   <div class="page">
-    <h1>Конфигуратор Countdown Timer Widget — локально</h1>
+    <h1>The Countdown Timer Widget configurator is available locally</h1>
     <div>
         <div class="panel preview-wrap">
           <!-- место для превью виджета -->
@@ -38,67 +38,67 @@
     
     <div class="layout">
       <div class="panel" style="width:400px">
-        <h3>Настройки</h3>
-        <label>Дата и время окончания</label>
+        <h3>Settings</h3>
+        <label>End date and time</label>
         <input id="cfg-enddate" type="datetime-local" />
 
 
-        <label>Фон виджета (градиент)</label>
+        <label>Widget background (gradient)</label>
 <div class="gradient-picker">
   <div class="row">
     <div style="flex:1">
-      <label class="small">Цвет 1</label>
+      <label class="small">Color 1</label>
       <input id="cfg-gradient-start" type="color" value="#C44536">
     </div>
     <div style="flex:1">
-      <label class="small">Цвет 2</label>
+      <label class="small">Color 2</label>
       <input id="cfg-gradient-end" type="color" value="#D07C47">
     </div>
   </div>
-  <label class="small" style="margin-top:6px;">Направление</label>
+  <label class="small" style="margin-top:6px;">Direction</label>
   <select id="cfg-gradient-angle">
-    <option value="90deg">Слева направо</option>
-    <option value="180deg">Сверху вниз</option>
-    <option value="135deg" selected>Диагональ ↘</option>
-    <option value="45deg">Диагональ ↗</option>
+    <option value="90deg">From left to right</option>
+    <option value="180deg">From top to bottom</option>
+    <option value="135deg" selected>The diagonal ↘</option>
+    <option value="45deg">The diagonal ↗</option>
   </select>
 </div>
 
 
         <div class="row">
           <div style="flex:1">
-            <label>Цвет текста</label>
+            <label>Text color</label>
             <input id="cfg-text" type="color" />
           </div>
           <div style="flex:1">
-            <label>Цвет блока</label>
+            <label>Block Color</label>
             <input id="cfg-block-bg" type="color" />
           </div>
         </div>
 
-        <label>Радиус виджета (px)</label>
+        <label>Widget radius (px)</label>
         <input id="cfg-radius-widget" type="number" value="16" />
-        <label>Радиус блоков (px)</label>
+        <label>The radius of the blocks (px)</label>
         <input id="cfg-radius-blocks" type="number" value="12" />
 
        
 
         <div style="display:flex;gap:8px;margin-top:12px">
-          <button id="apply-btn" class="btn">Применить</button>
+          <button id="apply-btn" class="btn">Apply</button>
           <button id="export-btn" class="btn secondary">Экспорт JSON</button>
         </div>
 
-        <label class="small">JSON-конфиг</label>
+        <label class="small">JSON-config</label>
         <textarea id="cfg-json" readonly></textarea>
       </div>
 
       <div class="panel" style="margin-top:18px">
-          <h3>Инструкция</h3>
-          <p class="small">Изменяй настройки слева и нажимай «Применить» — предпросмотр обновится локально. Нажми «Экспорт JSON», чтобы скопировать конфигурацию в буфер обмена.</p>
+          <h3>Instruction manual</h3>
+          <p class="small">Change the settings on the left and click "Apply" — the preview will be updated locally. Click "Export JSON" to copy the configuration to the clipboard.</p>
         </div>
     </div>
 
-    <footer>Локальная версия — не отправляет данные на GitHub. Открой этот файл в браузере.</footer>
+    <footer>Local version — does not send data to GitHub. Open this file in a browser.</footer>
   </div>
 
   <!-- Локальный JSON-конфиг: виджет читает его, когда clientId === 'local' -->
@@ -286,8 +286,8 @@ cfg.style.colors.background = `linear-gradient(${gradAngle}, ${gradStart} 0%, ${
       document.getElementById('export-btn').addEventListener('click', async ()=>{
         const cfg = buildConfigFromUI();
         // copy to clipboard
-        try{ await navigator.clipboard.writeText(JSON.stringify(cfg, null, 2)); alert('JSON скопирован в буфер обмена'); }
-        catch(e){ el('cfg-json').select(); alert('Не удалось скопировать автоматически — скопируй вручную из поля'); }
+        try{ await navigator.clipboard.writeText(JSON.stringify(cfg, null, 2)); alert('JSON copied to clipboard'); }
+        catch(e){ el('cfg-json').select(); alert('Couldn t copy automatically — copy manually from the field'); }
       });
     }
 
