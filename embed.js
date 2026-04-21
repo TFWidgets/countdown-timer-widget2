@@ -102,7 +102,7 @@
         if (currentScript.dataset.bhwMounted === '1') return;
         currentScript.dataset.bhwMounted = '1';
 
-        console.log(`[BusinessHoursCountdownWidget] 🚀 Инициализация виджета "${clientId}"`);
+        console.log(`[BusinessHoursCountdownWidget] 🚀 Initializing the widget "${clientId}"`);
 
         // Добавляем базовые стили один раз в head с уникальным ID
         if (!document.querySelector('#business-hours-countdown-widget-styles')) {
@@ -122,21 +122,21 @@
         loadConfig(clientId, baseUrl)
             .then(fetchedConfig => {
                 const finalConfig = mergeDeep(getDefaultConfig(), fetchedConfig);
-                console.log(`[BusinessHoursCountdownWidget] 📋 Финальный конфиг для "${clientId}":`, finalConfig);
+                console.log(`[BusinessHoursCountdownWidget] 📋 Final config для "${clientId}":`, finalConfig);
                 
                 applyCustomStyles(uniqueClass, finalConfig.style);
                 createCountdownWidget(container, finalConfig);
                 console.log(`[BusinessHoursCountdownWidget] ✅ Виджет "${clientId}" успешно создан`);
             })
             .catch(error => {
-                console.warn(`[BusinessHoursCountdownWidget] ⚠️ Ошибка загрузки "${clientId}":`, error.message);
+                console.warn(`[BusinessHoursCountdownWidget] ⚠️ Error download "${clientId}":`, error.message);
                 const defaultConfig = getDefaultConfig();
                 applyCustomStyles(uniqueClass, defaultConfig.style);
                 createCountdownWidget(container, defaultConfig);
             });
 
     } catch (error) {
-        console.error('[BusinessHoursCountdownWidget] 💥 Критическая ошибка:', error);
+        console.error('[BusinessHoursCountdownWidget] 💥 Critical error:', error);
     }
 
     function normalizeId(id) {
@@ -230,20 +230,20 @@
         if (clientId === 'local') {
             const localScript = document.querySelector('#bhw-countdown-local-config');
             if (!localScript) {
-                throw new Error('Локальный конфиг не найден (#bhw-countdown-local-config)');
+                throw new Error('Local config dont find (#bhw-countdown-local-config)');
             }
             try {
                 const config = JSON.parse(localScript.textContent);
-                console.log(`[BusinessHoursCountdownWidget] 📄 Локальный конфиг загружен:`, config);
+                console.log(`[BusinessHoursCountdownWidget] 📄 The local config is loaded:`, config);
                 return config;
             } catch (err) {
-                throw new Error('Ошибка парсинга локального JSON: ' + err.message);
+                throw new Error('local parsing error JSON: ' + err.message);
             }
         }
 
         // Загрузка с сервера
         const configUrl = `${baseUrl}configs/${encodeURIComponent(clientId)}.json?v=${Date.now()}`;
-        console.log(`[BusinessHoursCountdownWidget] 🌐 Загружаем конфиг: ${configUrl}`);
+        console.log(`[BusinessHoursCountdownWidget] 🌐 Congig is loading: ${configUrl}`);
         
         const response = await fetch(configUrl, { 
             cache: 'no-store',
@@ -255,7 +255,7 @@
         }
         
         const config = await response.json();
-        console.log(`[BusinessHoursCountdownWidget] ✅ Серверный конфиг загружен:`, config);
+        console.log(`[BusinessHoursCountdownWidget] ✅ The server config is loaded:`, config);
         return config;
     }
 
