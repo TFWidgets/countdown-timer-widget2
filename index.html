@@ -1,297 +1,454 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Countdown Timer Widget — Configurator (локально)</title>
-  <style>
-    :root{font-family:Inter,system-ui,sans-serif}
-    body{margin:0;background:#f5f3ee;color:#222}
-    .page{max-width:1100px;margin:28px auto;padding:24px}
-    h1{font-size:28px;text-align:center;margin:8px 0 20px}
-    .layout{display:flex;flex-direction:column;align-items:center;gap:32px;}
-    .panel{background:#fff;border-radius:10px;padding:16px;box-shadow:0 6px 20px rgba(0,0,0,0.06)}
-    .preview-wrap{display:flex;justify-content:center;align-items:flex-start;padding:40px;margin-bottom: 40px;}
-    label{display:block;margin-top:12px;font-size:13px;color:#444}
-    input[type=text], input[type=datetime-local], select{width:100%;padding:8px;border:1px solid #ddd;border-radius:6px;margin-top:6px}
-    .row{display:flex;gap:8px}
-    .color{display:flex;align-items:center;gap:8px}
-    .btn{display:inline-block;padding:8px 12px;border-radius:8px;border:0;background:#3b82f6;color:#fff;cursor:pointer;margin-top:12px}
-    .btn.secondary{background:#efefef;color:#222}
-    textarea{width:100%;height:120px;padding:8px;border-radius:6px;border:1px solid #ddd;margin-top:8px}
-    .small{font-size:12px;color:#666}
-    footer{margin-top:28px;text-align:center;color:#666;font-size:13px}
-    /* встроенные стили для виджета (по умолчанию) */
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Countdown Timer — Configurator | TF Widgets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --g:#25d366;--g2:#16b57f;--bg:#0a0a0a;--panel:#131313;--card:#171717;--line:rgba(255,255,255,.08);
+    --muted:rgba(255,255,255,.6);--muted2:rgba(255,255,255,.42);--grad:linear-gradient(135deg,#25d366,#16b57f);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:#fff;font:14px/1.45 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:var(--g)}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 22px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;background:rgba(10,10,10,.85);backdrop-filter:blur(12px)}
+  .brand{font-weight:800;letter-spacing:-.01em}.brand b{color:var(--g)}
+  .brand small{display:block;font-weight:500;color:var(--muted2);font-size:12px}
+  .app{display:grid;grid-template-columns:400px minmax(0,1fr);min-height:calc(100vh - 62px)}
+  .side{border-right:1px solid var(--line);padding:14px;overflow:auto;max-height:calc(100vh - 62px);position:sticky;top:62px}
+  .main{padding:22px;display:flex;flex-direction:column;gap:18px;min-width:0}
+
+  details{border:1px solid var(--line);border-radius:14px;background:var(--panel);margin:0 0 10px}
+  summary{list-style:none;cursor:pointer;padding:13px 14px;font-weight:700;display:flex;justify-content:space-between;align-items:center}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--muted2);font-size:18px;transition:transform .25s}
+  details[open] summary::after{transform:rotate(45deg);color:var(--g)}
+  .sec{padding:0 14px 14px;display:grid;gap:12px}
+  label.f{display:grid;gap:6px;font-size:12px;font-weight:600;color:var(--muted)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  input[type=text],input[type=url],input[type=number],input[type=datetime-local],input[type=time],select,textarea{
+    width:100%;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);color:#fff;font:inherit;outline:none}
+  input:focus,select:focus,textarea:focus{border-color:rgba(37,211,102,.6);box-shadow:0 0 0 3px rgba(37,211,102,.12)}
+  select option{background:#1a1a1a}
+  input[type=color]{width:100%;height:40px;padding:3px;border-radius:10px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);cursor:pointer}
+  input[type=range]{width:100%;accent-color:var(--g)}
+  .chk{display:flex;align-items:center;gap:8px;font-size:13px;color:#fff;cursor:pointer}
+  .chk input{accent-color:var(--g);width:16px;height:16px}
+  .seg{display:flex;padding:3px;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid var(--line)}
+  .seg button{flex:1;white-space:nowrap;border:0;background:none;color:var(--muted);font:600 13px Inter,sans-serif;padding:8px 10px;border-radius:999px;cursor:pointer}
+  .seg button.on{background:var(--grad);color:#052e16}
+  .hint{font-size:11.5px;color:var(--muted2);font-weight:500}
+  .presets{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .preset{border:1px solid var(--line);border-radius:12px;padding:8px;background:none;color:#fff;cursor:pointer;text-align:left;font:600 12px Inter,sans-serif}
+  .preset i{display:block;height:34px;border-radius:8px;margin-bottom:6px;border:1px solid rgba(255,255,255,.08)}
+  .preset.on{border-color:var(--g);box-shadow:0 0 0 3px rgba(37,211,102,.15)}
+  .hidden{display:none !important}
+
+  /* превью */
+  .stage-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between}
+  .stage-bar h2{margin:0;font-size:16px}
+  .stage{position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:background .3s}
+  .stage.site-dark{background:#0f1115}
+  .stage.site-light{background:#f5f3ee}
+  .stage.site-photo{background:linear-gradient(135deg,#c9b8a3,#8f735a)}
+  .browser{display:flex;align-items:center;gap:6px;padding:10px 12px;background:rgba(0,0,0,.25);border-bottom:1px solid rgba(255,255,255,.06)}
+  .browser i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.25)}
+  .viewport{margin:0 auto;transition:max-width .35s;max-width:100%}
+  .viewport.mobile{max-width:375px;border-left:1px solid rgba(127,127,127,.2);border-right:1px solid rgba(127,127,127,.2)}
+  .mock{padding:36px 22px 48px}
+  .mock-line{height:10px;border-radius:6px;background:rgba(127,127,127,.18);margin:0 auto 10px}
+  .mock-h{height:22px;width:55%;border-radius:8px;background:rgba(127,127,127,.25);margin:0 auto 14px}
+
+  .out{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .box{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:16px}
+  .box h3{margin:0 0 10px;font-size:14px}
+  .box textarea{min-height:220px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;resize:vertical}
+  .btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  .btn{border:0;border-radius:999px;padding:10px 16px;font:700 13px Inter,sans-serif;cursor:pointer;background:var(--grad);color:#052e16}
+  .btn.ghost{background:rgba(255,255,255,.06);color:#fff;border:1px solid var(--line)}
+  .code{font:12px/1.6 ui-monospace,Menlo,monospace;background:#0b0b0b;border:1px solid var(--line);border-radius:10px;padding:12px;word-break:break-all;color:#cbd5e1}
+  .toast{position:fixed;bottom:18px;left:50%;transform:translate(-50%,140%);background:var(--grad);color:#052e16;font-weight:700;padding:10px 16px;border-radius:999px;transition:transform .35s cubic-bezier(.2,.8,.2,1);z-index:50}
+  .toast.show{transform:translate(-50%,0)}
+  @media (max-width:980px){.app{grid-template-columns:1fr}.side{position:static;max-height:none;border-right:0;border-bottom:1px solid var(--line)}.out{grid-template-columns:1fr}}
+</style>
 </head>
 <body>
-  <div class="page">
-    <h1>The Countdown Timer Widget configurator is available locally</h1>
-    <div>
-        <div class="panel preview-wrap">
-          <!-- место для превью виджета -->
-          <div id="preview-root" style="width:100%;display:flex;justify-content:center"></div>
-        </div>
-
-        
-      </div>
-    
-    <div class="layout">
-      <div class="panel" style="width:400px">
-        <h3>Settings</h3>
-        <label>End date and time</label>
-        <input id="cfg-enddate" type="datetime-local" />
-
-
-        <label>Widget background (gradient)</label>
-<div class="gradient-picker">
-  <div class="row">
-    <div style="flex:1">
-      <label class="small">Color 1</label>
-      <input id="cfg-gradient-start" type="color" value="#C44536">
-    </div>
-    <div style="flex:1">
-      <label class="small">Color 2</label>
-      <input id="cfg-gradient-end" type="color" value="#D07C47">
-    </div>
+<header class="top">
+  <div class="brand"><b>TF</b> Widgets <small>Countdown Timer configurator</small></div>
+  <div class="btns" style="margin:0">
+    <button class="btn ghost" id="btn-import">Import JSON</button>
+    <button class="btn" id="btn-copy-top">Copy JSON</button>
   </div>
-  <label class="small" style="margin-top:6px;">Direction</label>
-  <select id="cfg-gradient-angle">
-    <option value="90deg">From left to right</option>
-    <option value="180deg">From top to bottom</option>
-    <option value="135deg" selected>The diagonal ↘</option>
-    <option value="45deg">The diagonal ↗</option>
-  </select>
+</header>
+
+<div class="app">
+  <aside class="side">
+    <details open><summary>Style preset</summary><div class="sec"><div class="presets" id="presets"></div></div></details>
+
+    <details open><summary>Layout</summary><div class="sec">
+      <div class="seg" data-seg="layout"><button data-v="card" class="on">Card</button><button data-v="bar">Announcement bar</button></div>
+      <div id="bar-opts" class="hidden" style="display:grid;gap:12px">
+        <label class="f">Bar position
+          <select id="position"><option value="inline">Where the code is pasted</option><option value="top">Sticky at the top of the page</option><option value="bottom">Sticky at the bottom of the page</option></select>
+        </label>
+        <label class="chk"><input type="checkbox" id="closable">Visitors can close the bar</label>
+      </div>
+    </div></details>
+
+    <details open><summary>Timer</summary><div class="sec">
+      <div class="seg" data-seg="mode"><button data-v="date" class="on">Until a date</button><button data-v="daily">Daily deadline</button></div>
+      <label class="f" id="f-end">Ends at<input type="datetime-local" id="endDate" step="1"></label>
+      <label class="f hidden" id="f-daily">Every day until<input type="time" id="dailyTime" value="14:00"><span class="hint">Example: "Order by 14:00 for same-day shipping". Restarts every day.</span></label>
+      <label class="f">Time zone
+        <select id="timezone"></select>
+        <span class="hint">Use the store's time zone, so the timer ends at the same moment for every visitor.</span>
+      </label>
+      <label class="f">Sale started (optional, shows a progress bar)<input type="datetime-local" id="startDate" step="1"></label>
+      <div class="row">
+        <label class="f">Highlight last … minutes<input type="number" id="urgent" min="0" value="60"></label>
+        <div style="display:grid;gap:8px;align-content:end">
+          <label class="chk"><input type="checkbox" id="separators" checked>Show ":" separators</label>
+          <label class="chk"><input type="checkbox" id="hideZeroDays">Hide days at 0</label>
+        </div>
+      </div>
+    </div></details>
+
+    <details open><summary>Text</summary><div class="sec">
+      <label class="f">Badge (small label on top)<input type="text" id="badge" placeholder="Limited offer"></label>
+      <label class="f">Title<input type="text" id="title" placeholder="Autumn sale ends in"></label>
+      <label class="f">Subtitle<input type="text" id="subtitle" placeholder="Up to 30% off everything"></label>
+      <label class="f">Labels language
+        <select id="lang">
+          <option value="en">English</option><option value="cs">Čeština</option><option value="de">Deutsch</option><option value="fr">Français</option>
+          <option value="es">Español</option><option value="it">Italiano</option><option value="pl">Polski</option><option value="short">Short (D H M S)</option><option value="custom">Custom</option>
+        </select>
+      </label>
+      <div class="row">
+        <input type="text" id="l-days" aria-label="Days label"><input type="text" id="l-hours" aria-label="Hours label">
+        <input type="text" id="l-minutes" aria-label="Minutes label"><input type="text" id="l-seconds" aria-label="Seconds label">
+      </div>
+    </div></details>
+
+    <details><summary>Button</summary><div class="sec">
+      <label class="f">Button text<input type="text" id="btnText" placeholder="Shop the sale"></label>
+      <label class="f">Link<input type="url" id="btnUrl" placeholder="https://yourstore.com/collections/sale"></label>
+      <label class="chk"><input type="checkbox" id="btnNewTab">Open in a new tab</label>
+      <span class="hint">The button shows only when both text and link are filled in.</span>
+    </div></details>
+
+    <details><summary>When the timer ends</summary><div class="sec">
+      <div class="seg" data-seg="expired"><button data-v="zeros" class="on">Show 00:00</button><button data-v="text">Show a message</button><button data-v="hide">Hide widget</button></div>
+      <label class="f hidden" id="f-exptext">Message<input type="text" id="expText" placeholder="This offer has ended"></label>
+    </div></details>
+
+    <details><summary>Colors &amp; shape</summary><div class="sec">
+      <div class="seg" data-seg="bgType"><button data-v="gradient" class="on">Gradient</button><button data-v="solid">Solid</button></div>
+      <div class="row3">
+        <label class="f">Background<input type="color" id="bg1"></label>
+        <label class="f" id="f-bg2">Color 2<input type="color" id="bg2"></label>
+        <label class="f" id="f-angle">Direction<select id="angle"><option value="90deg">→</option><option value="180deg">↓</option><option value="145deg">↘</option><option value="45deg">↗</option></select></label>
+      </div>
+      <div class="row3">
+        <label class="f">Text<input type="color" id="text"></label>
+        <label class="f">Accent<input type="color" id="accent"></label>
+        <label class="f">Button<input type="color" id="btnBg"></label>
+      </div>
+      <div class="row">
+        <label class="f">Block color<input type="color" id="blockColor"></label>
+        <label class="f">Block opacity <input type="range" id="blockAlpha" min="0" max="40" value="5"></label>
+      </div>
+      <div class="row">
+        <label class="f">Widget corners <input type="range" id="rWidget" min="0" max="36" value="20"></label>
+        <label class="f">Block corners <input type="range" id="rBlocks" min="0" max="28" value="14"></label>
+      </div>
+      <div class="row">
+        <label class="f">Size <input type="range" id="scale" min="80" max="140" value="100"></label>
+        <label class="f">Inner spacing <input type="range" id="padding" min="12" max="48" value="26"></label>
+      </div>
+    </div></details>
+  </aside>
+
+  <main class="main">
+    <div class="stage-bar">
+      <h2>Live preview</h2>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <div class="seg" data-seg="site" style="min-width:230px"><button data-v="dark" class="on">Dark site</button><button data-v="light">Light site</button><button data-v="photo">Photo</button></div>
+        <div class="seg" data-seg="device" style="min-width:170px"><button data-v="desktop" class="on">Desktop</button><button data-v="mobile">Mobile</button></div>
+      </div>
+    </div>
+    <div class="stage site-dark" id="stage">
+      <div class="browser"><i></i><i></i><i></i></div>
+      <div class="viewport" id="viewport">
+        <div id="bar-slot"></div>
+        <div class="mock">
+          <div class="mock-h"></div>
+          <div class="mock-line" style="width:70%"></div>
+          <div class="mock-line" style="width:48%"></div>
+          <div id="card-slot"></div>
+          <div class="mock-line" style="width:62%;margin-top:26px"></div>
+          <div class="mock-line" style="width:40%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="out">
+      <div class="box">
+        <h3>Client config (JSON)</h3>
+        <label class="f">Client ID (file name)<input type="text" id="clientId" value="client123"></label>
+        <textarea id="json" spellcheck="false" style="margin-top:10px"></textarea>
+        <div class="btns">
+          <button class="btn" id="btn-copy">Copy JSON</button>
+          <button class="btn ghost" id="btn-download">Download .json</button>
+          <button class="btn ghost" id="btn-load">Load from this field</button>
+        </div>
+        <p class="hint" style="margin:10px 0 0">Save as <b>configs/<span id="fname">client123</span>.json</b> in the widget repository.</p>
+      </div>
+      <div class="box">
+        <h3>Embed code for the client</h3>
+        <label class="f">Widget URL (embed.js on your domain)<input type="text" id="baseUrl" placeholder="https://your-countdown-domain.com/embed.js"></label>
+        <div class="code" id="snippet" style="margin-top:10px"></div>
+        <div class="btns"><button class="btn ghost" id="btn-snippet">Copy embed code</button></div>
+      </div>
+    </div>
+  </main>
 </div>
+<div class="toast" id="toast">Copied</div>
 
+<script>
+/* Грузим настоящий виджет, чтобы превью было 1:1 с тем, что увидит клиент */
+(function load(files){
+  var s = document.createElement('script');
+  s.src = files[0];
+  s.onload = function(){ window.dispatchEvent(new Event('bhw-ready')); };
+  s.onerror = function(){ if (files.length > 1) load(files.slice(1)); else alert('embed.js not found next to this file'); };
+  document.head.appendChild(s);
+})(['embed.js', 'embed123.js']);
+</script>
 
-        <div class="row">
-          <div style="flex:1">
-            <label>Text color</label>
-            <input id="cfg-text" type="color" />
-          </div>
-          <div style="flex:1">
-            <label>Block Color</label>
-            <input id="cfg-block-bg" type="color" />
-          </div>
-        </div>
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
 
-        <label>Widget radius (px)</label>
-        <input id="cfg-radius-widget" type="number" value="16" />
-        <label>The radius of the blocks (px)</label>
-        <input id="cfg-radius-blocks" type="number" value="12" />
+  var LABELS = {
+    en:['DAYS','HOURS','MINUTES','SECONDS'], cs:['DNY','HODINY','MINUTY','SEKUNDY'], de:['TAGE','STUNDEN','MINUTEN','SEKUNDEN'],
+    fr:['JOURS','HEURES','MINUTES','SECONDES'], es:['DÍAS','HORAS','MINUTOS','SEGUNDOS'], it:['GIORNI','ORE','MINUTI','SECONDI'],
+    pl:['DNI','GODZINY','MINUTY','SEKUNDY'], short:['D','H','M','S']
+  };
 
-       
+  var PRESETS = {
+    midnight:{name:'Midnight', bgType:'gradient', bg1:'#17191e', bg2:'#0c0d10', angle:'145deg', text:'#ffffff', accent:'#ff6b3d', btnBg:'#ff6b3d', blockColor:'#ffffff', blockAlpha:5, rWidget:20, rBlocks:14, shadow:'0 20px 50px -12px rgba(0,0,0,0.45)', shadowHover:'0 28px 70px -14px rgba(0,0,0,0.55)'},
+    sunset:{name:'Sunset', bgType:'gradient', bg1:'#c44536', bg2:'#d07c47', angle:'135deg', text:'#ffffff', accent:'#ffe3c2', btnBg:'#ffffff', btnText:'#b33a2c', blockColor:'#ffffff', blockAlpha:18, rWidget:20, rBlocks:14, shadow:'0 20px 50px -14px rgba(196,69,54,0.55)', shadowHover:'0 28px 70px -14px rgba(196,69,54,0.6)'},
+    light:{name:'Clean light', bgType:'solid', bg1:'#ffffff', bg2:'#f3f4f6', angle:'145deg', text:'#111827', accent:'#2563eb', btnBg:'#111827', blockColor:'#111827', blockAlpha:4, rWidget:20, rBlocks:14, shadow:'0 20px 50px -24px rgba(17,24,39,0.35)', shadowHover:'0 28px 70px -24px rgba(17,24,39,0.4)'},
+    emerald:{name:'Emerald', bgType:'gradient', bg1:'#0d3b2e', bg2:'#06201a', angle:'145deg', text:'#ecfdf5', accent:'#25d366', btnBg:'#25d366', btnText:'#052e16', blockColor:'#ffffff', blockAlpha:6, rWidget:20, rBlocks:14, shadow:'0 20px 50px -12px rgba(6,32,26,0.6)', shadowHover:'0 28px 70px -14px rgba(6,32,26,0.7)'},
+    ocean:{name:'Ocean', bgType:'gradient', bg1:'#0b2447', bg2:'#19376d', angle:'145deg', text:'#ffffff', accent:'#38bdf8', btnBg:'#38bdf8', btnText:'#082f49', blockColor:'#ffffff', blockAlpha:7, rWidget:20, rBlocks:14, shadow:'0 20px 50px -12px rgba(11,36,71,0.6)', shadowHover:'0 28px 70px -14px rgba(11,36,71,0.7)'},
+    rose:{name:'Blush', bgType:'gradient', bg1:'#fff1f2', bg2:'#ffe4e6', angle:'145deg', text:'#4c0519', accent:'#e11d48', btnBg:'#e11d48', blockColor:'#4c0519', blockAlpha:5, rWidget:24, rBlocks:16, shadow:'0 20px 50px -24px rgba(225,29,72,0.35)', shadowHover:'0 28px 70px -24px rgba(225,29,72,0.45)'}
+  };
 
-        <div style="display:flex;gap:8px;margin-top:12px">
-          <button id="apply-btn" class="btn">Apply</button>
-          <button id="export-btn" class="btn secondary">Экспорт JSON</button>
-        </div>
+  var TZ = ['Europe/Prague','Europe/London','Europe/Berlin','Europe/Paris','Europe/Madrid','Europe/Rome','Europe/Warsaw','Europe/Amsterdam','Europe/Vienna','Europe/Stockholm','Europe/Helsinki','Europe/Athens','Europe/Lisbon','Europe/Dublin','America/New_York','America/Chicago','America/Denver','America/Los_Angeles','America/Phoenix','America/Anchorage','Pacific/Honolulu','America/Toronto','UTC'];
 
-        <label class="small">JSON-config</label>
-        <textarea id="cfg-json" readonly></textarea>
-      </div>
+  var state = {
+    layout:'card', position:'inline', closable:false,
+    mode:'date', expired:'zeros', bgType:'gradient', site:'dark', device:'desktop', preset:'midnight', btnText:'#ffffff'
+  };
 
-      <div class="panel" style="margin-top:18px">
-          <h3>Instruction manual</h3>
-          <p class="small">Change the settings on the left and click "Apply" — the preview will be updated locally. Click "Export JSON" to copy the configuration to the clipboard.</p>
-        </div>
-    </div>
+  function hexToRgb(hex){ var h = hex.replace('#',''); if (h.length===3) h = h.split('').map(function(c){return c+c;}).join(''); var n = parseInt(h,16); return [(n>>16)&255,(n>>8)&255,n&255]; }
+  function rgba(hex,a){ var c = hexToRgb(hex); return 'rgba('+c[0]+', '+c[1]+', '+c[2]+', '+a+')'; }
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function localInputValue(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds()); }
 
-    <footer>Local version — does not send data to GitHub. Open this file in a browser.</footer>
-  </div>
+  /* ---------- UI: пресеты, часовые пояса, переключатели ---------- */
+  var presetsEl = $('presets');
+  Object.keys(PRESETS).forEach(function(k){
+    var p = PRESETS[k];
+    var b = document.createElement('button');
+    b.className = 'preset'; b.type = 'button'; b.dataset.k = k;
+    b.innerHTML = '<i style="background:'+(p.bgType==='solid'?p.bg1:'linear-gradient('+p.angle+','+p.bg1+','+p.bg2+')')+'"></i>'+p.name;
+    b.onclick = function(){ applyPreset(k); render(); };
+    presetsEl.appendChild(b);
+  });
 
-  <!-- Локальный JSON-конфиг: виджет читает его, когда clientId === 'local' -->
-  <script id="bhw-countdown-local-config" type="application/json">
-  </script>
+  var tzSel = $('timezone'), local = '';
+  try { local = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch(e) {}
+  tzSel.innerHTML = '<option value="">Visitor\'s own time</option>' + TZ.map(function(z){ return '<option value="'+z+'">'+z.replace('_',' ')+(z===local?' (yours)':'')+'</option>'; }).join('');
+  tzSel.value = TZ.indexOf(local) >= 0 ? local : 'Europe/Prague';
 
-  <!-- Скрипт виджета (адаптирован для локального использования и повторного инициализирования) -->
-  <script>
-  // --- BEGIN: адаптированный код виджета (на основе присланного тобой) ---
-  (function(window){
-    'use strict';
+  document.querySelectorAll('.seg').forEach(function(seg){
+    seg.addEventListener('click', function(e){
+      var b = e.target.closest('button'); if (!b) return;
+      setSeg(seg.dataset.seg, b.dataset.v); render();
+    });
+  });
+  function setSeg(name, v){
+    state[name] = v;
+    var seg = document.querySelector('.seg[data-seg="'+name+'"]');
+    if (seg) seg.querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x.dataset.v === v); });
+    syncVisibility();
+  }
+  function syncVisibility(){
+    $('bar-opts').classList.toggle('hidden', state.layout !== 'bar');
+    $('f-end').classList.toggle('hidden', state.mode !== 'date');
+    $('f-daily').classList.toggle('hidden', state.mode !== 'daily');
+    $('f-exptext').classList.toggle('hidden', state.expired !== 'text');
+    $('f-bg2').classList.toggle('hidden', state.bgType !== 'gradient');
+    $('f-angle').classList.toggle('hidden', state.bgType !== 'gradient');
+    $('stage').className = 'stage site-' + state.site;
+    $('viewport').classList.toggle('mobile', state.device === 'mobile');
+  }
 
-    // Вспомогательные функции и стили (слегка упрощены)
-    const inlineCSS = `
-      .bhw-container{font-family:var(--bhw-font,'Inter',system-ui,sans-serif);max-width:var(--bhw-max-width,380px);margin:20px auto;width:100%}
-      .bhw-widget{background:var(--bhw-bg,linear-gradient(135deg,#C44536 0%,#D07C47 100%));border-radius:var(--bhw-widget-radius,16px);padding:var(--bhw-padding,28px);color:var(--bhw-text-color,#ffffff);box-shadow:var(--bhw-shadow,0 16px 48px rgba(0,0,0,0.25));position:relative;overflow:hidden;text-align:center}
-      .bhw-countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--bhw-gap,15px);margin:var(--bhw-countdown-margin,20px 0);position:relative}
-      .bhw-time-block{background:var(--bhw-block-bg,rgba(255,255,255,0.22));border:var(--bhw-block-border,2px solid rgba(255,255,255,0.35));border-radius:var(--bhw-block-radius,12px);padding:var(--bhw-block-padding,16px 8px);backdrop-filter:blur(12px)}
-      .bhw-time-value{font-size:var(--bhw-value-size,1.8em);font-weight:700;font-family:var(--bhw-value-font,'JetBrains Mono',monospace);margin-bottom:4px}
-      .bhw-time-label{font-size:var(--bhw-label-size,.7em);font-weight:600;opacity:.9;text-transform:uppercase}
-      @media (max-width:480px){.bhw-countdown{grid-template-columns:repeat(2,1fr)}}
-    `;
+  function applyPreset(k){
+    var p = PRESETS[k]; state.preset = k; state.rawBg = ''; state.rawFont = ''; state.rawValueFont = ''; state.textShadow = ''; state.shadow = p.shadow; state.shadowHover = p.shadowHover; state.btnText = p.btnText || '#ffffff';
+    setSeg('bgType', p.bgType);
+    ['bg1','bg2','text','accent','btnBg','blockColor'].forEach(function(id){ $(id).value = p[id]; });
+    $('angle').value = p.angle; $('blockAlpha').value = p.blockAlpha; $('rWidget').value = p.rWidget; $('rBlocks').value = p.rBlocks;
+    presetsEl.querySelectorAll('.preset').forEach(function(b){ b.classList.toggle('on', b.dataset.k === k); });
+  }
 
-    if (!document.querySelector('#bhw-inline-styles')){
-      const st = document.createElement('style'); st.id = 'bhw-inline-styles'; st.textContent = inlineCSS; document.head.appendChild(st);
-    }
+  $('lang').addEventListener('change', function(){
+    var l = LABELS[this.value]; if (!l) return;
+    ['days','hours','minutes','seconds'].forEach(function(u,i){ $('l-'+u).value = l[i]; });
+    render();
+  });
+  ['l-days','l-hours','l-minutes','l-seconds'].forEach(function(id){ $(id).addEventListener('input', function(){ $('lang').value = 'custom'; }); });
 
-    // expose a global helper so configurator can re-init the widget
-    window.BHW = window.BHW || {};
-
-    function escapeHtml(text){ const d=document.createElement('div'); d.textContent = text||''; return d.innerHTML; }
-
-    function generateUniqueStyles(uniqueClass, style){
-      const s = style||{}; const colors = s.colors||{}; const sizes = s.sizes||{}; const borderRadius = s.borderRadius||{}; const shadow = s.shadow||{}; const fs = sizes.fontSize||1;
-      return `.${uniqueClass}{--bhw-font:${s.fontFamily||"'Inter', system-ui, sans-serif"};--bhw-max-width:${Math.round(380*fs)}px;--bhw-bg:${colors.background||"linear-gradient(135deg,#C44536 0%,#D07C47 100%)"};--bhw-widget-radius:${borderRadius.widget||16}px;--bhw-padding:${sizes.padding||28}px;--bhw-padding-mobile:${Math.round((sizes.padding||28)*0.8)}px;--bhw-text-color:${colors.text||'#ffffff'};--bhw-shadow:${(shadow.widget||"0 16px 48px rgba(0,0,0,0.25)")};--bhw-shadow-hover:${(shadow.widgetHover||"0 24px 64px rgba(0,0,0,0.35)")};--bhw-gap:${sizes.gap||15}px;--bhw-gap-mobile:${Math.round((sizes.gap||15)*0.8)}px;--bhw-countdown-margin:${Math.round(20*fs)}px 0;--bhw-block-bg:${colors.blockBackground||'rgba(255, 255, 255, 0.22)'};--bhw-block-border:2px solid ${colors.blockBorder||'rgba(255,255,255,0.35)'};--bhw-block-radius:${borderRadius.blocks||12}px;--bhw-block-padding:${sizes.blockPadding||16}px ${Math.round((sizes.blockPadding||16)*0.5)}px;--bhw-block-bg-hover:${colors.blockHover||'rgba(255,255,255,0.3)'};--bhw-block-border-hover:${colors.borderHover||'rgba(255,255,255,0.55)'};--bhw-value-size:${1.8*fs}em;--bhw-value-size-mobile:${1.5*fs}em;--bhw-label-size:${0.7*fs}em;--bhw-label-size-mobile:${0.65*fs}em;--bhw-text-shadow:${shadow.text||'0 2px 8px rgba(0,0,0,0.3)'};--bhw-value-font:${s.valueFontFamily||"'JetBrains Mono', 'SF Mono', monospace"}}`;
-    }
-
-    function applyCustomStyles(uniqueClass, style){
-      const styleId = `bhw-countdown-style-${uniqueClass}`; let el = document.getElementById(styleId);
-      if (!el){ el = document.createElement('style'); el.id = styleId; document.head.appendChild(el);} el.textContent = generateUniqueStyles(uniqueClass, style);
-    }
-
-    function createCountdownWidgetIn(container, config){
-      const labels = config.labels || {};
-      container.innerHTML = `\n        <div class="bhw-widget">\n          <div class="bhw-countdown">\n            <div class="bhw-time-block">\n              <div class="bhw-time-value" data-unit="days">00</div>\n              <div class="bhw-time-label">${escapeHtml(labels.days)}</div>\n            </div>\n            <div class="bhw-time-block">\n              <div class="bhw-time-value" data-unit="hours">00</div>\n              <div class="bhw-time-label">${escapeHtml(labels.hours)}</div>\n            </div>\n            <div class="bhw-time-block">\n              <div class="bhw-time-value" data-unit="minutes">00</div>\n              <div class="bhw-time-label">${escapeHtml(labels.minutes)}</div>\n            </div>\n            <div class="bhw-time-block">\n              <div class="bhw-time-value" data-unit="seconds">00</div>\n              <div class="bhw-time-label">${escapeHtml(labels.seconds)}</div>\n            </div>\n          </div>\n        </div>\n      `;
-
-      // запускаем таймер
-      startCountdown(container, config.endDate);
-    }
-
-    function startCountdown(container, endDate){
-      const endTime = new Date(endDate).getTime();
-      if (container._countdownInterval) clearInterval(container._countdownInterval);
-      function update(){
-        const now = Date.now(); const timeLeft = endTime - now;
-        if (timeLeft <= 0){ ['days','hours','minutes','seconds'].forEach(u => { const el = container.querySelector(`[data-unit="${u}"]`); if(el) el.textContent='00'; }); clearInterval(container._countdownInterval); return; }
-        const days = Math.floor(timeLeft / (1000*60*60*24));
-        const hours = Math.floor((timeLeft % (1000*60*60*24)) / (1000*60*60));
-        const minutes = Math.floor((timeLeft % (1000*60*60)) / (1000*60));
-        const seconds = Math.floor((timeLeft % (1000*60)) / 1000);
-        const setVal = (u,v)=>{ const e = container.querySelector(`[data-unit="${u}"]`); if(e) e.textContent=String(v).padStart(2,'0'); };
-        setVal('days', days); setVal('hours', hours); setVal('minutes', minutes); setVal('seconds', seconds);
-      }
-      update(); container._countdownInterval = setInterval(update, 1000);
-    }
-
-    // Главная функция: инициализировать превью по конфигу
-    window.BHW.initPreview = function(targetEl, config){
-      // применяем стили
-      const uniqueClass = 'bhw-local-'+(Date.now());
-      targetEl.className = 'bhw-container '+uniqueClass;
-      applyCustomStyles(uniqueClass, config.style || {});
-      createCountdownWidgetIn(targetEl, config);
-    };
-
-  })(window);
-  // --- END: адаптированный код виджета ---
-  </script>
-
-  <!-- Скрипт конфигуратора: связывает UI и превью -->
-  <script>
-    // Значения по умолчанию
-    const defaultConfig = {
-      endDate: new Date(new Date().getTime() + 7*24*3600*1000).toISOString().slice(0,19), // +7 days (UTC format for internal use)
-      labels: { days: 'DAYS', hours: 'HOURS', minutes: 'MINUTES', seconds: 'SECONDS' },
+  /* ---------- сборка конфига ---------- */
+  function buildConfig(){
+    var text = $('text').value, bc = $('blockColor').value, a = Number($('blockAlpha').value)/100;
+    var bg = state.rawBg || (state.bgType === 'solid' ? $('bg1').value : 'linear-gradient('+$('angle').value+', '+$('bg1').value+' 0%, '+$('bg2').value+' 100%)');
+    var scale = Number($('scale').value)/100;
+    var cfg = {
+      mode: state.mode,
+      layout: state.layout,
+      position: state.layout === 'bar' ? $('position').value : 'inline',
+      closable: state.layout === 'bar' && $('closable').checked,
+      timezone: $('timezone').value,
+      badge: $('badge').value.trim(),
+      title: $('title').value.trim(),
+      subtitle: $('subtitle').value.trim(),
+      labels: { days: $('l-days').value, hours: $('l-hours').value, minutes: $('l-minutes').value, seconds: $('l-seconds').value },
+      button: { text: $('btnText').value.trim(), url: $('btnUrl').value.trim(), newTab: $('btnNewTab').checked },
+      expired: { text: state.expired === 'text' ? $('expText').value.trim() : '', hide: state.expired === 'hide' },
+      hideZeroDays: $('hideZeroDays').checked,
       style: {
-        fontFamily: "'Inter', system-ui, sans-serif",
-        valueFontFamily: "'JetBrains Mono', 'SF Mono', monospace",
+        fontFamily: state.rawFont || "'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif",
+        valueFontFamily: state.rawValueFont || "'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif",
+        separators: $('separators').checked,
+        urgentMinutes: Number($('urgent').value) || 0,
         colors: {
-          background: "linear-gradient(135deg,#C44536 0%,#D07C47 100%)",
-          text: "#ffffff",
-          blockBackground: "rgba(255,255,255,0.22)",
-          blockBorder: "rgba(255,255,255,0.35)",
-          blockHover: "rgba(255,255,255,0.3)",
-          borderHover: "rgba(255,255,255,0.55)"
+          background: bg,
+          text: text,
+          accent: $('accent').value,
+          blockBackground: rgba(bc, a.toFixed(2)),
+          blockBorder: rgba(text, Math.min(0.3, a + 0.05).toFixed(2)),
+          blockHover: rgba(bc, Math.min(0.5, a + 0.04).toFixed(2)),
+          borderHover: rgba(text, Math.min(0.45, a + 0.14).toFixed(2)),
+          widgetBorder: rgba(text, 0.08),
+          buttonBackground: $('btnBg').value,
+          buttonText: state.btnText
         },
-        borderRadius: { widget: 16, blocks: 12 },
-        sizes: { fontSize: 1, padding: 28, blockPadding: 16, gap: 15 },
-        shadow: { widget: "0 16px 48px rgba(0,0,0,0.25)", widgetHover: "0 24px 64px rgba(0,0,0,0.35)", text: "0 2px 8px rgba(0,0,0,0.3)" }
+        borderRadius: { widget: Number($('rWidget').value), blocks: Number($('rBlocks').value) },
+        sizes: { fontSize: scale, padding: Number($('padding').value), blockPadding: 16, gap: 10 },
+        shadow: { widget: state.shadow, widgetHover: state.shadowHover, text: state.textShadow || 'none' }
       }
     };
+    if (state.mode === 'date') cfg.endDate = $('endDate').value || localInputValue(new Date(Date.now()+3*864e5));
+    else cfg.dailyTime = $('dailyTime').value || '14:00';
+    if ($('startDate').value && state.mode === 'date') cfg.startDate = $('startDate').value;
+    return cfg;
+  }
 
-    // элементы UI
-    const el = id => document.getElementById(id);
-    const previewRoot = el('preview-root');
+  /* ---------- загрузка существующего конфига (редактирование клиента) ---------- */
+  function loadConfig(cfg){
+    var d = window.BHWCountdown ? window.BHWCountdown.defaults() : {};
+    var s = cfg.style || {}, c = s.colors || {};
+    setSeg('layout', cfg.layout === 'bar' ? 'bar' : 'card');
+    $('position').value = cfg.position || 'inline';
+    $('closable').checked = !!cfg.closable;
+    setSeg('mode', cfg.mode === 'daily' ? 'daily' : 'date');
+    if (cfg.endDate) $('endDate').value = String(cfg.endDate).replace(/(\.\d+)?(z|[+-]\d\d:?\d\d)$/i,'').slice(0,19);
+    if (cfg.dailyTime) $('dailyTime').value = cfg.dailyTime;
+    $('timezone').value = cfg.timezone || '';
+    $('startDate').value = cfg.startDate ? String(cfg.startDate).slice(0,19) : '';
+    $('badge').value = cfg.badge || ''; $('title').value = cfg.title || ''; $('subtitle').value = cfg.subtitle || '';
+    var L = cfg.labels || d.labels || {};
+    ['days','hours','minutes','seconds'].forEach(function(u){ $('l-'+u).value = L[u] || ''; });
+    $('lang').value = 'custom';
+    var b = cfg.button || {}; $('btnText').value = b.text || ''; $('btnUrl').value = b.url || ''; $('btnNewTab').checked = !!b.newTab;
+    var e = cfg.expired || {}; setSeg('expired', e.hide ? 'hide' : (e.text ? 'text' : 'zeros')); $('expText').value = e.text || '';
+    $('hideZeroDays').checked = !!cfg.hideZeroDays;
+    $('separators').checked = s.separators !== false;
+    $('urgent').value = s.urgentMinutes || 0;
+    var m = String(c.background || '').match(/#[0-9a-f]{3,8}/gi);
+    if (m && m.length > 1) { setSeg('bgType','gradient'); $('bg1').value = m[0].slice(0,7); $('bg2').value = m[1].slice(0,7); var ang = String(c.background).match(/(\d+deg)/); if (ang) { if (![].some.call($('angle').options, function(o){ return o.value === ang[1]; })) $('angle').add(new Option(ang[1], ang[1])); $('angle').value = ang[1]; } }
+    else if (m) { setSeg('bgType','solid'); $('bg1').value = m[0].slice(0,7); }
+    if (/^#/.test(c.text||'')) $('text').value = c.text.slice(0,7);
+    if (/^#/.test(c.accent||'')) $('accent').value = c.accent.slice(0,7);
+    if (/^#/.test(c.buttonBackground||'')) $('btnBg').value = c.buttonBackground.slice(0,7);
+    state.btnText = c.buttonText || '#ffffff';
+    var ba = String(c.blockBackground||'').match(/rgba?\(([^)]+)\)/);
+    if (ba) { var parts = ba[1].split(',').map(function(x){return x.trim();}); $('blockColor').value = '#'+parts.slice(0,3).map(function(x){return pad((+x).toString(16));}).join(''); $('blockAlpha').value = Math.round((+parts[3]||0.1)*100); }
+    var r = s.borderRadius || {}; $('rWidget').value = r.widget != null ? r.widget : 20; $('rBlocks').value = r.blocks != null ? r.blocks : 14;
+    var z = s.sizes || {}; $('scale').value = Math.round((z.fontSize || 1)*100); $('padding').value = z.padding || 26;
+    state.rawBg = c.background || ''; state.rawFont = s.fontFamily || ''; state.rawValueFont = s.valueFontFamily || '';
+    var sh = s.shadow || {}; state.textShadow = sh.text || ''; state.shadow = sh.widget || PRESETS.midnight.shadow; state.shadowHover = sh.widgetHover || PRESETS.midnight.shadowHover;
+    presetsEl.querySelectorAll('.preset').forEach(function(x){ x.classList.remove('on'); });
+    render();
+  }
 
-    function toLocalDatetimeInputValue(isoString){
-      // isoString like 2025-12-31T23:59:59 -> convert to local for datetime-local input
-      const d = new Date(isoString);
-      const tzOffset = d.getTimezoneOffset()*60000; // in ms
-      const local = new Date(d.getTime() - tzOffset);
-      return local.toISOString().slice(0,19);
-    }
+  /* ---------- рендер превью и вывода ---------- */
+  var controller = null, raf = 0;
+  function render(){
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(function(){
+      if (!window.BHWCountdown) return;
+      var cfg = buildConfig();
+      var slot = cfg.layout === 'bar' ? $('bar-slot') : $('card-slot');
+      var other = cfg.layout === 'bar' ? $('card-slot') : $('bar-slot');
+      other.innerHTML = ''; other.className = '';
+      if (controller) controller.destroy();
+      controller = window.BHWCountdown.render(slot, cfg);
+      $('json').value = JSON.stringify(cfg, null, 2);
+      var id = ($('clientId').value || 'client').trim().replace(/[^a-z0-9_-]/gi,'');
+      $('fname').textContent = id;
+      var src = $('baseUrl').value.trim() || 'https://your-countdown-domain.com/embed.js';
+      $('snippet').textContent = '<script src="' + src + '" data-id="' + id + '"><\/script>';
+    });
+  }
 
-    function toIsoFromLocalInput(localValue){
-      if(!localValue) return new Date().toISOString();
-      // treat input as local time without timezone
-      const t = new Date(localValue);
-      // convert local to ISO (UTC)
-      const iso = new Date(t.getTime() + t.getTimezoneOffset()*60000).toISOString();
-      return iso;
-    }
+  function toast(msg){ var t = $('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(function(){ t.classList.remove('show'); }, 1600); }
+  function copy(text, msg){ (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function(){ toast(msg); }, function(){ toast('Select and copy manually'); }); }
 
-    function loadUIFromConfig(cfg){
-      el('cfg-enddate').value = toLocalDatetimeInputValue(cfg.endDate);
+  $('btn-copy').onclick = $('btn-copy-top').onclick = function(){ copy($('json').value, 'JSON copied'); };
+  $('btn-snippet').onclick = function(){ copy($('snippet').textContent, 'Embed code copied'); };
+  $('btn-download').onclick = function(){
+    var blob = new Blob([$('json').value], {type:'application/json'});
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = ($('fname').textContent || 'client') + '.json'; a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1000);
+  };
+  $('btn-load').onclick = function(){ try { loadConfig(JSON.parse($('json').value)); toast('Config loaded'); } catch(e){ toast('Invalid JSON'); } };
+  $('btn-import').onclick = function(){ $('json').focus(); $('json').select(); toast('Paste a client JSON, then "Load from this field"'); };
 
-      // colors: if color is a gradient, keep text in input but color picker can't show gradient; show text in bg input
-      
-      // try to detect simple color for pickers
-      try{ el('cfg-text').value = cfg.style.colors.text || '#ffffff'; }catch(e){ el('cfg-text').value='#ffffff'; }
-      try{ el('cfg-block-bg').value = (cfg.style.colors.blockBackground && cfg.style.colors.blockBackground.match(/rgba?\(([^)]+)\)/)) ? '#ffffff' : '#ffffff'; }catch(e){ el('cfg-block-bg').value='#ffffff'; }
-      el('cfg-radius-widget').value = cfg.style.borderRadius.widget || 16;
-      el('cfg-radius-blocks').value = cfg.style.borderRadius.blocks || 12;
-    }
+  ['bg1','bg2','angle'].forEach(function(id){ $(id).addEventListener('input', function(){ state.rawBg = ''; }); });
+  document.querySelector('.seg[data-seg="bgType"]').addEventListener('click', function(){ state.rawBg = ''; }, true);
+  document.querySelector('.side').addEventListener('input', render);
+  document.querySelector('.side').addEventListener('change', render);
+  $('clientId').addEventListener('input', render);
+  $('baseUrl').addEventListener('input', render);
 
-    function buildConfigFromUI(){
-      const endLocal = el('cfg-enddate').value;
-      const iso = toIsoFromLocalInput(endLocal);
-      const cfg = JSON.parse(JSON.stringify(defaultConfig));
-      cfg.endDate = iso;
-
-      const gradStart = el('cfg-gradient-start')?.value || '#C44536';
-const gradEnd = el('cfg-gradient-end')?.value || '#D07C47';
-const gradAngle = el('cfg-gradient-angle')?.value || '135deg';
-cfg.style.colors.background = `linear-gradient(${gradAngle}, ${gradStart} 0%, ${gradEnd} 100%)`;
-
-      cfg.style.colors.text = el('cfg-text').value || cfg.style.colors.text;
-      cfg.style.colors.blockBackground = el('cfg-block-bg').value || cfg.style.colors.blockBackground;
-      cfg.style.borderRadius.widget = Number(el('cfg-radius-widget').value || 16);
-      cfg.style.borderRadius.blocks = Number(el('cfg-radius-blocks').value || 12);
-      return cfg;
-    }
-
-    function updatePreview(cfg){
-      // put config into local script element (optional) so you can inspect
-      const localScript = document.getElementById('bhw-countdown-local-config');
-      localScript.textContent = JSON.stringify(cfg, null, 2);
-
-      // render
-      // clear preview root
-      previewRoot.innerHTML = '';
-      const target = document.createElement('div'); target.style.width='380px';
-      previewRoot.appendChild(target);
-      // call widget's preview initializer
-      window.BHW.initPreview(target, cfg);
-
-      // update JSON textarea
-      el('cfg-json').value = JSON.stringify(cfg, null, 2);
-    }
-
-    // инициализация UI
-    function init(){
-      const initial = JSON.parse(JSON.stringify(defaultConfig));
-      // default end date: keep as ISO (UTC)
-      initial.endDate = new Date(new Date().getTime() + 7*24*3600*1000).toISOString();
-
-      loadUIFromConfig(initial);
-      updatePreview(initial);
-
-      document.getElementById('apply-btn').addEventListener('click', ()=>{
-        const cfg = buildConfigFromUI();
-        updatePreview(cfg);
-      });
-
-      document.getElementById('export-btn').addEventListener('click', async ()=>{
-        const cfg = buildConfigFromUI();
-        // copy to clipboard
-        try{ await navigator.clipboard.writeText(JSON.stringify(cfg, null, 2)); alert('JSON copied to clipboard'); }
-        catch(e){ el('cfg-json').select(); alert('Couldn t copy automatically — copy manually from the field'); }
-      });
-    }
-
-    document.addEventListener('DOMContentLoaded', init);
-  </script>
+  /* старт */
+  $('endDate').value = localInputValue(new Date(Date.now() + 3*864e5 + 5*36e5));
+  $('lang').value = 'en'; ['days','hours','minutes','seconds'].forEach(function(u,i){ $('l-'+u).value = LABELS.en[i]; });
+  $('badge').value = 'Limited offer';
+  $('title').value = 'Autumn sale ends in';
+  $('subtitle').value = 'Up to 30% off everything in store';
+  applyPreset('midnight');
+  syncVisibility();
+  if (window.BHWCountdown) render(); else window.addEventListener('bhw-ready', render);
+})();
+</script>
 </body>
 </html>
