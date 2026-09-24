@@ -9,6 +9,8 @@
 
     var VERSION = '2.0.0';
     var LOG = '[TFW Countdown]';
+    // Где работает живое превью BHWCountdown.render() (конфигуратор на сайте). Сюда же можно добавить свой xxx.myshopify.com
+    var PREVIEW_DOMAINS = ['tf-widgets.com', '*.tf-widgets.com', '9ac5za-h1.myshopify.com'];
 
     /* =========================================================
        БАЗОВЫЕ СТИЛИ (один раз на страницу)
@@ -254,6 +256,16 @@
             overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap;
         }
 
+        /* защита от тем сайта, которые красят весь текст через color: ... !important */
+        .bhw-container .bhw-widget { color: var(--bhw-text-color, #ffffff) !important; }
+        .bhw-container .bhw-widget *:not(.bhw-button) { color: inherit !important; }
+        .bhw-container .bhw-widget .bhw-badge { color: var(--bhw-accent, #ff6b3d) !important; }
+        .bhw-container .bhw-widget .bhw-title { color: var(--bhw-title-color, inherit) !important; }
+        .bhw-container .bhw-widget .bhw-time-value { color: var(--bhw-value-color, inherit) !important; }
+        .bhw-container .bhw-widget .bhw-time-label { color: var(--bhw-label-color, inherit) !important; }
+        .bhw-container.bhw-urgent .bhw-widget .bhw-time-value { color: var(--bhw-accent, #ff6b3d) !important; }
+        .bhw-container .bhw-widget .bhw-button, .bhw-container .bhw-widget .bhw-button * { color: var(--bhw-button-text, #ffffff) !important; }
+
         @keyframes bhw-spin { to { transform: rotate(360deg); } }
         @keyframes bhw-roll { from { transform: translateY(-60%); opacity: 0; filter: blur(2px); } to { transform: none; opacity: 1; filter: none; } }
         @keyframes bhw-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
@@ -297,6 +309,11 @@
     api.defaults = getDefaultConfig;
     api.checkAccess = bhwCheckAccess;
     api.render = function (container, config) {
+        // Живое превью (конфигуратор) разрешено только на сайте TF Widgets, localhost и из файла
+        if (!bhwCheckAccess({ domains: PREVIEW_DOMAINS }).ok) {
+            console.warn(LOG, 'preview is only available on tf-widgets.com');
+            return { destroy: function () {}, update: function () {} };
+        }
         injectBaseStyles();
         var finalConfig = mergeDeep(getDefaultConfig(), config || {});
         if (!container.__bhwClass) {
