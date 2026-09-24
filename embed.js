@@ -1,4 +1,20 @@
+/*!
+ * TF Widgets — Countdown Timer v2
+ * Встраивание: <script src=".../embed.js" data-id="CLIENT_ID"></script>
+ * Конфиг клиента: configs/CLIENT_ID.json (формат v1 полностью поддерживается, все новые поля необязательные)
+ * Классы и CSS-переменные: префикс bhw- (общий для всех виджетов TF Widgets)
+ */
+(function () {
+    'use strict';
 
+    var VERSION = '2.0.0';
+    var LOG = '[TFW Countdown]';
+
+    /* =========================================================
+       БАЗОВЫЕ СТИЛИ (один раз на страницу)
+       Все значения берутся из CSS-переменных --bhw-*,
+       которые задаются конфигом клиента в generateUniqueStyles()
+       ========================================================= */
     var inlineCSS = `
         .bhw-container {
             font-family: var(--bhw-font, 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif);
@@ -190,6 +206,7 @@
         }
         .bhw-close:hover { opacity: 1; background: rgba(255,255,255,0.16); }
 
+        /* ---------- вариант "полоса" (объявление на всю ширину) ---------- */
         .bhw-layout-bar { max-width: none; margin: 0; }
         .bhw-layout-bar .bhw-widget {
             display: flex; align-items: center; justify-content: center; flex-wrap: wrap;
@@ -290,7 +307,9 @@
         return createCountdownWidget(container, finalConfig, true);
     };
 
-
+    /* =========================================================
+       АВТОЗАПУСК ПО <script data-id="...">
+       ========================================================= */
     try {
         var currentScript = document.currentScript || (function () {
             var scripts = document.getElementsByTagName('script');
@@ -330,6 +349,9 @@
         console.error(LOG, 'critical error:', error);
     }
 
+    /* =========================================================
+       ФУНКЦИИ
+       ========================================================= */
     function injectBaseStyles() {
         if (!document.querySelector('#business-hours-countdown-widget-styles')) {
             var style = document.createElement('style');
