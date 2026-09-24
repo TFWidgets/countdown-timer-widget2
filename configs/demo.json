@@ -1,4 +1,9 @@
 {
+  "active": true,
+  "domains": [
+    "tf-widgets.com",
+    "*.tf-widgets.com"
+  ],
   "mode": "date",
   "endDate": "2026-12-31T23:59:59",
   "timezone": "Europe/Prague",
@@ -6,9 +11,21 @@
   "badge": "Limited offer",
   "title": "Winter sale ends in",
   "subtitle": "Up to 30% off everything in store",
-  "button": { "text": "Shop the sale", "url": "https://tf-widgets.com/collections/all", "newTab": false },
-  "expired": { "text": "This offer has ended. See you at the next sale!", "hide": false },
-  "labels": { "days": "DAYS", "hours": "HOURS", "minutes": "MINUTES", "seconds": "SECONDS" },
+  "button": {
+    "text": "Shop the sale",
+    "url": "https://tf-widgets.com/collections/all",
+    "newTab": false
+  },
+  "expired": {
+    "text": "This offer has ended. See you at the next sale!",
+    "hide": false
+  },
+  "labels": {
+    "days": "DAYS",
+    "hours": "HOURS",
+    "minutes": "MINUTES",
+    "seconds": "SECONDS"
+  },
   "style": {
     "fontFamily": "'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif",
     "valueFontFamily": "'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif",
@@ -26,8 +43,16 @@
       "buttonBackground": "#ff6b3d",
       "buttonText": "#ffffff"
     },
-    "borderRadius": { "widget": 20, "blocks": 14 },
-    "sizes": { "fontSize": 1, "padding": 26, "blockPadding": 16, "gap": 10 },
+    "borderRadius": {
+      "widget": 20,
+      "blocks": 14
+    },
+    "sizes": {
+      "fontSize": 1,
+      "padding": 26,
+      "blockPadding": 16,
+      "gap": 10
+    },
     "shadow": {
       "widget": "0 20px 50px -12px rgba(0,0,0,0.45)",
       "widgetHover": "0 28px 70px -14px rgba(0,0,0,0.55)",
