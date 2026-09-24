@@ -295,6 +295,7 @@
     var api = window.BHWCountdown = window.BHWCountdown || {};
     api.version = VERSION;
     api.defaults = getDefaultConfig;
+    api.checkAccess = bhwCheckAccess;
     api.render = function (container, config) {
         injectBaseStyles();
         var finalConfig = mergeDeep(getDefaultConfig(), config || {});
@@ -332,16 +333,22 @@
 
                 loadConfig(clientId, baseUrl)
                     .then(function (fetchedConfig) {
+                        // Доступ: виджет работает только на доменах из конфига клиента
+                        var access = bhwCheckAccess(fetchedConfig);
+                        if (!access.ok) {
+                            console.warn(LOG, 'widget "' + clientId + '" is not active on ' + (location.hostname || 'this page') + ': ' + access.reason);
+                            container.remove();
+                            return;
+                        }
                         var finalConfig = mergeDeep(getDefaultConfig(), fetchedConfig);
                         if (debug) console.log(LOG, 'config "' + clientId + '":', finalConfig);
                         applyCustomStyles(uniqueClass, finalConfig.style);
                         createCountdownWidget(container, finalConfig, false);
                     })
                     .catch(function (error) {
-                        console.warn(LOG, 'config "' + clientId + '" not loaded, using defaults:', error.message);
-                        var defaultConfig = getDefaultConfig();
-                        applyCustomStyles(uniqueClass, defaultConfig.style);
-                        createCountdownWidget(container, defaultConfig, false);
+                        // Нет конфига = нет виджета (раньше показывался таймер по умолчанию на любой data-id)
+                        console.warn(LOG, 'config "' + clientId + '" not loaded:', error.message);
+                        container.remove();
                     });
             }
         }
@@ -352,6 +359,38 @@
     /* =========================================================
        ФУНКЦИИ
        ========================================================= */
+
+    /* ---------------------------------------------------------
+       ДОСТУП (общий блок для всех виджетов TF Widgets — копировать без изменений)
+       В конфиге клиента:
+         "active": true,                       // false = виджет выключен (например, подписка отменена)
+         "domains": ["client.com", "client-shop.myshopify.com", "*.client.com"]
+       "client.com" разрешает client.com и www.client.com,
+       "*.client.com" — любые поддомены (shop.client.com и т.д.).
+       Без списка domains виджет не запускается.
+       На localhost и при открытии файла с компьютера работает всегда (для тестов).
+       --------------------------------------------------------- */
+    function bhwCheckAccess(config) {
+        config = config || {};
+        if (config.active === false) return { ok: false, reason: 'widget is switched off ("active": false)' };
+        var host = String(location.hostname || '').toLowerCase().replace(/^www\./, '');
+        if (!host || host === 'localhost' || host === '127.0.0.1' || location.protocol === 'file:') return { ok: true };
+        var list = config.domains;
+        if (typeof list === 'string') list = list.split(/[\s,]+/);
+        if (!Array.isArray(list) || !list.length) return { ok: false, reason: 'no "domains" in config' };
+        for (var i = 0; i < list.length; i++) {
+            var d = String(list[i] || '').trim().toLowerCase()
+                .replace(/^[a-z]+:\/\//, '').replace(/[\/:].*$/, '').replace(/^www\./, '');
+            if (!d) continue;
+            if (d.indexOf('*.') === 0) {
+                var base = d.slice(2);
+                if (host === base || host.slice(-(base.length + 1)) === '.' + base) return { ok: true };
+            } else if (host === d) {
+                return { ok: true };
+            }
+        }
+        return { ok: false, reason: 'domain is not in "domains"' };
+    }
     function injectBaseStyles() {
         if (!document.querySelector('#business-hours-countdown-widget-styles')) {
             var style = document.createElement('style');
